@@ -180,7 +180,7 @@
         <text class="t-sans-6 f-bg" x="598" y="371" font-size="14" text-anchor="middle">Approved</text>
       </g>
     </g>
-    <circle id="press-ring" class="s-accent" cx="618" cy="368" r="6" fill="none" stroke-width="2"/>
+    <circle id="press-ring" class="s-accent" cx="648" cy="371" r="6" fill="none" stroke-width="2"/>
     <text id="hint-a" class="t-mono f-muted" x="587" y="412" font-size="9" text-anchor="middle">NOTHING IS FORMATTED YET</text>
     <text id="hint-b" class="t-mono f-h3t" x="587" y="412" font-size="9" text-anchor="middle">READY TO PRODUCE</text>
   </g>

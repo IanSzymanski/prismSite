@@ -179,7 +179,7 @@ function buildTimeline(scene, rail, { wide }) {
     .to(btnLabelOff, { opacity: 0, duration: 0.07 }, 1.94);
 
   // 3 Approve: one press, the words are settled.
-  tl.to(cursor, { x: 618, y: 368, duration: 0.3 }, 2.08)
+  tl.to(cursor, { x: 648, y: 371, duration: 0.3 }, 2.08)
     .to(approveBtn, { scale: 0.96, duration: 0.05, ease: 'power1.in' }, 2.42)
     .to(ring, { opacity: 1, duration: 0.01 }, 2.45)
     .to(ring, { attr: { r: 30 }, duration: 0.16, ease: 'power1.out' }, 2.46)
