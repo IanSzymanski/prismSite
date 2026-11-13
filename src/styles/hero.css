@@ -1,0 +1,170 @@
+/* Hero: intro, then a sticky stage beside (or above) four steps that scroll past it. */
+
+.hero { position: relative; }
+.hero__grid { display: grid; grid-template-columns: minmax(0, 1fr); }
+
+.hero__intro { display: flex; flex-direction: column; padding-block: clamp(2.5rem, 8vw, 4.5rem) clamp(2rem, 6vw, 3rem); }
+.hero__intro .pt-eyebrow { margin-bottom: 22px; }
+.hero__intro .pt-title { margin-bottom: 22px; max-width: 12ch; }
+.hero__intro .pt-lede { margin-bottom: 30px; max-width: 34ch; }
+.hero__actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.hero__promise { margin-top: 26px; max-width: 40ch; font-size: var(--fs-small); color: var(--muted); }
+
+.hero__cue { display: none; }
+
+/* Intro entrance: CSS only, so it never waits for the script. */
+@media (prefers-reduced-motion: no-preference) {
+  .hero__intro > * { animation: rise var(--dur-4) var(--ease-out) both; animation-delay: calc(var(--i, 0) * 80ms + 60ms); }
+}
+@keyframes rise { from { opacity: 0; transform: translateY(16px); } }
+
+/* ---------- Stage ---------- */
+
+.story { position: relative; }
+
+.stage {
+  position: sticky; top: var(--header-h); z-index: 2;
+  display: flex; flex-direction: column; gap: 6px;
+  margin-inline: calc(var(--gutter) * -1); padding: 6px var(--gutter) 10px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+}
+.stage__art { position: relative; width: 100%; aspect-ratio: 1 / 1; max-height: min(44svh, 26rem); }
+.stage__note { display: none; }
+
+.scene { width: 100%; height: 100%; overflow: visible; }
+
+/* Rail: four bands that fill as the draft moves through the steps. */
+.rail__list { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 4px; }
+.rail__link { display: grid; gap: 8px; align-content: center; min-height: 44px; padding-block: 6px; text-decoration: none; border-radius: var(--radius-xs); }
+.rail__track { display: block; height: 6px; background: var(--soft); overflow: hidden; }
+.rail__item:first-child .rail__track { border-radius: 3px 0 0 3px; }
+.rail__item:last-child .rail__track { border-radius: 0 3px 3px 0; }
+.rail__fill { display: block; height: 100%; background: var(--hue); transform-origin: left center; }
+.rail__label {
+  display: flex; gap: 6px; align-items: baseline;
+  font: 500 0.6875rem / 1 var(--font-mono); letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted);
+  transition: color var(--dur-2) var(--ease-out);
+}
+.rail__num { color: var(--hue-ink); }
+.rail__link:hover .rail__label, .rail__link[aria-current] .rail__label { color: var(--fg); }
+
+/* ---------- Steps ---------- */
+
+.steps { position: relative; }
+.step { padding-block: 32px 40svh; scroll-margin-top: calc(var(--header-h) + 8px); }
+.step:last-child { padding-bottom: 22svh; }
+.step__body { display: grid; gap: 14px; max-width: 30rem; }
+.step__title { justify-self: start; font: 700 clamp(2rem, 1.5rem + 2.4vw, 3rem) / 1.04 var(--font-display); letter-spacing: -0.015em; color: var(--fg); }
+.step__rule { display: block; width: 96px; height: 3px; background: var(--hue); transform-origin: left center; }
+.step__text { font-size: var(--fs-lede); line-height: 1.5; color: var(--body); text-wrap: pretty; }
+.step__more { font-size: var(--fs-small); color: var(--muted); max-width: 44ch; }
+.step__tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+.step:focus { outline: none; }
+.step:focus-visible .step__title { outline: 2px solid var(--accent); outline-offset: 6px; border-radius: var(--radius-xs); }
+
+.js .steps.is-live .step__rule { transform: scaleX(0); transition: transform var(--dur-4) var(--ease-out); }
+.js .steps.is-live .step.is-active .step__rule { transform: none; }
+
+@media (max-width: 23.5em) {
+  .rail__num { display: none; }
+}
+
+/* On small screens the stage has to leave room to read; trim it on short viewports. */
+@media (max-width: 59.99em) and (max-height: 620px) {
+  .stage__art { max-height: 38svh; }
+}
+
+@media (min-width: 60em) {
+  .hero__grid { grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr); column-gap: clamp(2rem, 4vw, 4.5rem); }
+  .hero__intro {
+    grid-column: 1; grid-row: 1;
+    min-height: calc(100svh - var(--header-h) - var(--band-h));
+    justify-content: center; padding-block: 2rem 5.5rem; position: relative;
+  }
+  .hero__intro .pt-lede { max-width: 36ch; }
+  .hero__cue {
+    position: absolute; left: 0; bottom: 28px;
+    display: inline-flex; align-items: center; gap: 10px;
+    font: 500 var(--fs-label) / 1 var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);
+  }
+  .hero__cue .icon { width: 16px; height: 16px; }
+  .story { display: contents; }
+  .stage {
+    grid-column: 2; grid-row: 1 / span 2; align-self: start;
+    height: calc(100svh - var(--header-h)); margin: 0; padding: 20px 0 24px;
+    justify-content: center; gap: 14px; border: 0;
+  }
+  .stage__art { flex: 0 1 auto; min-height: 0; aspect-ratio: 6 / 5; max-height: none; }
+  .stage__note { display: block; text-align: right; }
+  .rail__list { gap: 6px; }
+  .rail__label { font-size: var(--fs-label); letter-spacing: 0.08em; }
+  .steps { grid-column: 1; grid-row: 2; }
+  .step { min-height: 100svh; padding-block: 0; display: flex; flex-direction: column; justify-content: center; }
+  .step:last-child { padding-bottom: 0; }
+}
+
+@media (min-width: 60em) and (prefers-reduced-motion: no-preference) {
+  .hero__cue .icon { animation: nudge 1.6s var(--ease-in-out) 1.2s 3; }
+}
+@keyframes nudge { 50% { transform: translateY(5px); } }
+
+/* ---------- Scene paint ---------- */
+
+.scene text { font-kerning: normal; }
+.scene .t-display { font-family: var(--font-display); font-weight: 700; letter-spacing: -0.01em; }
+.scene .t-sans { font-family: var(--font-sans); font-weight: 400; }
+.scene .t-sans-5 { font-family: var(--font-sans); font-weight: 500; }
+.scene .t-sans-6 { font-family: var(--font-sans); font-weight: 600; }
+.scene .t-mono { font-family: var(--font-mono); font-weight: 500; letter-spacing: 0.08em; }
+.scene .t-num { font-family: var(--font-mono); font-weight: 500; }
+
+.scene .f-bg { fill: var(--bg); }
+.scene .f-surface { fill: var(--surface); }
+.scene .f-soft { fill: var(--soft); }
+.scene .f-line { fill: var(--line); }
+.scene .f-fg { fill: var(--fg); }
+.scene .f-body { fill: var(--body); }
+.scene .f-muted { fill: var(--muted); }
+.scene .f-faint { fill: var(--faint); }
+.scene .f-accent { fill: var(--accent); }
+.scene .f-on-accent { fill: var(--on-accent); }
+.scene .f-tint { fill: var(--accent-tint); }
+.scene .f-h1 { fill: var(--hue-1); } .scene .f-h2 { fill: var(--hue-2); } .scene .f-h3 { fill: var(--hue-3); } .scene .f-h4 { fill: var(--hue-4); }
+.scene .f-h1t { fill: var(--hue-1-text); } .scene .f-h2t { fill: var(--hue-2-text); } .scene .f-h3t { fill: var(--hue-3-text); } .scene .f-h4t { fill: var(--hue-4-text); }
+.scene .f-deep { fill: var(--dark-deep); }
+.scene .f-dfg { fill: var(--dark-fg); }
+.scene .f-dacc { fill: var(--dark-accent); }
+.scene .f-d1 { fill: var(--dark-hue-1); } .scene .f-d2 { fill: var(--dark-hue-2); } .scene .f-d3 { fill: var(--dark-hue-3); } .scene .f-d4 { fill: var(--dark-hue-4); }
+.scene .s-line { stroke: var(--line); }
+.scene .s-faint { stroke: var(--faint); }
+.scene .s-fg { stroke: var(--fg); }
+.scene .s-bg { stroke: var(--bg); }
+.scene .s-accent { stroke: var(--accent); }
+.scene .s-h2 { stroke: var(--hue-2); }
+.scene .s-on-hue { stroke: var(--surface); }
+
+.scene .card { fill: var(--surface); stroke: var(--line); stroke-width: 1; }
+.scene .tagbox { fill: none; stroke: var(--line); stroke-width: 1; }
+.scene .thumb-edge { stroke: var(--line); stroke-width: 1; }
+.scene rect.thumb-edge:not([class*="f-"]) { fill: none; }
+.scene .bar { fill: var(--line); }
+.scene .bar--strong { fill: var(--faint); }
+.scene .bar--accent { fill: var(--accent-line); }
+.scene .link { stroke: var(--faint); stroke-width: 1.5; stroke-linecap: round; }
+.scene .link-dot { fill: var(--faint); }
+.scene .btn-off { fill: var(--soft); stroke: var(--line); stroke-width: 1; }
+.scene .check__ring { fill: none; stroke: var(--line); stroke-width: 1.5; }
+.scene .check__mark { fill: none; stroke: var(--on-accent); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.scene .cursor__arrow { fill: var(--fg); stroke: var(--surface); stroke-width: 1.5; stroke-linejoin: round; }
+.scene [pathLength] { stroke-dasharray: 1; }
+
+/* Until the script takes over, the scene rests on its last frame: draft in, four formats out. */
+.scene:not(.is-ready) .only-anim { display: none; }
+.scene:not(.is-ready) #draft { transform: translate(20px, 213px) scale(0.34); }
+.js .scene:not(.is-ready) { opacity: 0; animation: scene-failsafe 0s linear 3s forwards; }
+@keyframes scene-failsafe { to { opacity: 1; } }
+
+@media (forced-colors: active) {
+  .scene { forced-color-adjust: none; }
+}

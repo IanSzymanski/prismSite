@@ -1,0 +1,258 @@
+<svg class="scene" id="scene" viewBox="0 0 720 600" aria-hidden="true" focusable="false">
+  <defs>
+    <clipPath id="clip-draft"><rect width="300" height="512" rx="10"/></clipPath>
+    <clipPath id="clip-photo"><rect x="-100" y="-44" width="200" height="114" rx="6"/></clipPath>
+    <clipPath id="clip-page"><rect x="502" y="61" width="68" height="88" rx="3"/></clipPath>
+    <clipPath id="clip-slide"><rect x="500" y="208" width="72" height="40.5" rx="3"/></clipPath>
+    <clipPath id="clip-mail"><rect x="508" y="447" width="56" height="96" rx="3"/></clipPath>
+  </defs>
+
+  <!-- Sources: drawn centred on 0,0; the script places them. -->
+  <g id="sources" class="only-anim">
+    <g class="src" data-src="transcript"><g class="src__float">
+      <rect class="card" x="-116" y="-86" width="232" height="172" rx="10"/>
+      <rect class="tagbox" x="-100" y="-70" width="82" height="20" rx="4"/>
+      <text class="t-mono f-muted" x="-93" y="-56.5" font-size="9.5">TRANSCRIPT</text>
+      <text class="t-num f-muted" x="-100" y="-26" font-size="9.5">00:12</text>
+      <circle class="f-accent" cx="-56" cy="-29.5" r="4.5"/>
+      <rect class="bar" x="-44" y="-33" width="144" height="7" rx="3.5"/>
+      <rect class="bar" x="-44" y="-20" width="98" height="7" rx="3.5"/>
+      <text class="t-num f-muted" x="-100" y="10" font-size="9.5">00:47</text>
+      <circle class="f-faint" cx="-56" cy="6.5" r="4.5"/>
+      <rect class="bar" x="-44" y="3" width="120" height="7" rx="3.5"/>
+      <rect class="bar" x="-44" y="16" width="140" height="7" rx="3.5"/>
+      <text class="t-num f-muted" x="-100" y="46" font-size="9.5">01:30</text>
+      <circle class="f-accent" cx="-56" cy="42.5" r="4.5"/>
+      <rect class="bar" x="-44" y="39" width="132" height="7" rx="3.5"/>
+      <rect class="bar" x="-44" y="52" width="72" height="7" rx="3.5"/>
+    </g></g>
+    <g class="src" data-src="document"><g class="src__float">
+      <rect class="card" x="-116" y="-86" width="232" height="172" rx="10"/>
+      <rect class="tagbox" x="-100" y="-70" width="69" height="20" rx="4"/>
+      <text class="t-mono f-muted" x="-93" y="-56.5" font-size="9.5">DOCUMENT</text>
+      <rect class="bar bar--strong" x="-100" y="-38" width="132" height="9" rx="4.5"/>
+      <rect class="bar" x="-100" y="-18" width="200" height="7" rx="3.5"/>
+      <rect class="bar" x="-100" y="-5" width="184" height="7" rx="3.5"/>
+      <rect class="bar" x="-100" y="8" width="120" height="7" rx="3.5"/>
+      <rect class="f-faint" x="-100" y="52" width="13" height="14" rx="2"/>
+      <rect class="f-faint" x="-80" y="44" width="13" height="22" rx="2"/>
+      <rect class="f-faint" x="-60" y="48" width="13" height="18" rx="2"/>
+      <rect class="f-accent" x="-40" y="32" width="13" height="34" rx="2"/>
+      <rect class="f-faint" x="-20" y="40" width="13" height="26" rx="2"/>
+      <line class="s-line" x1="-100" y1="66.5" x2="-3" y2="66.5"/>
+      <rect class="bar" x="16" y="34" width="84" height="7" rx="3.5"/>
+      <rect class="bar" x="16" y="47" width="62" height="7" rx="3.5"/>
+      <rect class="bar" x="16" y="60" width="76" height="7" rx="3.5"/>
+    </g></g>
+    <g class="src" data-src="notes"><g class="src__float">
+      <rect class="card" x="-116" y="-86" width="232" height="172" rx="10"/>
+      <rect class="tagbox" x="-100" y="-70" width="49" height="20" rx="4"/>
+      <text class="t-mono f-muted" x="-93" y="-56.5" font-size="9.5">NOTES</text>
+      <rect class="f-tint" x="-89" y="-18" width="124" height="15" rx="3"/>
+      <circle class="f-muted" cx="-96" cy="-30.5" r="2.5"/>
+      <rect class="bar" x="-84" y="-34" width="150" height="7" rx="3.5"/>
+      <circle class="f-muted" cx="-96" cy="-10.5" r="2.5"/>
+      <rect class="bar bar--accent" x="-84" y="-14" width="114" height="7" rx="3.5"/>
+      <circle class="f-muted" cx="-96" cy="9.5" r="2.5"/>
+      <rect class="bar" x="-84" y="6" width="168" height="7" rx="3.5"/>
+      <circle class="f-muted" cx="-96" cy="29.5" r="2.5"/>
+      <rect class="bar" x="-84" y="26" width="92" height="7" rx="3.5"/>
+      <path class="s-accent" d="M-96,58 q6,-7 12,0 t12,0 t12,0 t12,0 t12,0 t12,0 t12,0" fill="none" stroke-width="1.5" stroke-linecap="round"/>
+    </g></g>
+    <g class="src" data-src="photo"><g class="src__float">
+      <rect class="card" x="-116" y="-86" width="232" height="172" rx="10"/>
+      <rect class="tagbox" x="-100" y="-70" width="49" height="20" rx="4"/>
+      <text class="t-mono f-muted" x="-93" y="-56.5" font-size="9.5">PHOTO</text>
+      <g clip-path="url(#clip-photo)">
+        <rect class="f-soft" x="-100" y="-44" width="200" height="114"/>
+        <circle class="f-surface" cx="48" cy="-12" r="13"/>
+        <polygon class="f-line" points="-100,70 -100,34 -52,-6 -6,36 22,12 100,62 100,70"/>
+        <polygon class="f-faint" points="-100,70 -100,54 -34,26 34,70"/>
+      </g>
+    </g></g>
+  </g>
+
+  <!-- Each source feeds the draft. -->
+  <g id="links" class="only-anim" fill="none">
+    <path class="link" pathLength="1" d="M97,180 C128,180 118,276 146,276"/>
+    <path class="link" pathLength="1" d="M97,256 C126,256 120,292 146,292"/>
+    <path class="link" pathLength="1" d="M97,332 C126,332 120,308 146,308"/>
+    <path class="link" pathLength="1" d="M97,408 C128,408 118,324 146,324"/>
+    <circle class="link-dot" cx="146" cy="276" r="2.5"/>
+    <circle class="link-dot" cx="146" cy="292" r="2.5"/>
+    <circle class="link-dot" cx="146" cy="308" r="2.5"/>
+    <circle class="link-dot" cx="146" cy="324" r="2.5"/>
+  </g>
+
+  <!-- The draft: drawn from its top left corner; the script places it. -->
+  <g id="draft">
+    <rect class="card" width="300" height="512" rx="10"/>
+    <g clip-path="url(#clip-draft)"><rect id="draft-rule" class="f-h3" width="300" height="4"/></g>
+    <rect class="tagbox" x="20" y="18" width="50" height="20" rx="4"/>
+    <text class="t-mono f-muted" x="27" y="31.5" font-size="9.5">DRAFT</text>
+    <text class="t-num f-muted" x="80" y="31.5" font-size="10.5">content.md</text>
+    <text id="status-proof" class="t-mono f-muted only-anim" x="280" y="31.5" font-size="9.5" text-anchor="end">IN PROOF</text>
+    <g id="status-ok">
+      <circle class="f-h3" cx="216" cy="28" r="3.5"/>
+      <text class="t-mono f-h3t" x="280" y="31.5" font-size="9.5" text-anchor="end">APPROVED</text>
+    </g>
+    <line class="s-line" x1="20" y1="50" x2="280" y2="50"/>
+    <text class="d-title t-display f-fg" x="20" y="88" font-size="25">Riverbend tells its</text>
+    <text class="d-title t-display f-fg" x="20" y="116" font-size="25">story once</text>
+    <text class="d-title t-mono f-muted" x="20" y="140" font-size="9">CASE STUDY · SAMPLE CONTENT</text>
+
+    <rect class="bar d-bar" x="20" y="164" width="260" height="7" rx="3.5"/>
+    <g class="d-line">
+      <rect class="bar d-bar" x="20" y="184" width="78" height="7" rx="3.5"/>
+      <rect class="tok-bg f-tint" x="102" y="178" width="88" height="19" rx="4"/>
+      <text class="tok t-sans-6 f-accent" x="107" y="192" font-size="13.5">40 pantries<tspan class="t-num" dx="1.5" dy="-5" font-size="8.5">1</tspan></text>
+      <rect class="bar d-bar d-after" x="198" y="184" width="82" height="7" rx="3.5"/>
+    </g>
+    <rect class="bar d-bar" x="20" y="204" width="184" height="7" rx="3.5"/>
+
+    <rect class="bar d-bar" x="20" y="240" width="244" height="7" rx="3.5"/>
+    <g class="d-line" id="edit-line">
+      <rect class="bar d-bar" x="20" y="260" width="36" height="7" rx="3.5"/>
+      <rect id="word-new-bg" class="f-tint" x="60" y="254" width="42" height="19" rx="4"/>
+      <text id="word-old" class="t-sans-5 f-body only-anim" x="64" y="268" font-size="13.5">seamless</text>
+      <text id="word-new" class="t-sans-6 f-accent" x="65" y="268" font-size="13.5">plain</text>
+      <path id="word-flag" class="s-h2 only-anim" pathLength="1" d="M64,273.5 q3.7,-3.4 7.4,0 t7.4,0 t7.4,0 t7.4,0 t7.4,0 t7.4,0 t7.4,0 t7.4,0" fill="none" stroke-width="1.6" stroke-linecap="round"/>
+      <path id="word-strike" class="s-fg only-anim" pathLength="1" d="M61,264 H126" fill="none" stroke-width="1.5" stroke-linecap="round"/>
+      <rect id="edit-after" class="bar d-bar d-after" x="110" y="260" width="170" height="7" rx="3.5"/>
+    </g>
+    <g class="d-line">
+      <rect class="bar d-bar" x="20" y="280" width="112" height="7" rx="3.5"/>
+      <rect class="tok-bg f-tint" x="136" y="274" width="58" height="19" rx="4"/>
+      <text class="tok t-sans-6 f-accent" x="141" y="288" font-size="13.5">2 days<tspan class="t-num" dx="1.5" dy="-5" font-size="8.5">2</tspan></text>
+      <rect class="bar d-bar d-after" x="202" y="280" width="78" height="7" rx="3.5"/>
+    </g>
+    <rect class="bar d-bar" x="20" y="300" width="150" height="7" rx="3.5"/>
+
+    <rect class="bar d-bar" x="20" y="336" width="260" height="7" rx="3.5"/>
+    <rect class="bar d-bar" x="20" y="356" width="206" height="7" rx="3.5"/>
+
+    <g class="d-sources">
+      <line class="s-line" x1="20" y1="392" x2="280" y2="392"/>
+      <text class="t-mono f-muted" x="20" y="417" font-size="9">SOURCES</text>
+    </g>
+    <text class="d-sources t-sans f-body" x="20" y="442" font-size="12"><tspan class="t-num f-accent" font-size="9.5">1</tspan><tspan dx="9">Program notes, March</tspan></text>
+    <text class="d-sources t-sans f-body" x="20" y="464" font-size="12"><tspan class="t-num f-accent" font-size="9.5">2</tspan><tspan dx="9">Volunteer interview, 14 May</tspan></text>
+  </g>
+
+  <!-- Checks that run before you read. -->
+  <g id="checks" class="only-anim">
+    <rect class="card" x="474" y="120" width="226" height="206" rx="10"/>
+    <text class="t-mono f-muted" x="492" y="149" font-size="9.5">CHECKS</text>
+    <line class="s-line" x1="492" y1="162" x2="682" y2="162"/>
+    <g class="check" data-check="claims">
+      <circle class="check__ring" cx="504" cy="194" r="10"/>
+      <circle class="check__fill f-accent" cx="504" cy="194" r="10.5"/>
+      <path class="check__mark" pathLength="1" d="M499,194.5 l3.6,3.6 l6.6,-7.2"/>
+      <text class="t-sans-6 f-fg" x="526" y="192" font-size="13.5">Claims sourced</text>
+      <text class="t-sans f-muted" x="526" y="208" font-size="11.5">2 figures, 2 sources</text>
+    </g>
+    <g class="check" data-check="voice">
+      <circle class="check__ring" cx="504" cy="242" r="10"/>
+      <g class="check__flag"><circle class="f-h2" cx="504" cy="242" r="10.5"/><path d="M504,236.5 v6.5 M504,247 v.4" fill="none" stroke-width="2" stroke-linecap="round" class="s-on-hue"/></g>
+      <circle class="check__fill f-accent" cx="504" cy="242" r="10.5"/>
+      <path class="check__mark" pathLength="1" d="M499,242.5 l3.6,3.6 l6.6,-7.2"/>
+      <text class="t-sans-6 f-fg" x="526" y="240" font-size="13.5">Brand voice</text>
+      <text id="sub-flag" class="t-sans f-h2t" x="526" y="256" font-size="11.5">1 word flagged</text>
+      <text id="sub-fixed" class="t-sans f-muted" x="526" y="256" font-size="11.5">Edited by you</text>
+    </g>
+    <g class="check" data-check="sample">
+      <circle class="check__ring" cx="504" cy="290" r="10"/>
+      <circle class="check__fill f-accent" cx="504" cy="290" r="10.5"/>
+      <path class="check__mark" pathLength="1" d="M499,290.5 l3.6,3.6 l6.6,-7.2"/>
+      <text class="t-sans-6 f-fg" x="526" y="288" font-size="13.5">Sample labelled</text>
+      <text class="t-sans f-muted" x="526" y="304" font-size="11.5">Says sample content</text>
+    </g>
+  </g>
+
+  <g id="approve" class="only-anim">
+    <g id="approve-btn">
+      <rect class="btn-off" x="474" y="342" width="226" height="48" rx="8"/>
+      <rect id="btn-on" class="f-fg" x="474" y="342" width="226" height="48" rx="8"/>
+      <text id="btn-label-off" class="t-sans-6 f-muted" x="587" y="371" font-size="14" text-anchor="middle">Approve draft</text>
+      <text id="btn-label-on" class="t-sans-6 f-bg" x="587" y="371" font-size="14" text-anchor="middle">Approve draft</text>
+      <g id="btn-done">
+        <path class="s-bg" d="M544,366.5 l4.2,4.2 l8,-8.6" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <text class="t-sans-6 f-bg" x="598" y="371" font-size="14" text-anchor="middle">Approved</text>
+      </g>
+    </g>
+    <circle id="press-ring" class="s-accent" cx="618" cy="368" r="6" fill="none" stroke-width="2"/>
+    <text id="hint-a" class="t-mono f-muted" x="587" y="412" font-size="9" text-anchor="middle">NOTHING IS FORMATTED YET</text>
+    <text id="hint-b" class="t-mono f-h3t" x="587" y="412" font-size="9" text-anchor="middle">READY TO PRODUCE</text>
+  </g>
+
+  <!-- The prism and what leaves it. -->
+  <path id="feed" class="s-faint" pathLength="1" d="M128,300 H205" fill="none" stroke-width="1.5" stroke-linecap="round"/>
+  <polygon class="ray f-h1" points="306.56,270 298.48,284 488,164 488,46"/>
+  <polygon class="ray f-h2" points="298.48,284 290.4,298 488,294 488,176"/>
+  <polygon class="ray f-h3" points="290.4,298 282.32,312 488,424 488,306"/>
+  <polygon class="ray f-h4" points="282.32,312 274.24,326 488,554 488,436"/>
+  <polygon id="prism" class="f-fg" points="169.17,228 330.83,228 250,368"/>
+
+  <g class="out">
+    <rect class="card" x="488" y="46" width="212" height="118" rx="10"/>
+    <g clip-path="url(#clip-page)">
+      <rect class="f-surface" x="502" y="61" width="68" height="88"/>
+      <rect class="f-h1" x="502" y="61" width="17" height="3"/><rect class="f-h2" x="519" y="61" width="17" height="3"/><rect class="f-h3" x="536" y="61" width="17" height="3"/><rect class="f-h4" x="553" y="61" width="17" height="3"/>
+      <rect class="f-fg" x="509" y="73" width="42" height="5" rx="2.5"/>
+      <rect class="f-fg" x="509" y="81" width="28" height="5" rx="2.5"/>
+      <rect class="f-accent" x="509" y="94" width="13" height="8" rx="2"/><rect class="f-accent" x="527" y="94" width="13" height="8" rx="2"/><rect class="f-accent" x="545" y="94" width="13" height="8" rx="2"/>
+      <rect class="f-line" x="509" y="110" width="54" height="3.5" rx="1.75"/><rect class="f-line" x="509" y="117" width="50" height="3.5" rx="1.75"/><rect class="f-line" x="509" y="124" width="34" height="3.5" rx="1.75"/>
+      <rect class="f-soft" x="509" y="133" width="54" height="11" rx="2"/>
+    </g>
+    <rect class="thumb-edge" x="502" y="61" width="68" height="88" rx="3"/>
+    <text class="t-mono f-h1t" x="590" y="92" font-size="9.5">PRINT</text>
+    <text class="t-display f-fg" x="590" y="113" font-size="16.5">One-pager</text>
+    <text class="t-mono f-muted" x="590" y="130" font-size="8.5">PDF · LETTER</text>
+  </g>
+  <g class="out">
+    <rect class="card" x="488" y="176" width="212" height="118" rx="10"/>
+    <rect class="f-surface thumb-edge" x="510" y="222" width="72" height="40.5" rx="3"/>
+    <rect class="f-line" x="556" y="252" width="20" height="3.5" rx="1.75"/>
+    <g clip-path="url(#clip-slide)">
+      <rect class="f-deep" x="500" y="208" width="72" height="40.5"/>
+      <polygon class="f-d1" points="548,224 572,229 572,234"/><polygon class="f-d2" points="548,224 572,234 572,239"/><polygon class="f-d3" points="548,224 572,239 572,244"/><polygon class="f-d4" points="548,224 572,244 572,249"/>
+      <rect class="f-dfg" x="507" y="224" width="30" height="4" rx="2"/><rect class="f-dfg" x="507" y="231" width="20" height="4" rx="2"/>
+    </g>
+    <text class="t-mono f-h2t" x="590" y="222" font-size="9.5">DECK AND WEB</text>
+    <text class="t-display f-fg" x="590" y="243" font-size="16.5">Slide deck</text>
+    <text class="t-mono f-muted" x="590" y="260" font-size="8.5">PPTX · 16:9</text>
+  </g>
+  <g class="out">
+    <rect class="card" x="488" y="306" width="212" height="118" rx="10"/>
+    <rect class="f-bg thumb-edge" x="500" y="341" width="35" height="44" rx="3"/>
+    <rect class="f-fg" x="505" y="351" width="20" height="4" rx="2"/><rect class="f-fg" x="505" y="358" width="14" height="4" rx="2"/>
+    <rect class="f-h1" x="500" y="382" width="17.5" height="3"/><rect class="f-h2" x="517.5" y="382" width="5.8" height="3"/><rect class="f-h3" x="523.3" y="382" width="5.8" height="3"/><rect class="f-h4" x="529.1" y="382" width="5.9" height="3"/>
+    <rect class="f-deep" x="539" y="341" width="35" height="44" rx="3"/>
+    <rect class="f-dacc" x="544" y="351" width="16" height="7" rx="2"/><rect class="f-dfg" x="544" y="362" width="22" height="3.5" rx="1.75"/>
+    <rect class="f-d1" x="539" y="382" width="5.8" height="3"/><rect class="f-d2" x="544.8" y="382" width="17.5" height="3"/><rect class="f-d3" x="562.3" y="382" width="5.8" height="3"/><rect class="f-d4" x="568.1" y="382" width="5.9" height="3"/>
+    <text class="t-mono f-h3t" x="590" y="352" font-size="9.5">SOCIAL</text>
+    <text class="t-display f-fg" x="590" y="373" font-size="16.5">Carousel</text>
+    <text class="t-mono f-muted" x="590" y="390" font-size="8.5">1080 × 1350</text>
+  </g>
+  <g class="out">
+    <rect class="card" x="488" y="436" width="212" height="118" rx="10"/>
+    <g clip-path="url(#clip-mail)">
+      <rect class="f-surface" x="508" y="447" width="56" height="96"/>
+      <polygon class="f-fg" points="514,454 522,454 518,461"/>
+      <rect class="f-fg" x="514" y="468" width="36" height="4.5" rx="2.25"/><rect class="f-fg" x="514" y="475.5" width="24" height="4.5" rx="2.25"/>
+      <rect class="f-line" x="514" y="487" width="44" height="3.5" rx="1.75"/><rect class="f-line" x="514" y="494" width="40" height="3.5" rx="1.75"/><rect class="f-line" x="514" y="501" width="28" height="3.5" rx="1.75"/>
+      <rect class="f-accent" x="514" y="511" width="26" height="9" rx="2.5"/>
+      <rect class="f-h1" x="528" y="530" width="4" height="2"/><rect class="f-h2" x="532" y="530" width="4" height="2"/><rect class="f-h3" x="536" y="530" width="4" height="2"/><rect class="f-h4" x="540" y="530" width="4" height="2"/>
+    </g>
+    <rect class="thumb-edge" x="508" y="447" width="56" height="96" rx="3"/>
+    <text class="t-mono f-h4t" x="590" y="482" font-size="9.5">EMAIL</text>
+    <text class="t-display f-fg" x="590" y="503" font-size="16.5">HTML email</text>
+    <text class="t-mono f-muted" x="590" y="520" font-size="8.5">600 PX COLUMN</text>
+  </g>
+
+  <g id="cursor" class="only-anim">
+    <path class="cursor__arrow" d="M0,0 V18 L4.8,13.4 L8.3,21 L11.2,19.7 L7.8,12.2 H14 Z"/>
+    <rect class="f-accent" x="13" y="19" width="36" height="18" rx="9"/>
+    <text class="t-sans-6 f-on-accent" x="31" y="31.6" font-size="10.5" text-anchor="middle">You</text>
+  </g>
+</svg>
