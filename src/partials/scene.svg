@@ -1,258 +1,335 @@
+<svg class="scene-glow" viewBox="0 0 720 600" aria-hidden="true" focusable="false"><use href="#rays"/><use href="#feed"/></svg>
 <svg class="scene" id="scene" viewBox="0 0 720 600" aria-hidden="true" focusable="false">
   <defs>
-    <clipPath id="clip-draft"><rect width="300" height="512" rx="10"/></clipPath>
-    <clipPath id="clip-photo"><rect x="-100" y="-44" width="200" height="114" rx="6"/></clipPath>
+    <radialGradient id="gl-violet"><stop offset="0" stop-color="#9a6bff" stop-opacity=".42"/><stop offset="1" stop-color="#9a6bff" stop-opacity="0"/></radialGradient>
+    <radialGradient id="gl-blue"><stop offset="0" stop-color="#5b84ff" stop-opacity=".42"/><stop offset="1" stop-color="#5b84ff" stop-opacity="0"/></radialGradient>
+    <radialGradient id="gl-amber"><stop offset="0" stop-color="#ffa53d" stop-opacity=".34"/><stop offset="1" stop-color="#ffa53d" stop-opacity="0"/></radialGradient>
+    <radialGradient id="gl-pink"><stop offset="0" stop-color="#ff6fc3" stop-opacity=".36"/><stop offset="1" stop-color="#ff6fc3" stop-opacity="0"/></radialGradient>
+    <radialGradient id="gl-red"><stop offset="0" stop-color="#ff5a70" stop-opacity=".6"/><stop offset="1" stop-color="#ff5a70" stop-opacity="0"/></radialGradient>
+    <radialGradient id="gl-green"><stop offset="0" stop-color="#2ed996" stop-opacity=".5"/><stop offset="1" stop-color="#2ed996" stop-opacity="0"/></radialGradient>
+    <radialGradient id="gl-amber2"><stop offset="0" stop-color="#ffa53d" stop-opacity=".6"/><stop offset="1" stop-color="#ffa53d" stop-opacity="0"/></radialGradient>
+    <radialGradient id="gl-blue2"><stop offset="0" stop-color="#5b84ff" stop-opacity=".65"/><stop offset="1" stop-color="#5b84ff" stop-opacity="0"/></radialGradient>
+    <radialGradient id="gl-white"><stop offset="0" stop-color="#c9d4ff" stop-opacity=".3"/><stop offset="1" stop-color="#c9d4ff" stop-opacity="0"/></radialGradient>
+    <radialGradient id="gl-prism"><stop offset="0" stop-color="#ffffff" stop-opacity=".34"/><stop offset=".38" stop-color="#7f8cff" stop-opacity=".18"/><stop offset="1" stop-color="#7f8cff" stop-opacity="0"/></radialGradient>
+    <linearGradient id="g-glass" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1e2545" stop-opacity=".94"/><stop offset="1" stop-color="#0f1329" stop-opacity=".94"/></linearGradient>
+    <linearGradient id="g-edge" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".38"/><stop offset=".5" stop-color="#fff" stop-opacity=".07"/><stop offset="1" stop-color="#fff" stop-opacity=".2"/></linearGradient>
+    <linearGradient id="g-paper" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#eef1fa"/></linearGradient>
+    <linearGradient id="g-accent" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6f7dff"/><stop offset="1" stop-color="#a777ff"/></linearGradient>
+    <linearGradient id="g-green" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3be0a1"/><stop offset="1" stop-color="#0fae77"/></linearGradient>
+    <linearGradient id="g-wave" gradientUnits="userSpaceOnUse" x1="-100" y1="0" x2="100" y2="0"><stop offset="0" stop-color="#b99bff"/><stop offset="1" stop-color="#5fd0ff"/></linearGradient>
+    <linearGradient id="g-bar" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8fb0ff"/><stop offset="1" stop-color="#5b84ff"/></linearGradient>
+    <linearGradient id="g-sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2b2260"/><stop offset=".45" stop-color="#a2459a"/><stop offset=".78" stop-color="#ff8f6b"/><stop offset="1" stop-color="#ffd08a"/></linearGradient>
+    <linearGradient id="g-prism" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".26"/><stop offset=".5" stop-color="#8f9bff" stop-opacity=".1"/><stop offset="1" stop-color="#fff" stop-opacity=".04"/></linearGradient>
+    <linearGradient id="g-prism-edge" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset="1" stop-color="#fff" stop-opacity=".3"/></linearGradient>
+    <linearGradient id="g-scan" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5b84ff" stop-opacity="0"/><stop offset=".7" stop-color="#6f7dff" stop-opacity=".14"/><stop offset="1" stop-color="#9a6bff" stop-opacity=".46"/></linearGradient>
+    <linearGradient id="g-feed" gradientUnits="userSpaceOnUse" x1="124" y1="0" x2="212" y2="0"><stop offset="0" stop-color="#fff" stop-opacity=".25"/><stop offset="1" stop-color="#fff"/></linearGradient>
+    <linearGradient id="ray-1" gradientUnits="userSpaceOnUse" x1="302.5" y1="277" x2="488" y2="105"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset=".16" stop-color="#ff97a6" stop-opacity=".95"/><stop offset=".6" stop-color="#ff5a70" stop-opacity=".82"/><stop offset="1" stop-color="#ff5a70" stop-opacity=".5"/></linearGradient>
+    <linearGradient id="ray-2" gradientUnits="userSpaceOnUse" x1="294.4" y1="291" x2="488" y2="235"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset=".16" stop-color="#ffc98a" stop-opacity=".95"/><stop offset=".6" stop-color="#ffa53d" stop-opacity=".82"/><stop offset="1" stop-color="#ffa53d" stop-opacity=".5"/></linearGradient>
+    <linearGradient id="ray-3" gradientUnits="userSpaceOnUse" x1="286.4" y1="305" x2="488" y2="365"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset=".16" stop-color="#8ff0c8" stop-opacity=".95"/><stop offset=".6" stop-color="#2ed996" stop-opacity=".8"/><stop offset="1" stop-color="#2ed996" stop-opacity=".5"/></linearGradient>
+    <linearGradient id="ray-4" gradientUnits="userSpaceOnUse" x1="278.3" y1="319" x2="488" y2="495"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset=".16" stop-color="#a9bcff" stop-opacity=".95"/><stop offset=".6" stop-color="#5b84ff" stop-opacity=".84"/><stop offset="1" stop-color="#5b84ff" stop-opacity=".55"/></linearGradient>
+    <linearGradient id="lk-1" gradientUnits="userSpaceOnUse" x1="97" y1="0" x2="146" y2="0"><stop offset="0" stop-color="#9a6bff"/><stop offset="1" stop-color="#fff"/></linearGradient>
+    <linearGradient id="lk-2" gradientUnits="userSpaceOnUse" x1="97" y1="0" x2="146" y2="0"><stop offset="0" stop-color="#5b84ff"/><stop offset="1" stop-color="#fff"/></linearGradient>
+    <linearGradient id="lk-3" gradientUnits="userSpaceOnUse" x1="97" y1="0" x2="146" y2="0"><stop offset="0" stop-color="#ffa53d"/><stop offset="1" stop-color="#fff"/></linearGradient>
+    <linearGradient id="lk-4" gradientUnits="userSpaceOnUse" x1="97" y1="0" x2="146" y2="0"><stop offset="0" stop-color="#ff6fc3"/><stop offset="1" stop-color="#fff"/></linearGradient>
+    <clipPath id="clip-draft"><rect width="300" height="512" rx="12"/></clipPath>
+    <clipPath id="clip-photo"><rect x="-100" y="-44" width="200" height="114" rx="8"/></clipPath>
     <clipPath id="clip-page"><rect x="502" y="61" width="68" height="88" rx="3"/></clipPath>
     <clipPath id="clip-slide"><rect x="500" y="208" width="72" height="40.5" rx="3"/></clipPath>
     <clipPath id="clip-mail"><rect x="508" y="447" width="56" height="96" rx="3"/></clipPath>
   </defs>
 
+  <!-- Soft light under things. Each piece is moved together with the thing it sits under. -->
+  <g id="under">
+    <g class="src-glow only-anim"><ellipse rx="200" ry="150" fill="url(#gl-violet)"/></g>
+    <g class="src-glow only-anim"><ellipse rx="200" ry="150" fill="url(#gl-blue)"/></g>
+    <g class="src-glow only-anim"><ellipse rx="200" ry="150" fill="url(#gl-amber)"/></g>
+    <g class="src-glow only-anim"><ellipse rx="200" ry="150" fill="url(#gl-pink)"/></g>
+    <g id="draft-under">
+      <ellipse id="draft-under-w" cx="150" cy="256" rx="330" ry="400" fill="url(#gl-white)"/>
+      <ellipse id="draft-under-ok" cx="150" cy="256" rx="330" ry="400" fill="url(#gl-green)"/>
+    </g>
+    <circle id="prism-halo" cx="250" cy="300" r="215" fill="url(#gl-prism)"/>
+    <ellipse id="btn-under" class="only-anim" cx="587" cy="366" rx="170" ry="70" fill="url(#gl-white)"/>
+  </g>
+
   <!-- Sources: drawn centred on 0,0; the script places them. -->
   <g id="sources" class="only-anim">
-    <g class="src" data-src="transcript"><g class="src__float">
-      <rect class="card" x="-116" y="-86" width="232" height="172" rx="10"/>
-      <rect class="tagbox" x="-100" y="-70" width="82" height="20" rx="4"/>
-      <text class="t-mono f-muted" x="-93" y="-56.5" font-size="9.5">TRANSCRIPT</text>
-      <text class="t-num f-muted" x="-100" y="-26" font-size="9.5">00:12</text>
-      <circle class="f-accent" cx="-56" cy="-29.5" r="4.5"/>
-      <rect class="bar" x="-44" y="-33" width="144" height="7" rx="3.5"/>
-      <rect class="bar" x="-44" y="-20" width="98" height="7" rx="3.5"/>
-      <text class="t-num f-muted" x="-100" y="10" font-size="9.5">00:47</text>
-      <circle class="f-faint" cx="-56" cy="6.5" r="4.5"/>
-      <rect class="bar" x="-44" y="3" width="120" height="7" rx="3.5"/>
-      <rect class="bar" x="-44" y="16" width="140" height="7" rx="3.5"/>
-      <text class="t-num f-muted" x="-100" y="46" font-size="9.5">01:30</text>
-      <circle class="f-accent" cx="-56" cy="42.5" r="4.5"/>
-      <rect class="bar" x="-44" y="39" width="132" height="7" rx="3.5"/>
-      <rect class="bar" x="-44" y="52" width="72" height="7" rx="3.5"/>
-    </g></g>
-    <g class="src" data-src="document"><g class="src__float">
-      <rect class="card" x="-116" y="-86" width="232" height="172" rx="10"/>
-      <rect class="tagbox" x="-100" y="-70" width="69" height="20" rx="4"/>
-      <text class="t-mono f-muted" x="-93" y="-56.5" font-size="9.5">DOCUMENT</text>
-      <rect class="bar bar--strong" x="-100" y="-38" width="132" height="9" rx="4.5"/>
-      <rect class="bar" x="-100" y="-18" width="200" height="7" rx="3.5"/>
-      <rect class="bar" x="-100" y="-5" width="184" height="7" rx="3.5"/>
-      <rect class="bar" x="-100" y="8" width="120" height="7" rx="3.5"/>
-      <rect class="f-faint" x="-100" y="52" width="13" height="14" rx="2"/>
-      <rect class="f-faint" x="-80" y="44" width="13" height="22" rx="2"/>
-      <rect class="f-faint" x="-60" y="48" width="13" height="18" rx="2"/>
-      <rect class="f-accent" x="-40" y="32" width="13" height="34" rx="2"/>
-      <rect class="f-faint" x="-20" y="40" width="13" height="26" rx="2"/>
-      <line class="s-line" x1="-100" y1="66.5" x2="-3" y2="66.5"/>
-      <rect class="bar" x="16" y="34" width="84" height="7" rx="3.5"/>
-      <rect class="bar" x="16" y="47" width="62" height="7" rx="3.5"/>
-      <rect class="bar" x="16" y="60" width="76" height="7" rx="3.5"/>
-    </g></g>
-    <g class="src" data-src="notes"><g class="src__float">
-      <rect class="card" x="-116" y="-86" width="232" height="172" rx="10"/>
-      <rect class="tagbox" x="-100" y="-70" width="49" height="20" rx="4"/>
-      <text class="t-mono f-muted" x="-93" y="-56.5" font-size="9.5">NOTES</text>
-      <rect class="f-tint" x="-89" y="-18" width="124" height="15" rx="3"/>
-      <circle class="f-muted" cx="-96" cy="-30.5" r="2.5"/>
-      <rect class="bar" x="-84" y="-34" width="150" height="7" rx="3.5"/>
-      <circle class="f-muted" cx="-96" cy="-10.5" r="2.5"/>
-      <rect class="bar bar--accent" x="-84" y="-14" width="114" height="7" rx="3.5"/>
-      <circle class="f-muted" cx="-96" cy="9.5" r="2.5"/>
-      <rect class="bar" x="-84" y="6" width="168" height="7" rx="3.5"/>
-      <circle class="f-muted" cx="-96" cy="29.5" r="2.5"/>
-      <rect class="bar" x="-84" y="26" width="92" height="7" rx="3.5"/>
-      <path class="s-accent" d="M-96,58 q6,-7 12,0 t12,0 t12,0 t12,0 t12,0 t12,0 t12,0" fill="none" stroke-width="1.5" stroke-linecap="round"/>
-    </g></g>
-    <g class="src" data-src="photo"><g class="src__float">
-      <rect class="card" x="-116" y="-86" width="232" height="172" rx="10"/>
-      <rect class="tagbox" x="-100" y="-70" width="49" height="20" rx="4"/>
-      <text class="t-mono f-muted" x="-93" y="-56.5" font-size="9.5">PHOTO</text>
+    <g class="src"><g class="src__float"><g class="src__bob">
+      <rect x="-116" y="-86" width="232" height="172" rx="14" fill="url(#g-glass)" stroke="url(#g-edge)"/>
+      <circle cx="-96" cy="-61" r="4.5" fill="#9a6bff"/>
+      <text class="t-mono" x="-84" y="-57.5" font-size="9.5" fill="#aab2cc">TRANSCRIPT</text>
+      <text class="t-num" x="100" y="-57.5" font-size="9.5" fill="#7d86a6" text-anchor="end">12:48</text>
+      <path d="M-100.0,-26 V-18 M-93.6,-29 V-15 M-87.2,-33 V-11 M-80.8,-28 V-16 M-74.4,-31 V-13 M-68.0,-36 V-8 M-61.6,-40 V-4 M-55.2,-34 V-10 M-48.8,-29 V-15 M-42.4,-32 V-12 M-36.0,-38 V-6 M-29.6,-42 V-2 M-23.2,-35 V-9 M-16.8,-30 V-14 M-10.4,-27 V-17 M-4.0,-31 V-13 M2.4,-37 V-7 M8.8,-41 V-3 M15.2,-33 V-11 M21.6,-28 V-16 M28.0,-32 V-12 M34.4,-39 V-5 M40.8,-34 V-10 M47.2,-29 V-15 M53.6,-26 V-18 M60.0,-30 V-14 M66.4,-35 V-9 M72.8,-31 V-13 M79.2,-27 V-17 M85.6,-29 V-15 M92.0,-32 V-12 M98.4,-26 V-18" stroke="url(#g-wave)" stroke-width="3" stroke-linecap="round" fill="none"/>
+      <text class="t-num" x="-100" y="25" font-size="9.5" fill="#7d86a6">00:12</text>
+      <circle cx="-56" cy="21.5" r="4.5" fill="#9a6bff"/>
+      <rect x="-44" y="18" width="140" height="7" rx="3.5" fill="#2e365a"/>
+      <text class="t-num" x="-100" y="47" font-size="9.5" fill="#7d86a6">00:47</text>
+      <circle cx="-56" cy="43.5" r="4.5" fill="#5fd0ff"/>
+      <rect x="-44" y="40" width="104" height="7" rx="3.5" fill="#2e365a"/>
+      <rect x="-44" y="58" width="128" height="7" rx="3.5" fill="#2e365a"/>
+    </g></g></g>
+    <g class="src"><g class="src__float"><g class="src__bob">
+      <rect x="-116" y="-86" width="232" height="172" rx="14" fill="url(#g-glass)" stroke="url(#g-edge)"/>
+      <circle cx="-96" cy="-61" r="4.5" fill="#5b84ff"/>
+      <text class="t-mono" x="-84" y="-57.5" font-size="9.5" fill="#aab2cc">DOCUMENT</text>
+      <text class="t-num" x="100" y="-57.5" font-size="9.5" fill="#7d86a6" text-anchor="end">PDF</text>
+      <rect x="-100" y="-38" width="132" height="9" rx="4.5" fill="#56618f"/>
+      <rect x="-100" y="-18" width="200" height="7" rx="3.5" fill="#2e365a"/>
+      <rect x="-100" y="-5" width="184" height="7" rx="3.5" fill="#2e365a"/>
+      <rect x="-100" y="8" width="120" height="7" rx="3.5" fill="#2e365a"/>
+      <rect x="-100" y="50" width="14" height="16" rx="3" fill="#3a4470"/>
+      <rect x="-80" y="42" width="14" height="24" rx="3" fill="#3a4470"/>
+      <rect x="-60" y="46" width="14" height="20" rx="3" fill="#3a4470"/>
+      <rect x="-40" y="28" width="14" height="38" rx="3" fill="url(#g-bar)"/>
+      <rect x="-20" y="38" width="14" height="28" rx="3" fill="#3a4470"/>
+      <rect x="18" y="34" width="82" height="7" rx="3.5" fill="#2e365a"/>
+      <rect x="18" y="47" width="60" height="7" rx="3.5" fill="#2e365a"/>
+      <rect x="18" y="60" width="74" height="7" rx="3.5" fill="#2e365a"/>
+    </g></g></g>
+    <g class="src"><g class="src__float"><g class="src__bob">
+      <rect x="-116" y="-86" width="232" height="172" rx="14" fill="url(#g-glass)" stroke="url(#g-edge)"/>
+      <circle cx="-96" cy="-61" r="4.5" fill="#ffa53d"/>
+      <text class="t-mono" x="-84" y="-57.5" font-size="9.5" fill="#aab2cc">NOTES</text>
+      <rect x="-90" y="-19" width="128" height="17" rx="4" fill="#ffa53d" fill-opacity=".16"/>
+      <circle cx="-96" cy="-30.5" r="2.5" fill="#ffa53d"/>
+      <rect x="-84" y="-34" width="150" height="7" rx="3.5" fill="#2e365a"/>
+      <circle cx="-96" cy="-10.5" r="2.5" fill="#ffa53d"/>
+      <rect x="-84" y="-14" width="114" height="7" rx="3.5" fill="#ffa53d" fill-opacity=".75"/>
+      <circle cx="-96" cy="9.5" r="2.5" fill="#ffa53d"/>
+      <rect x="-84" y="6" width="168" height="7" rx="3.5" fill="#2e365a"/>
+      <circle cx="-96" cy="29.5" r="2.5" fill="#ffa53d"/>
+      <rect x="-84" y="26" width="92" height="7" rx="3.5" fill="#2e365a"/>
+      <path d="M-96,58 q6,-7 12,0 t12,0 t12,0 t12,0 t12,0 t12,0 t12,0" fill="none" stroke="#ffa53d" stroke-width="1.6" stroke-linecap="round"/>
+    </g></g></g>
+    <g class="src"><g class="src__float"><g class="src__bob">
+      <rect x="-116" y="-86" width="232" height="172" rx="14" fill="url(#g-glass)" stroke="url(#g-edge)"/>
+      <circle cx="-96" cy="-61" r="4.5" fill="#ff6fc3"/>
+      <text class="t-mono" x="-84" y="-57.5" font-size="9.5" fill="#aab2cc">PHOTO</text>
+      <text class="t-num" x="100" y="-57.5" font-size="9.5" fill="#7d86a6" text-anchor="end">IMG_2041</text>
       <g clip-path="url(#clip-photo)">
-        <rect class="f-soft" x="-100" y="-44" width="200" height="114"/>
-        <circle class="f-surface" cx="48" cy="-12" r="13"/>
-        <polygon class="f-line" points="-100,70 -100,34 -52,-6 -6,36 22,12 100,62 100,70"/>
-        <polygon class="f-faint" points="-100,70 -100,54 -34,26 34,70"/>
+        <rect x="-100" y="-44" width="200" height="114" fill="url(#g-sky)"/>
+        <circle cx="46" cy="18" r="15" fill="#fff1c9"/>
+        <polygon points="-100,70 -100,30 -56,-4 -12,34 20,10 100,56 100,70" fill="#4b2f7a"/>
+        <polygon points="-100,70 -100,52 -34,24 36,70" fill="#1e1840"/>
       </g>
-    </g></g>
+    </g></g></g>
   </g>
 
   <!-- Each source feeds the draft. -->
-  <g id="links" class="only-anim" fill="none">
-    <path class="link" pathLength="1" d="M97,180 C128,180 118,276 146,276"/>
-    <path class="link" pathLength="1" d="M97,256 C126,256 120,292 146,292"/>
-    <path class="link" pathLength="1" d="M97,332 C126,332 120,308 146,308"/>
-    <path class="link" pathLength="1" d="M97,408 C128,408 118,324 146,324"/>
-    <circle class="link-dot" cx="146" cy="276" r="2.5"/>
-    <circle class="link-dot" cx="146" cy="292" r="2.5"/>
-    <circle class="link-dot" cx="146" cy="308" r="2.5"/>
-    <circle class="link-dot" cx="146" cy="324" r="2.5"/>
+  <g id="links" class="only-anim" fill="none" stroke-linecap="round">
+    <path class="link" pathLength="1" stroke="url(#lk-1)" d="M97,180 C128,180 118,276 146,276"/>
+    <path class="link" pathLength="1" stroke="url(#lk-2)" d="M97,256 C126,256 120,292 146,292"/>
+    <path class="link" pathLength="1" stroke="url(#lk-3)" d="M97,332 C126,332 120,308 146,308"/>
+    <path class="link" pathLength="1" stroke="url(#lk-4)" d="M97,408 C128,408 118,324 146,324"/>
+    <path class="link-flow" d="M97,180 C128,180 118,276 146,276"/>
+    <path class="link-flow" d="M97,256 C126,256 120,292 146,292"/>
+    <path class="link-flow" d="M97,332 C126,332 120,308 146,308"/>
+    <path class="link-flow" d="M97,408 C128,408 118,324 146,324"/>
   </g>
 
-  <!-- The draft: drawn from its top left corner; the script places it. -->
+  <!-- The draft: a sheet of paper, drawn from its top left corner; the script places it. -->
   <g id="draft">
-    <rect class="card" width="300" height="512" rx="10"/>
-    <g clip-path="url(#clip-draft)"><rect id="draft-rule" class="f-h3" width="300" height="4"/></g>
-    <rect class="tagbox" x="20" y="18" width="50" height="20" rx="4"/>
-    <text class="t-mono f-muted" x="27" y="31.5" font-size="9.5">DRAFT</text>
-    <text class="t-num f-muted" x="80" y="31.5" font-size="10.5">content.md</text>
-    <text id="status-proof" class="t-mono f-muted only-anim" x="280" y="31.5" font-size="9.5" text-anchor="end">IN PROOF</text>
+    <rect width="300" height="512" rx="12" fill="url(#g-paper)"/>
+    <g clip-path="url(#clip-draft)"><rect id="draft-rule" width="300" height="5" fill="url(#g-green)"/></g>
+    <rect x="20" y="18" width="50" height="20" rx="5" fill="none" stroke="#d5d9e6"/>
+    <text class="t-mono" x="27" y="31.5" font-size="9.5" fill="#596178">DRAFT</text>
+    <text class="t-num" x="80" y="31.5" font-size="10.5" fill="#596178">content.md</text>
+    <text id="status-proof" class="t-mono only-anim" x="280" y="31.5" font-size="9.5" fill="#596178" text-anchor="end">IN PROOF</text>
     <g id="status-ok">
-      <circle class="f-h3" cx="216" cy="28" r="3.5"/>
-      <text class="t-mono f-h3t" x="280" y="31.5" font-size="9.5" text-anchor="end">APPROVED</text>
+      <circle cx="216" cy="28" r="3.5" fill="#19ad76"/>
+      <text class="t-mono" x="280" y="31.5" font-size="9.5" fill="#0f7a52" text-anchor="end">APPROVED</text>
     </g>
-    <line class="s-line" x1="20" y1="50" x2="280" y2="50"/>
-    <text class="d-title t-display f-fg" x="20" y="88" font-size="25">Riverbend tells its</text>
-    <text class="d-title t-display f-fg" x="20" y="116" font-size="25">story once</text>
-    <text class="d-title t-mono f-muted" x="20" y="140" font-size="9">CASE STUDY · SAMPLE CONTENT</text>
+    <line x1="20" y1="50" x2="280" y2="50" stroke="#e2e5ef"/>
+    <text class="d-title t-display" x="20" y="88" font-size="25" fill="#0b0e1a">Riverbend tells its</text>
+    <text class="d-title t-display" x="20" y="116" font-size="25" fill="#0b0e1a">story once</text>
+    <text class="d-title t-mono" x="20" y="140" font-size="9" fill="#596178">CASE STUDY · SAMPLE CONTENT</text>
 
-    <rect class="bar d-bar" x="20" y="164" width="260" height="7" rx="3.5"/>
+    <rect class="d-bar" x="20" y="164" width="260" height="7" rx="3.5"/>
     <g class="d-line">
-      <rect class="bar d-bar" x="20" y="184" width="78" height="7" rx="3.5"/>
-      <rect class="tok-bg f-tint" x="102" y="178" width="88" height="19" rx="4"/>
-      <text class="tok t-sans-6 f-accent" x="107" y="192" font-size="13.5">40 pantries<tspan class="t-num" dx="1.5" dy="-5" font-size="8.5">1</tspan></text>
-      <rect class="bar d-bar d-after" x="198" y="184" width="82" height="7" rx="3.5"/>
+      <rect class="d-bar" x="20" y="184" width="78" height="7" rx="3.5"/>
+      <rect class="tok-bg" x="102" y="178" width="88" height="19" rx="5" fill="#e6e9ff"/>
+      <text class="tok t-sans-6" x="107" y="192" font-size="13.5" fill="#4650e6">40 pantries<tspan class="t-num" dx="1.5" dy="-5" font-size="8.5">1</tspan></text>
+      <rect class="d-bar d-after" x="198" y="184" width="82" height="7" rx="3.5"/>
     </g>
-    <rect class="bar d-bar" x="20" y="204" width="184" height="7" rx="3.5"/>
+    <rect class="d-bar" x="20" y="204" width="184" height="7" rx="3.5"/>
 
-    <rect class="bar d-bar" x="20" y="240" width="244" height="7" rx="3.5"/>
+    <rect class="d-bar" x="20" y="240" width="244" height="7" rx="3.5"/>
     <g class="d-line" id="edit-line">
-      <rect class="bar d-bar" x="20" y="260" width="36" height="7" rx="3.5"/>
-      <rect id="word-new-bg" class="f-tint" x="60" y="254" width="42" height="19" rx="4"/>
-      <text id="word-old" class="t-sans-5 f-body only-anim" x="64" y="268" font-size="13.5">seamless</text>
-      <text id="word-new" class="t-sans-6 f-accent" x="65" y="268" font-size="13.5">plain</text>
-      <path id="word-flag" class="s-h2 only-anim" pathLength="1" d="M64,273.5 q3.7,-3.4 7.4,0 t7.4,0 t7.4,0 t7.4,0 t7.4,0 t7.4,0 t7.4,0 t7.4,0" fill="none" stroke-width="1.6" stroke-linecap="round"/>
-      <path id="word-strike" class="s-fg only-anim" pathLength="1" d="M61,264 H126" fill="none" stroke-width="1.5" stroke-linecap="round"/>
-      <rect id="edit-after" class="bar d-bar d-after" x="110" y="260" width="170" height="7" rx="3.5"/>
+      <rect class="d-bar" x="20" y="260" width="36" height="7" rx="3.5"/>
+      <rect id="word-new-bg" x="60" y="254" width="42" height="19" rx="5" fill="#e6e9ff"/>
+      <text id="word-old" class="t-sans-5 only-anim" x="64" y="268" font-size="13.5" fill="#363d55">seamless</text>
+      <text id="word-new" class="t-sans-6" x="65" y="268" font-size="13.5" fill="#4650e6">plain</text>
+      <path id="word-flag" class="only-anim" pathLength="1" d="M64,273.5 q3.7,-3.4 7.4,0 t7.4,0 t7.4,0 t7.4,0 t7.4,0 t7.4,0 t7.4,0 t7.4,0" fill="none" stroke="#e58a16" stroke-width="1.8" stroke-linecap="round"/>
+      <path id="word-strike" class="only-anim" pathLength="1" d="M61,264 H126" fill="none" stroke="#0b0e1a" stroke-width="1.5" stroke-linecap="round"/>
+      <rect id="edit-after" class="d-bar d-after" x="110" y="260" width="170" height="7" rx="3.5"/>
     </g>
     <g class="d-line">
-      <rect class="bar d-bar" x="20" y="280" width="112" height="7" rx="3.5"/>
-      <rect class="tok-bg f-tint" x="136" y="274" width="58" height="19" rx="4"/>
-      <text class="tok t-sans-6 f-accent" x="141" y="288" font-size="13.5">2 days<tspan class="t-num" dx="1.5" dy="-5" font-size="8.5">2</tspan></text>
-      <rect class="bar d-bar d-after" x="202" y="280" width="78" height="7" rx="3.5"/>
+      <rect class="d-bar" x="20" y="280" width="112" height="7" rx="3.5"/>
+      <rect class="tok-bg" x="136" y="274" width="58" height="19" rx="5" fill="#e6e9ff"/>
+      <text class="tok t-sans-6" x="141" y="288" font-size="13.5" fill="#4650e6">2 days<tspan class="t-num" dx="1.5" dy="-5" font-size="8.5">2</tspan></text>
+      <rect class="d-bar d-after" x="202" y="280" width="78" height="7" rx="3.5"/>
     </g>
-    <rect class="bar d-bar" x="20" y="300" width="150" height="7" rx="3.5"/>
-
-    <rect class="bar d-bar" x="20" y="336" width="260" height="7" rx="3.5"/>
-    <rect class="bar d-bar" x="20" y="356" width="206" height="7" rx="3.5"/>
+    <rect class="d-bar" x="20" y="300" width="150" height="7" rx="3.5"/>
+    <rect class="d-bar" x="20" y="336" width="260" height="7" rx="3.5"/>
+    <rect class="d-bar" x="20" y="356" width="206" height="7" rx="3.5"/>
 
     <g class="d-sources">
-      <line class="s-line" x1="20" y1="392" x2="280" y2="392"/>
-      <text class="t-mono f-muted" x="20" y="417" font-size="9">SOURCES</text>
+      <line x1="20" y1="392" x2="280" y2="392" stroke="#e2e5ef"/>
+      <text class="t-mono" x="20" y="417" font-size="9" fill="#596178">SOURCES</text>
     </g>
-    <text class="d-sources t-sans f-body" x="20" y="442" font-size="12"><tspan class="t-num f-accent" font-size="9.5">1</tspan><tspan dx="9">Program notes, March</tspan></text>
-    <text class="d-sources t-sans f-body" x="20" y="464" font-size="12"><tspan class="t-num f-accent" font-size="9.5">2</tspan><tspan dx="9">Volunteer interview, 14 May</tspan></text>
+    <text class="d-sources t-sans" x="20" y="442" font-size="12" fill="#363d55"><tspan class="t-num" font-size="9.5" fill="#4650e6">1</tspan><tspan dx="9">Program notes, March</tspan></text>
+    <text class="d-sources t-sans" x="20" y="464" font-size="12" fill="#363d55"><tspan class="t-num" font-size="9.5" fill="#4650e6">2</tspan><tspan dx="9">Volunteer interview, 14 May</tspan></text>
+
+    <g clip-path="url(#clip-draft)" class="only-anim"><g id="scan"><rect width="300" height="84" fill="url(#g-scan)"/><rect y="82" width="300" height="2" fill="#b9a4ff"/></g></g>
+    <g id="seal" class="only-anim">
+      <circle cx="246" cy="452" r="34" fill="none" stroke="#19ad76" stroke-opacity=".35" stroke-width="1.5"/>
+      <circle cx="246" cy="452" r="26" fill="url(#g-green)"/>
+      <path d="M234,452.5 l8.4,8.4 l15.4,-16.6" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
   </g>
 
   <!-- Checks that run before you read. -->
   <g id="checks" class="only-anim">
-    <rect class="card" x="474" y="120" width="226" height="206" rx="10"/>
-    <text class="t-mono f-muted" x="492" y="149" font-size="9.5">CHECKS</text>
-    <line class="s-line" x1="492" y1="162" x2="682" y2="162"/>
+    <rect x="474" y="120" width="226" height="206" rx="14" fill="url(#g-glass)" stroke="url(#g-edge)"/>
+    <text class="t-mono" x="492" y="149" font-size="9.5" fill="#aab2cc">CHECKS</text>
+    <line x1="492" y1="162" x2="682" y2="162" stroke="#fff" stroke-opacity=".1"/>
     <g class="check" data-check="claims">
       <circle class="check__ring" cx="504" cy="194" r="10"/>
-      <circle class="check__fill f-accent" cx="504" cy="194" r="10.5"/>
+      <circle class="check__fill" cx="504" cy="194" r="10.5" fill="url(#g-accent)"/>
       <path class="check__mark" pathLength="1" d="M499,194.5 l3.6,3.6 l6.6,-7.2"/>
-      <text class="t-sans-6 f-fg" x="526" y="192" font-size="13.5">Claims sourced</text>
-      <text class="t-sans f-muted" x="526" y="208" font-size="11.5">2 figures, 2 sources</text>
+      <text class="t-sans-6" x="526" y="192" font-size="13.5" fill="#f3f5fc">Claims sourced</text>
+      <text class="t-sans" x="526" y="208" font-size="11.5" fill="#99a1ba">2 figures, 2 sources</text>
     </g>
     <g class="check" data-check="voice">
       <circle class="check__ring" cx="504" cy="242" r="10"/>
-      <g class="check__flag"><circle class="f-h2" cx="504" cy="242" r="10.5"/><path d="M504,236.5 v6.5 M504,247 v.4" fill="none" stroke-width="2" stroke-linecap="round" class="s-on-hue"/></g>
-      <circle class="check__fill f-accent" cx="504" cy="242" r="10.5"/>
+      <g class="check__flag"><circle cx="504" cy="242" r="10.5" fill="#ffa53d"/><path d="M504,236.5 v6.5 M504,247 v.4" fill="none" stroke="#1a1204" stroke-width="2" stroke-linecap="round"/></g>
+      <circle class="check__fill" cx="504" cy="242" r="10.5" fill="url(#g-accent)"/>
       <path class="check__mark" pathLength="1" d="M499,242.5 l3.6,3.6 l6.6,-7.2"/>
-      <text class="t-sans-6 f-fg" x="526" y="240" font-size="13.5">Brand voice</text>
-      <text id="sub-flag" class="t-sans f-h2t" x="526" y="256" font-size="11.5">1 word flagged</text>
-      <text id="sub-fixed" class="t-sans f-muted" x="526" y="256" font-size="11.5">Edited by you</text>
+      <text class="t-sans-6" x="526" y="240" font-size="13.5" fill="#f3f5fc">Brand voice</text>
+      <text id="sub-flag" class="t-sans" x="526" y="256" font-size="11.5" fill="#ffb14e">1 word flagged</text>
+      <text id="sub-fixed" class="t-sans" x="526" y="256" font-size="11.5" fill="#99a1ba">Edited by you</text>
     </g>
     <g class="check" data-check="sample">
       <circle class="check__ring" cx="504" cy="290" r="10"/>
-      <circle class="check__fill f-accent" cx="504" cy="290" r="10.5"/>
+      <circle class="check__fill" cx="504" cy="290" r="10.5" fill="url(#g-accent)"/>
       <path class="check__mark" pathLength="1" d="M499,290.5 l3.6,3.6 l6.6,-7.2"/>
-      <text class="t-sans-6 f-fg" x="526" y="288" font-size="13.5">Sample labelled</text>
-      <text class="t-sans f-muted" x="526" y="304" font-size="11.5">Says sample content</text>
+      <text class="t-sans-6" x="526" y="288" font-size="13.5" fill="#f3f5fc">Sample labelled</text>
+      <text class="t-sans" x="526" y="304" font-size="11.5" fill="#99a1ba">Says sample content</text>
     </g>
   </g>
 
   <g id="approve" class="only-anim">
     <g id="approve-btn">
-      <rect class="btn-off" x="474" y="342" width="226" height="48" rx="8"/>
-      <rect id="btn-on" class="f-fg" x="474" y="342" width="226" height="48" rx="8"/>
-      <text id="btn-label-off" class="t-sans-6 f-muted" x="587" y="371" font-size="14" text-anchor="middle">Approve draft</text>
-      <text id="btn-label-on" class="t-sans-6 f-bg" x="587" y="371" font-size="14" text-anchor="middle">Approve draft</text>
+      <rect x="474" y="342" width="226" height="48" rx="12" fill="#161c36" stroke="#fff" stroke-opacity=".12"/>
+      <rect id="btn-on" x="474" y="342" width="226" height="48" rx="12" fill="#ffffff"/>
+      <rect id="btn-ok" x="474" y="342" width="226" height="48" rx="12" fill="url(#g-green)"/>
+      <text id="btn-label-off" class="t-sans-6" x="587" y="371" font-size="14" fill="#7d86a6" text-anchor="middle">Approve draft</text>
+      <text id="btn-label-on" class="t-sans-6" x="587" y="371" font-size="14" fill="#0b0e1a" text-anchor="middle">Approve draft</text>
       <g id="btn-done">
-        <path class="s-bg" d="M544,366.5 l4.2,4.2 l8,-8.6" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        <text class="t-sans-6 f-bg" x="598" y="371" font-size="14" text-anchor="middle">Approved</text>
+        <path d="M544,366.5 l4.2,4.2 l8,-8.6" fill="none" stroke="#04130c" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        <text class="t-sans-6" x="598" y="371" font-size="14" fill="#04130c" text-anchor="middle">Approved</text>
       </g>
     </g>
-    <circle id="press-ring" class="s-accent" cx="648" cy="371" r="6" fill="none" stroke-width="2"/>
-    <text id="hint-a" class="t-mono f-muted" x="587" y="412" font-size="9" text-anchor="middle">NOTHING IS FORMATTED YET</text>
-    <text id="hint-b" class="t-mono f-h3t" x="587" y="412" font-size="9" text-anchor="middle">READY TO PRODUCE</text>
+    <circle id="press-ring" cx="648" cy="371" r="6" fill="none" stroke="#fff" stroke-width="2"/>
+    <text id="hint-a" class="t-mono" x="587" y="412" font-size="9" fill="#7d86a6" text-anchor="middle">NOTHING IS FORMATTED YET</text>
+    <text id="hint-b" class="t-mono" x="587" y="412" font-size="9" fill="#3be0a1" text-anchor="middle">READY TO PRODUCE</text>
   </g>
 
-  <!-- The prism and what leaves it. -->
-  <path id="feed" class="s-faint" pathLength="1" d="M128,300 H205" fill="none" stroke-width="1.5" stroke-linecap="round"/>
-  <polygon class="ray f-h1" points="306.56,270 298.48,284 488,164 488,46"/>
-  <polygon class="ray f-h2" points="298.48,284 290.4,298 488,294 488,176"/>
-  <polygon class="ray f-h3" points="290.4,298 282.32,312 488,424 488,306"/>
-  <polygon class="ray f-h4" points="282.32,312 274.24,326 488,554 488,436"/>
-  <polygon id="prism" class="f-fg" points="169.17,228 330.83,228 250,368"/>
+  <!-- One beam in, four out. -->
+  <path id="feed" pathLength="1" d="M124,300 H211" fill="none" stroke="url(#g-feed)" stroke-width="3.2" stroke-linecap="round"/>
+  <g id="rays">
+    <polygon class="ray" fill="url(#ray-1)" points="306.56,270 298.48,284 488,164 488,46"/>
+    <polygon class="ray" fill="url(#ray-2)" points="298.48,284 290.4,298 488,294 488,176"/>
+    <polygon class="ray" fill="url(#ray-3)" points="290.4,298 282.32,312 488,424 488,306"/>
+    <polygon class="ray" fill="url(#ray-4)" points="282.32,312 274.24,326 488,554 488,436"/>
+    <g id="ray-flows" fill="none" stroke="#fff" stroke-linecap="round">
+      <path class="ray-flow" d="M302.5,277 L488,105"/>
+      <path class="ray-flow" d="M294.4,291 L488,235"/>
+      <path class="ray-flow" d="M286.4,305 L488,365"/>
+      <path class="ray-flow" d="M278.3,319 L488,495"/>
+    </g>
+  </g>
+  <g id="prism">
+    <polygon points="169.17,228 330.83,228 250,368" fill="#0b0e1c" fill-opacity=".55"/>
+    <polygon points="169.17,228 330.83,228 250,368" fill="url(#g-prism)" stroke="url(#g-prism-edge)" stroke-width="1.6" stroke-linejoin="round"/>
+    <polygon points="192,241 308,241 250,341" fill="#fff" fill-opacity=".05"/>
+    <path d="M181,235 L250,354" fill="none" stroke="#fff" stroke-opacity=".3" stroke-width="1"/>
+    <g id="prism-inner" fill="none" stroke-linecap="round">
+      <path d="M211,300 L264,300" stroke="#fff" stroke-width="2.6"/>
+      <path d="M264,300 L302.5,277" stroke="#ff5a70" stroke-width="1.8"/>
+      <path d="M264,300 L294.4,291" stroke="#ffa53d" stroke-width="1.8"/>
+      <path d="M264,300 L286.4,305" stroke="#2ed996" stroke-width="1.8"/>
+      <path d="M264,300 L278.3,319" stroke="#5b84ff" stroke-width="1.8"/>
+    </g>
+  </g>
 
   <g class="out">
-    <rect class="card" x="488" y="46" width="212" height="118" rx="10"/>
+    <circle class="out__flash" cx="494" cy="105" r="60" fill="url(#gl-red)"/>
+    <rect x="488" y="46" width="212" height="118" rx="14" fill="url(#g-glass)" stroke="url(#g-edge)"/>
+    <rect class="out__lit" x="488" y="46" width="212" height="118" rx="14" fill="none" stroke="#ff5a70" stroke-width="1.5"/>
     <g clip-path="url(#clip-page)">
-      <rect class="f-surface" x="502" y="61" width="68" height="88"/>
-      <rect class="f-h1" x="502" y="61" width="17" height="3"/><rect class="f-h2" x="519" y="61" width="17" height="3"/><rect class="f-h3" x="536" y="61" width="17" height="3"/><rect class="f-h4" x="553" y="61" width="17" height="3"/>
-      <rect class="f-fg" x="509" y="73" width="42" height="5" rx="2.5"/>
-      <rect class="f-fg" x="509" y="81" width="28" height="5" rx="2.5"/>
-      <rect class="f-accent" x="509" y="94" width="13" height="8" rx="2"/><rect class="f-accent" x="527" y="94" width="13" height="8" rx="2"/><rect class="f-accent" x="545" y="94" width="13" height="8" rx="2"/>
-      <rect class="f-line" x="509" y="110" width="54" height="3.5" rx="1.75"/><rect class="f-line" x="509" y="117" width="50" height="3.5" rx="1.75"/><rect class="f-line" x="509" y="124" width="34" height="3.5" rx="1.75"/>
-      <rect class="f-soft" x="509" y="133" width="54" height="11" rx="2"/>
+      <rect x="502" y="61" width="68" height="88" fill="#fff"/>
+      <rect x="502" y="61" width="17" height="3" fill="#e8455c"/><rect x="519" y="61" width="17" height="3" fill="#e58a16"/><rect x="536" y="61" width="17" height="3" fill="#19ad76"/><rect x="553" y="61" width="17" height="3" fill="#3e7bf2"/>
+      <rect x="509" y="73" width="42" height="5" rx="2.5" fill="#0b0e1a"/>
+      <rect x="509" y="81" width="28" height="5" rx="2.5" fill="#0b0e1a"/>
+      <rect x="509" y="94" width="13" height="8" rx="2" fill="#4650e6"/><rect x="527" y="94" width="13" height="8" rx="2" fill="#4650e6"/><rect x="545" y="94" width="13" height="8" rx="2" fill="#4650e6"/>
+      <rect x="509" y="110" width="54" height="3.5" rx="1.75" fill="#dfe3ee"/><rect x="509" y="117" width="50" height="3.5" rx="1.75" fill="#dfe3ee"/><rect x="509" y="124" width="34" height="3.5" rx="1.75" fill="#dfe3ee"/>
+      <rect x="509" y="133" width="54" height="11" rx="2" fill="#eceff7"/>
     </g>
-    <rect class="thumb-edge" x="502" y="61" width="68" height="88" rx="3"/>
-    <text class="t-mono f-h1t" x="590" y="92" font-size="9.5">PRINT</text>
-    <text class="t-display f-fg" x="590" y="113" font-size="16.5">One-pager</text>
-    <text class="t-mono f-muted" x="590" y="130" font-size="8.5">PDF · LETTER</text>
+    <text class="t-mono" x="590" y="92" font-size="9.5" fill="#ff8a9a">PRINT</text>
+    <text class="t-display" x="590" y="113" font-size="16.5" fill="#f3f5fc">One-pager</text>
+    <text class="t-mono" x="590" y="130" font-size="8.5" fill="#99a1ba">PDF · LETTER</text>
   </g>
   <g class="out">
-    <rect class="card" x="488" y="176" width="212" height="118" rx="10"/>
-    <rect class="f-surface thumb-edge" x="510" y="222" width="72" height="40.5" rx="3"/>
-    <rect class="f-line" x="556" y="252" width="20" height="3.5" rx="1.75"/>
+    <circle class="out__flash" cx="494" cy="235" r="60" fill="url(#gl-amber2)"/>
+    <rect x="488" y="176" width="212" height="118" rx="14" fill="url(#g-glass)" stroke="url(#g-edge)"/>
+    <rect class="out__lit" x="488" y="176" width="212" height="118" rx="14" fill="none" stroke="#ffa53d" stroke-width="1.5"/>
+    <rect x="510" y="222" width="72" height="40.5" rx="3" fill="#e9ecf5"/>
+    <rect x="556" y="252" width="20" height="3.5" rx="1.75" fill="#b9bfd3"/>
     <g clip-path="url(#clip-slide)">
-      <rect class="f-deep" x="500" y="208" width="72" height="40.5"/>
-      <polygon class="f-d1" points="548,224 572,229 572,234"/><polygon class="f-d2" points="548,224 572,234 572,239"/><polygon class="f-d3" points="548,224 572,239 572,244"/><polygon class="f-d4" points="548,224 572,244 572,249"/>
-      <rect class="f-dfg" x="507" y="224" width="30" height="4" rx="2"/><rect class="f-dfg" x="507" y="231" width="20" height="4" rx="2"/>
+      <rect x="500" y="208" width="72" height="40.5" fill="#05060c"/>
+      <polygon points="548,224 572,229 572,234" fill="#ff5a70"/><polygon points="548,224 572,234 572,239" fill="#ffa53d"/><polygon points="548,224 572,239 572,244" fill="#2ed996"/><polygon points="548,224 572,244 572,249" fill="#5b84ff"/>
+      <rect x="507" y="224" width="30" height="4" rx="2" fill="#f3f5fc"/><rect x="507" y="231" width="20" height="4" rx="2" fill="#f3f5fc"/>
     </g>
-    <text class="t-mono f-h2t" x="590" y="222" font-size="9.5">DECK AND WEB</text>
-    <text class="t-display f-fg" x="590" y="243" font-size="16.5">Slide deck</text>
-    <text class="t-mono f-muted" x="590" y="260" font-size="8.5">PPTX · 16:9</text>
+    <rect x="500" y="208" width="72" height="40.5" rx="3" fill="none" stroke="#fff" stroke-opacity=".22"/>
+    <text class="t-mono" x="590" y="222" font-size="9.5" fill="#ffc078">DECK AND WEB</text>
+    <text class="t-display" x="590" y="243" font-size="16.5" fill="#f3f5fc">Slide deck</text>
+    <text class="t-mono" x="590" y="260" font-size="8.5" fill="#99a1ba">PPTX · 16:9</text>
   </g>
   <g class="out">
-    <rect class="card" x="488" y="306" width="212" height="118" rx="10"/>
-    <rect class="f-bg thumb-edge" x="500" y="341" width="35" height="44" rx="3"/>
-    <rect class="f-fg" x="505" y="351" width="20" height="4" rx="2"/><rect class="f-fg" x="505" y="358" width="14" height="4" rx="2"/>
-    <rect class="f-h1" x="500" y="382" width="17.5" height="3"/><rect class="f-h2" x="517.5" y="382" width="5.8" height="3"/><rect class="f-h3" x="523.3" y="382" width="5.8" height="3"/><rect class="f-h4" x="529.1" y="382" width="5.9" height="3"/>
-    <rect class="f-deep" x="539" y="341" width="35" height="44" rx="3"/>
-    <rect class="f-dacc" x="544" y="351" width="16" height="7" rx="2"/><rect class="f-dfg" x="544" y="362" width="22" height="3.5" rx="1.75"/>
-    <rect class="f-d1" x="539" y="382" width="5.8" height="3"/><rect class="f-d2" x="544.8" y="382" width="17.5" height="3"/><rect class="f-d3" x="562.3" y="382" width="5.8" height="3"/><rect class="f-d4" x="568.1" y="382" width="5.9" height="3"/>
-    <text class="t-mono f-h3t" x="590" y="352" font-size="9.5">SOCIAL</text>
-    <text class="t-display f-fg" x="590" y="373" font-size="16.5">Carousel</text>
-    <text class="t-mono f-muted" x="590" y="390" font-size="8.5">1080 × 1350</text>
+    <circle class="out__flash" cx="494" cy="365" r="60" fill="url(#gl-green)"/>
+    <rect x="488" y="306" width="212" height="118" rx="14" fill="url(#g-glass)" stroke="url(#g-edge)"/>
+    <rect class="out__lit" x="488" y="306" width="212" height="118" rx="14" fill="none" stroke="#2ed996" stroke-width="1.5"/>
+    <rect x="500" y="341" width="35" height="44" rx="3" fill="#f5f6fb"/>
+    <rect x="505" y="351" width="20" height="4" rx="2" fill="#0b0e1a"/><rect x="505" y="358" width="14" height="4" rx="2" fill="#0b0e1a"/>
+    <rect x="500" y="382" width="17.5" height="3" fill="#e8455c"/><rect x="517.5" y="382" width="5.8" height="3" fill="#e58a16"/><rect x="523.3" y="382" width="5.8" height="3" fill="#19ad76"/><rect x="529.1" y="382" width="5.9" height="3" fill="#3e7bf2"/>
+    <rect x="539" y="341" width="35" height="44" rx="3" fill="#05060c" stroke="#fff" stroke-opacity=".22"/>
+    <rect x="544" y="351" width="16" height="7" rx="2" fill="#93a0ff"/><rect x="544" y="362" width="22" height="3.5" rx="1.75" fill="#f3f5fc"/>
+    <rect x="539.5" y="382" width="5.8" height="3" fill="#ff5a70"/><rect x="545.3" y="382" width="17" height="3" fill="#ffa53d"/><rect x="562.3" y="382" width="5.8" height="3" fill="#2ed996"/><rect x="568.1" y="382" width="5.4" height="3" fill="#5b84ff"/>
+    <text class="t-mono" x="590" y="352" font-size="9.5" fill="#6fe8b7">SOCIAL</text>
+    <text class="t-display" x="590" y="373" font-size="16.5" fill="#f3f5fc">Carousel</text>
+    <text class="t-mono" x="590" y="390" font-size="8.5" fill="#99a1ba">1080 × 1350</text>
   </g>
   <g class="out">
-    <rect class="card" x="488" y="436" width="212" height="118" rx="10"/>
+    <circle class="out__flash" cx="494" cy="495" r="60" fill="url(#gl-blue2)"/>
+    <rect x="488" y="436" width="212" height="118" rx="14" fill="url(#g-glass)" stroke="url(#g-edge)"/>
+    <rect class="out__lit" x="488" y="436" width="212" height="118" rx="14" fill="none" stroke="#5b84ff" stroke-width="1.5"/>
     <g clip-path="url(#clip-mail)">
-      <rect class="f-surface" x="508" y="447" width="56" height="96"/>
-      <polygon class="f-fg" points="514,454 522,454 518,461"/>
-      <rect class="f-fg" x="514" y="468" width="36" height="4.5" rx="2.25"/><rect class="f-fg" x="514" y="475.5" width="24" height="4.5" rx="2.25"/>
-      <rect class="f-line" x="514" y="487" width="44" height="3.5" rx="1.75"/><rect class="f-line" x="514" y="494" width="40" height="3.5" rx="1.75"/><rect class="f-line" x="514" y="501" width="28" height="3.5" rx="1.75"/>
-      <rect class="f-accent" x="514" y="511" width="26" height="9" rx="2.5"/>
-      <rect class="f-h1" x="528" y="530" width="4" height="2"/><rect class="f-h2" x="532" y="530" width="4" height="2"/><rect class="f-h3" x="536" y="530" width="4" height="2"/><rect class="f-h4" x="540" y="530" width="4" height="2"/>
+      <rect x="508" y="447" width="56" height="96" fill="#fff"/>
+      <polygon points="514,454 522,454 518,461" fill="#0b0e1a"/>
+      <rect x="514" y="468" width="36" height="4.5" rx="2.25" fill="#0b0e1a"/><rect x="514" y="475.5" width="24" height="4.5" rx="2.25" fill="#0b0e1a"/>
+      <rect x="514" y="487" width="44" height="3.5" rx="1.75" fill="#dfe3ee"/><rect x="514" y="494" width="40" height="3.5" rx="1.75" fill="#dfe3ee"/><rect x="514" y="501" width="28" height="3.5" rx="1.75" fill="#dfe3ee"/>
+      <rect x="514" y="511" width="26" height="9" rx="2.5" fill="#4650e6"/>
+      <rect x="528" y="530" width="4" height="2" fill="#e8455c"/><rect x="532" y="530" width="4" height="2" fill="#e58a16"/><rect x="536" y="530" width="4" height="2" fill="#19ad76"/><rect x="540" y="530" width="4" height="2" fill="#3e7bf2"/>
     </g>
-    <rect class="thumb-edge" x="508" y="447" width="56" height="96" rx="3"/>
-    <text class="t-mono f-h4t" x="590" y="482" font-size="9.5">EMAIL</text>
-    <text class="t-display f-fg" x="590" y="503" font-size="16.5">HTML email</text>
-    <text class="t-mono f-muted" x="590" y="520" font-size="8.5">600 PX COLUMN</text>
+    <text class="t-mono" x="590" y="482" font-size="9.5" fill="#8fb0ff">EMAIL</text>
+    <text class="t-display" x="590" y="503" font-size="16.5" fill="#f3f5fc">HTML email</text>
+    <text class="t-mono" x="590" y="520" font-size="8.5" fill="#99a1ba">600 PX COLUMN</text>
   </g>
 
   <g id="cursor" class="only-anim">
-    <path class="cursor__arrow" d="M0,0 V18 L4.8,13.4 L8.3,21 L11.2,19.7 L7.8,12.2 H14 Z"/>
-    <rect class="f-accent" x="13" y="19" width="36" height="18" rx="9"/>
-    <text class="t-sans-6 f-on-accent" x="31" y="31.6" font-size="10.5" text-anchor="middle">You</text>
+    <path d="M0,0 V18 L4.8,13.4 L8.3,21 L11.2,19.7 L7.8,12.2 H14 Z" fill="#fff" stroke="#0b0e1a" stroke-width="1.4" stroke-linejoin="round"/>
+    <rect x="13" y="19" width="36" height="18" rx="9" fill="url(#g-accent)"/>
+    <text class="t-sans-6" x="31" y="31.6" font-size="10.5" fill="#fff" text-anchor="middle">You</text>
   </g>
 </svg>

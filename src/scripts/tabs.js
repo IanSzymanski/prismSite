@@ -1,8 +1,20 @@
-// WAI-ARIA tabs with automatic activation: arrows move and select, Home and End jump.
+// WAI-ARIA tabs with automatic activation: arrows move and select, Home and End jump. An ink block slides to the chosen tab.
 export function initTabs() {
   document.querySelectorAll('[data-tabs]').forEach((root) => {
+    const list = root.querySelector('[role="tablist"]');
     const tabs = [...root.querySelectorAll('[role="tab"]')];
     const panels = tabs.map((tab) => document.getElementById(tab.getAttribute('aria-controls')));
+
+    const placeInk = () => {
+      const tab = tabs.find((t) => t.getAttribute('aria-selected') === 'true');
+      if (!tab) return;
+      const hue = (tab.className.match(/hue-(\d)/) || [])[1];
+      list.style.setProperty('--x', `${tab.offsetLeft}px`);
+      list.style.setProperty('--y', `${tab.offsetTop}px`);
+      list.style.setProperty('--w', `${tab.offsetWidth}px`);
+      list.style.setProperty('--h', `${tab.offsetHeight}px`);
+      if (hue) list.style.setProperty('--ink-hue', `var(--hue-${hue})`);
+    };
 
     const select = (index, focus) => {
       tabs.forEach((tab, i) => {
@@ -11,6 +23,7 @@ export function initTabs() {
         tab.tabIndex = on ? 0 : -1;
         panels[i].hidden = !on;
       });
+      placeInk();
       if (focus) tabs[index].focus();
     };
 
@@ -24,5 +37,8 @@ export function initTabs() {
         select(next, true);
       });
     });
+
+    if ('ResizeObserver' in window) new ResizeObserver(placeInk).observe(list);
+    placeInk();
   });
 }

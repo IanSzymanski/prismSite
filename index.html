@@ -5,8 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Prism: one draft, every format</title>
   <meta name="description" content="Prism is a content studio. It turns your notes, transcripts, documents and photos into one draft you approve, then builds every format from it, on brand.">
-  <meta name="theme-color" content="#f5f6f8" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#12141a" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#080a12">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Prism: one draft, every format">
   <meta property="og:description" content="Paste your notes. Approve the draft. Get the deck, the sheet and the posts.">
@@ -18,7 +17,11 @@
   <script>
     (function (d) {
       d.classList.remove('no-js'); d.classList.add('js');
-      try { var t = localStorage.getItem('prism-theme'); if (t === 'light' || t === 'dark') d.setAttribute('data-theme', t); } catch (e) {}
+      var t = null, m = null;
+      try { t = localStorage.getItem('prism-theme'); m = localStorage.getItem('prism-motion'); } catch (e) {}
+      if (t === 'light' || t === 'dark') d.setAttribute('data-theme', t);
+      if (m !== 'on' && m !== 'off') m = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'off' : 'on';
+      d.setAttribute('data-motion', m);
     })(document.documentElement);
   </script>
   <link rel="stylesheet" href="/src/styles/main.css">
@@ -26,56 +29,67 @@
 <body>
   <!-- @icons -->
   <a class="skip-link" href="#main">Skip to content</a>
-  <div class="source-band" aria-hidden="true"></div>
 
-  <header class="site-header" data-header>
-    <div class="container site-header__inner">
-      <a class="logo" href="#top" aria-label="Prism, back to top">
-        <svg class="logo__glyph" viewBox="0 0 46.19 40" aria-hidden="true"><polygon points="0,0 23.09,0 11.55,20" fill="#eaa440"/><polygon points="23.09,0 46.19,0 34.64,20" fill="#769df8"/><polygon points="11.55,20 34.64,20 23.09,40" fill="#e7707f"/></svg>
-        <span class="logo__word">prism</span>
-      </a>
+  <header class="site-header" data-header data-theme="dark">
+    <div class="site-header__bar">
+      <a class="logo" href="#top" aria-label="Prism, back to top"><svg class="logo__glyph" viewBox="0 0 46.19 40" aria-hidden="true"><polygon points="0,0 23.09,0 11.55,20" fill="#eaa440"/><polygon points="23.09,0 46.19,0 34.64,20" fill="#769df8"/><polygon points="11.55,20 34.64,20 23.09,40" fill="#e7707f"/></svg><span class="logo__word">prism</span></a>
       <nav class="site-nav" id="site-nav" aria-label="Main">
-        <ul class="site-nav__list">
-          <li><a class="site-nav__link" href="#how">How it works</a></li>
-          <li><a class="site-nav__link" href="#formats">Formats</a></li>
-          <li><a class="site-nav__link" href="#brand">On brand</a></li>
-          <li><a class="site-nav__link" href="#review">Review</a></li>
-          <li><a class="site-nav__link" href="#faq">Questions</a></li>
+        <ul class="site-nav__list" data-nav-list>
+          <li style="--n:0"><a class="site-nav__link" href="#how">How it works</a></li>
+          <li style="--n:1"><a class="site-nav__link" href="#formats">Formats</a></li>
+          <li style="--n:2"><a class="site-nav__link" href="#brand">On brand</a></li>
+          <li style="--n:3"><a class="site-nav__link" href="#review">Review</a></li>
+          <li style="--n:4"><a class="site-nav__link" href="#faq">Questions</a></li>
+          <li class="site-nav__pill" aria-hidden="true" role="presentation"></li>
         </ul>
         <a class="pt-btn accent site-nav__cta" href="#start">Request access</a>
       </nav>
       <div class="site-header__actions">
+        <button class="icon-btn motion-toggle" type="button" data-motion-toggle aria-pressed="false" aria-label="Pause motion">
+          <svg class="icon icon--pause" aria-hidden="true"><use href="#i-pause"/></svg><svg class="icon icon--play" aria-hidden="true"><use href="#i-play"/></svg>
+        </button>
         <button class="icon-btn theme-toggle" type="button" data-theme-toggle aria-label="Switch to dark theme">
-          <svg class="icon icon--sun" aria-hidden="true"><use href="#i-sun"/></svg>
-          <svg class="icon icon--moon" aria-hidden="true"><use href="#i-moon"/></svg>
+          <svg class="icon icon--sun" aria-hidden="true"><use href="#i-sun"/></svg><svg class="icon icon--moon" aria-hidden="true"><use href="#i-moon"/></svg>
         </button>
         <a class="pt-btn sm site-header__cta" href="#start">Request access</a>
         <button class="icon-btn menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-controls="site-nav" aria-label="Menu">
-          <svg class="icon icon--open" aria-hidden="true"><use href="#i-list"/></svg>
-          <svg class="icon icon--close" aria-hidden="true"><use href="#i-x"/></svg>
+          <svg class="icon icon--open" aria-hidden="true"><use href="#i-list"/></svg><svg class="icon icon--close" aria-hidden="true"><use href="#i-x"/></svg>
         </button>
       </div>
+      <span class="site-header__progress" aria-hidden="true"></span>
     </div>
   </header>
 
   <main id="main">
     <!-- ============ Hero ============ -->
-    <section class="hero" id="top" aria-labelledby="hero-title" data-scrolly>
+    <section class="hero" id="top" aria-labelledby="hero-title" data-scrolly data-theme="dark" data-header-dark>
+      <div class="hero__band" aria-hidden="true"></div>
+      <div class="hero__bg" aria-hidden="true">
+        <div class="aurora" data-aurora><i></i><i></i><i></i></div>
+        <div class="hero__pointer" data-hero-pointer></div>
+        <div class="hero__lines"></div>
+        <div class="grain"></div>
+      </div>
       <div class="container hero__grid">
         <div class="hero__intro">
-          <p class="pt-eyebrow" style="--i:0"><span class="pt-chip" aria-hidden="true"><i></i><i></i><i></i><i></i></span>Content studio</p>
-          <h1 class="pt-title" id="hero-title" style="--i:1">One draft, every <em>format</em></h1>
-          <p class="pt-lede" style="--i:2">Prism turns your notes, transcripts, documents and photos into finished, on-brand documents for every channel.</p>
-          <div class="hero__actions" style="--i:3">
-            <a class="pt-btn" href="#start">Request access <svg class="icon icon--right" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
-            <a class="pt-btn ghost" href="#how">See how it works <svg class="icon icon--down" aria-hidden="true"><use href="#i-arrow-down"/></svg></a>
+          <p class="pt-eyebrow pill" style="--i:0"><span class="pt-chip" aria-hidden="true"><i></i><i></i><i></i><i></i></span>Content studio</p>
+          <h1 class="hero__title" id="hero-title"><span class="line" style="--l:0"><span>One draft,</span></span> <span class="line" style="--l:1"><span>every <em class="spectrum-text">format</em></span></span></h1>
+          <p class="hero__lede" style="--i:3">Prism turns your notes, transcripts, documents and photos into finished, on-brand documents for every channel.</p>
+          <div class="hero__actions" style="--i:4">
+            <a class="pt-btn" href="#start" data-magnetic>Request access <span class="pt-btn__icon" aria-hidden="true"><svg class="icon"><use href="#i-arrow-right"/></svg><svg class="icon"><use href="#i-arrow-right"/></svg></span></a>
+            <a class="pt-btn ghost" href="#how">See how it works <span class="pt-btn__icon pt-btn__icon--down" aria-hidden="true"><svg class="icon"><use href="#i-arrow-down"/></svg><svg class="icon"><use href="#i-arrow-down"/></svg></span></a>
           </div>
-          <p class="hero__promise" style="--i:4">Paste your notes. Approve the draft. Get the deck, the sheet and the posts.</p>
-          <p class="hero__cue" aria-hidden="true" style="--i:6"><svg class="icon"><use href="#i-arrow-down"/></svg>Scroll to follow one draft</p>
+          <ul class="hero__proof" style="--i:5">
+            <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Paste your notes</li>
+            <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Approve the draft</li>
+            <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Get the deck, the sheet and the posts</li>
+          </ul>
+          <p class="hero__cue" aria-hidden="true" style="--i:8"><i></i>Scroll to follow one draft</p>
         </div>
 
         <div class="story">
           <div class="stage" data-stage>
+            <div class="stage__aura" data-aurora aria-hidden="true"></div>
             <nav class="rail" aria-label="Steps">
               <ol class="rail__list">
                 <li class="rail__item hue-1"><a class="rail__link" href="#step-draft" data-step-link><span class="rail__track" aria-hidden="true"><span class="rail__fill"></span></span><span class="rail__label"><span class="rail__num" aria-hidden="true">01</span>Draft</span></a></li>
@@ -84,7 +98,7 @@
                 <li class="rail__item hue-4"><a class="rail__link" href="#step-produce" data-step-link><span class="rail__track" aria-hidden="true"><span class="rail__fill"></span></span><span class="rail__label"><span class="rail__num" aria-hidden="true">04</span>Produce</span></a></li>
               </ol>
             </nav>
-            <div class="stage__art">
+            <div class="stage__art" data-art>
               <!-- @include src/partials/scene.svg -->
             </div>
             <p class="stage__note pt-caption">Sample content. Riverbend Food Network is fictional.</p>
@@ -95,40 +109,34 @@
             <ol>
               <li class="step hue-1" id="step-draft" tabindex="-1" data-step>
                 <div class="step__body">
-                  <p class="pt-code">Step 1</p>
-                  <h3 class="step__title">Draft</h3>
-                  <span class="step__rule" aria-hidden="true"></span>
-                  <p class="step__text">Prism turns your source into one layout-free draft, with a source for every number.</p>
-                  <ul class="step__tags" aria-label="What goes in">
-                    <li class="pt-tag">Notes</li><li class="pt-tag">Transcripts</li><li class="pt-tag">Documents</li><li class="pt-tag">Pasted text</li><li class="pt-tag">Photos</li>
-                  </ul>
+                  <p class="step__kicker" style="--k:0">Step 1 of 4<i aria-hidden="true"></i></p>
+                  <h3 class="step__title" style="--k:1">Draft</h3>
+                  <p class="step__text" style="--k:2">Prism turns your source into one layout-free draft, with a source for every number.</p>
+                  <ul class="step__tags" aria-label="What goes in" style="--k:3"><li class="pt-tag">Notes</li><li class="pt-tag">Transcripts</li><li class="pt-tag">Documents</li><li class="pt-tag">Pasted text</li><li class="pt-tag">Photos</li></ul>
                 </div>
               </li>
               <li class="step hue-2" id="step-proof" tabindex="-1" data-step>
                 <div class="step__body">
-                  <p class="pt-code">Step 2</p>
-                  <h3 class="step__title">Proof</h3>
-                  <span class="step__rule" aria-hidden="true"></span>
-                  <p class="step__text">Brand and claim checks run first. Then you read it and make your edits.</p>
-                  <p class="step__more">The checks flag problems in the draft. The edits are yours.</p>
+                  <p class="step__kicker" style="--k:0">Step 2 of 4<i aria-hidden="true"></i></p>
+                  <h3 class="step__title" style="--k:1">Proof</h3>
+                  <p class="step__text" style="--k:2">Brand and claim checks run first. Then you read it and make your edits.</p>
+                  <p class="step__more" style="--k:3">The checks flag problems in the draft. The edits are yours.</p>
                 </div>
               </li>
               <li class="step hue-3" id="step-approve" tabindex="-1" data-step>
                 <div class="step__body">
-                  <p class="pt-code">Step 3</p>
-                  <h3 class="step__title">Approve</h3>
-                  <span class="step__rule" aria-hidden="true"></span>
-                  <p class="step__text">Nothing gets formatted until you sign off on the words.</p>
-                  <p class="step__more">Words are settled before layout starts. That keeps every format consistent and makes revisions cheap.</p>
+                  <p class="step__kicker" style="--k:0">Step 3 of 4<i aria-hidden="true"></i></p>
+                  <h3 class="step__title" style="--k:1">Approve</h3>
+                  <p class="step__text" style="--k:2">Nothing gets formatted until you sign off on the words.</p>
+                  <p class="step__more" style="--k:3">Words are settled before layout starts. That keeps every format consistent and makes revisions cheap.</p>
                 </div>
               </li>
               <li class="step hue-4" id="step-produce" tabindex="-1" data-step>
                 <div class="step__body">
-                  <p class="pt-code">Step 4</p>
-                  <h3 class="step__title">Produce</h3>
-                  <span class="step__rule" aria-hidden="true"></span>
-                  <p class="step__text">Prism builds every format you asked for from the approved draft.</p>
-                  <p class="step__more">Each format follows its own layout rules for size, safe areas and logo placement. <a href="#formats">See the formats</a></p>
+                  <p class="step__kicker" style="--k:0">Step 4 of 4<i aria-hidden="true"></i></p>
+                  <h3 class="step__title" style="--k:1">Produce</h3>
+                  <p class="step__text" style="--k:2">Prism builds every format you asked for from the approved draft.</p>
+                  <p class="step__more" style="--k:3">Each format follows its own layout rules for size, safe areas and logo placement. <a href="#formats">See the formats</a></p>
                 </div>
               </li>
             </ol>
@@ -138,52 +146,57 @@
     </section>
 
     <!-- ============ In numbers ============ -->
-    <section class="section section--tight" aria-labelledby="numbers-title">
+    <section class="section section--tight stats" aria-labelledby="numbers-title">
       <div class="container">
         <h2 class="sr-only" id="numbers-title">Prism in numbers</h2>
-        <ul class="pt-stats" data-reveal>
-          <li><b data-count="5">5</b><span>kinds of source: notes, transcripts, documents, pasted text, photos</span></li>
-          <li><b data-count="1">1</b><span>draft to proof and approve</span></li>
-          <li><b data-count="12">12</b><span>formats on the menu</span></li>
-          <li><b data-count="4">4</b><span>channels: print, deck and web, social, email</span></li>
+        <ul class="stats__grid">
+          <li class="stat card spot lift hue-1" data-reveal style="--i:0"><b class="grad-num" data-count="5">5</b><span class="stat__label">kinds of source</span><span class="stat__sub">Notes, transcripts, documents, pasted text, photos</span></li>
+          <li class="stat card spot lift hue-2" data-reveal style="--i:1"><b class="grad-num" data-count="1">1</b><span class="stat__label">draft to approve</span><span class="stat__sub">You sign off on the words before anything is laid out</span></li>
+          <li class="stat card spot lift hue-3" data-reveal style="--i:2"><b class="grad-num" data-count="12">12</b><span class="stat__label">formats on the menu</span><span class="stat__sub">Name the ones you need when you start</span></li>
+          <li class="stat card spot lift hue-4" data-reveal style="--i:3"><b class="grad-num" data-count="4">4</b><span class="stat__label">channels covered</span><span class="stat__sub">Print, deck and web, social, email</span></li>
         </ul>
+      </div>
+      <div class="marquee" role="group" aria-label="The twelve formats Prism builds" data-reveal="fade">
+        <ul class="marquee__track"><li>One-pager</li><li>Flyer</li><li>Case study</li><li>Trifold brochure</li><li>Slide deck</li><li>Blog post</li><li>Blog header</li><li>Social post</li><li>Story</li><li>Carousel</li><li>Email header</li><li>HTML email</li></ul>
+        <ul class="marquee__track" aria-hidden="true"><li>One-pager</li><li>Flyer</li><li>Case study</li><li>Trifold brochure</li><li>Slide deck</li><li>Blog post</li><li>Blog header</li><li>Social post</li><li>Story</li><li>Carousel</li><li>Email header</li><li>HTML email</li></ul>
       </div>
     </section>
 
     <!-- ============ 02 Formats ============ -->
-    <section class="section" id="formats" aria-labelledby="formats-title">
+    <section class="section section--glow hue-2" id="formats" aria-labelledby="formats-title">
       <div class="container">
         <header class="sec-head hue-2" data-reveal>
-          <p class="pt-eyebrow">02 · Formats</p>
-          <h2 class="sec-title" id="formats-title">Every channel from one <em>draft</em></h2>
+          <p class="pt-eyebrow pill"><i class="dot" aria-hidden="true"></i>02 · Formats</p>
+          <h2 class="sec-title" id="formats-title" data-split>Every channel from one <em>draft</em></h2>
           <span class="sec-rule" aria-hidden="true"></span>
           <p class="sec-lede">Name the formats you need when you start. Prism builds only the formats it supports, so this list is the full menu.</p>
         </header>
 
         <div class="tabs" data-tabs data-reveal>
           <div class="tabs__list" role="tablist" aria-label="Channels">
+            <span class="tabs__ink" aria-hidden="true"></span>
             <button class="tabs__tab hue-1" role="tab" type="button" id="tab-print" aria-controls="panel-print" aria-selected="true"><svg class="icon" aria-hidden="true"><use href="#i-book"/></svg><span class="tabs__name">Print</span><span class="tabs__count">4 formats</span></button>
             <button class="tabs__tab hue-2" role="tab" type="button" id="tab-deck" aria-controls="panel-deck" aria-selected="false" tabindex="-1"><svg class="icon" aria-hidden="true"><use href="#i-globe"/></svg><span class="tabs__name">Deck and web</span><span class="tabs__count">3 formats</span></button>
             <button class="tabs__tab hue-3" role="tab" type="button" id="tab-social" aria-controls="panel-social" aria-selected="false" tabindex="-1"><svg class="icon" aria-hidden="true"><use href="#i-users"/></svg><span class="tabs__name">Social</span><span class="tabs__count">3 formats</span></button>
             <button class="tabs__tab hue-4" role="tab" type="button" id="tab-email" aria-controls="panel-email" aria-selected="false" tabindex="-1"><svg class="icon" aria-hidden="true"><use href="#i-paper-plane-tilt"/></svg><span class="tabs__name">Email</span><span class="tabs__count">2 formats</span></button>
           </div>
 
-          <!-- Print -->
           <div class="tabs__panel hue-1" role="tabpanel" id="panel-print" aria-labelledby="tab-print" tabindex="0">
             <div class="format">
               <div class="format__info">
-                <p class="pt-code">Print</p>
-                <h3 class="format__title">Pages that open with the source band</h3>
-                <p>Print pieces sit on a white page. Page one starts with the four hues edge to edge, then the masthead.</p>
-                <ul class="chips" aria-label="Print formats"><li>One-pager and sheet</li><li>Flyer</li><li>Case study</li><li>Trifold brochure</li></ul>
-                <p class="pt-caption">Letter · PDF</p>
+                <p class="pt-code" style="--k:0">Print</p>
+                <h3 class="format__title" style="--k:1">Pages that open with the source band</h3>
+                <p style="--k:2">Print pieces sit on a white page. Page one starts with the four hues edge to edge, then the masthead.</p>
+                <ul class="chips" aria-label="Print formats" style="--k:3"><li>One-pager and sheet</li><li>Flyer</li><li>Case study</li><li>Trifold brochure</li></ul>
+                <p class="pt-caption" style="--k:4">Letter · PDF</p>
               </div>
-              <div class="desk">
+              <div class="showcase" data-tilt-zone>
+                <div class="tilt" data-tilt>
                 <div class="mock mock--sheet" role="img" aria-label="Sample one-pager for Riverbend Food Network: masthead, three results, two short sections, a quote from a fictional person and a closing panel.">
                   <div class="m-sheet" data-theme="light">
                     <div class="m-band"></div>
                     <div class="m-sheet__pad">
-                      <div class="m-mast"><span class="m-logo"><svg viewBox="0 0 46.19 40"><polygon points="0,0 23.09,0 11.55,20" fill="#eaa440"/><polygon points="23.09,0 46.19,0 34.64,20" fill="#769df8"/><polygon points="11.55,20 34.64,20 23.09,40" fill="#e7707f"/></svg>prism</span><span class="m-type">One-pager</span></div>
+                      <div class="m-mast"><span class="m-logo"><svg viewBox="0 0 46.19 40" aria-hidden="true"><polygon points="0,0 23.09,0 11.55,20" fill="#eaa440"/><polygon points="23.09,0 46.19,0 34.64,20" fill="#769df8"/><polygon points="11.55,20 34.64,20 23.09,40" fill="#e7707f"/></svg>prism</span><span class="m-type">One-pager</span></div>
                       <div class="m-eyebrow"><span class="pt-chip"><i></i><i></i><i></i><i></i></span>Case study · Sample content</div>
                       <div class="m-title">Riverbend tells its story <em>once</em></div>
                       <div class="m-lede">Two people run communications for 40 food pantries. Now every piece starts from one approved draft.</div>
@@ -198,25 +211,26 @@
                     <div class="m-folio">Fictional data · 1</div>
                   </div>
                 </div>
+                </div>
               </div>
             </div>
           </div>
 
-          <!-- Deck and web -->
           <div class="tabs__panel hue-2" role="tabpanel" id="panel-deck" aria-labelledby="tab-deck" tabindex="0" hidden>
             <div class="format">
               <div class="format__info">
-                <p class="pt-code">Deck and web</p>
-                <h3 class="format__title">Dark title slides, light content slides</h3>
-                <p>Title, section and closing slides run dark with the fan on the right third. Each content slide carries its own hue rule.</p>
-                <ul class="chips" aria-label="Deck and web formats"><li>Slide deck</li><li>Blog post</li><li>Blog header</li></ul>
-                <p class="pt-caption">16:9 · PPTX · 1920 × 1080 header</p>
+                <p class="pt-code" style="--k:0">Deck and web</p>
+                <h3 class="format__title" style="--k:1">Dark title slides, light content slides</h3>
+                <p style="--k:2">Title, section and closing slides run dark with the fan on the right third. Each content slide carries its own hue rule.</p>
+                <ul class="chips" aria-label="Deck and web formats" style="--k:3"><li>Slide deck</li><li>Blog post</li><li>Blog header</li></ul>
+                <p class="pt-caption" style="--k:4">16:9 · PPTX · 1920 × 1080 header</p>
               </div>
-              <div class="desk">
+              <div class="showcase" data-tilt-zone>
+                <div class="tilt" data-tilt>
                 <div class="mock mock--deck" role="img" aria-label="Sample deck for Riverbend Food Network: a dark title slide with the spectrum fan, then three light content slides.">
                   <div class="m-slide m-slide--title">
-                    <svg class="m-fan" viewBox="0 0 720 1080" preserveAspectRatio="none"><polygon points="0,440 720,560 720,690" fill="#e7707f"/><polygon points="0,440 720,690 720,820" fill="#eaa440"/><polygon points="0,440 720,820 720,950" fill="#4fc495"/><polygon points="0,440 720,950 720,1080" fill="#769df8"/></svg>
-                    <span class="m-logo m-logo--light"><svg viewBox="0 0 46.19 40"><polygon points="0,0 23.09,0 11.55,20" fill="#eaa440"/><polygon points="23.09,0 46.19,0 34.64,20" fill="#769df8"/><polygon points="11.55,20 34.64,20 23.09,40" fill="#e7707f"/></svg>prism</span>
+                    <svg class="m-fan" viewBox="0 0 720 1080" preserveAspectRatio="none"><polygon points="0,440 720,560 720,690" fill="#ff5a70"/><polygon points="0,440 720,690 720,820" fill="#ffa53d"/><polygon points="0,440 720,820 720,950" fill="#2ed996"/><polygon points="0,440 720,950 720,1080" fill="#5b84ff"/></svg>
+                    <span class="m-logo"><svg viewBox="0 0 46.19 40" aria-hidden="true"><polygon points="0,0 23.09,0 11.55,20" fill="#eaa440"/><polygon points="23.09,0 46.19,0 34.64,20" fill="#769df8"/><polygon points="11.55,20 34.64,20 23.09,40" fill="#e7707f"/></svg>prism</span>
                     <div class="m-slide__body">
                       <div class="m-eyebrow"><span class="pt-chip"><i></i><i></i><i></i><i></i></span>Case study · Sample content</div>
                       <div class="m-title">Riverbend tells its story <em>once</em></div>
@@ -229,24 +243,25 @@
                     <div class="m-slide m-slide--mini hue-4"><span class="m-mini__label">04</span><span class="m-mini__title"></span><span class="m-mini__rule"></span><span class="m-mini__quote"></span></div>
                   </div>
                 </div>
+                </div>
               </div>
             </div>
           </div>
 
-          <!-- Social -->
           <div class="tabs__panel hue-3" role="tabpanel" id="panel-social" aria-labelledby="tab-social" tabindex="0" hidden>
             <div class="format">
               <div class="format__info">
-                <p class="pt-code">Social</p>
-                <h3 class="format__title">One thread across every panel</h3>
-                <p>A single strip runs along the carousel. On each panel one band widens, so the colour shifts as people swipe.</p>
-                <ul class="chips" aria-label="Social formats"><li>Social post</li><li>Story</li><li>Carousel</li></ul>
-                <p class="pt-caption">1080 × 1350 panels</p>
+                <p class="pt-code" style="--k:0">Social</p>
+                <h3 class="format__title" style="--k:1">One thread across every panel</h3>
+                <p style="--k:2">A single strip runs along the carousel. On each panel one band widens, so the colour shifts as people swipe.</p>
+                <ul class="chips" aria-label="Social formats" style="--k:3"><li>Social post</li><li>Story</li><li>Carousel</li></ul>
+                <p class="pt-caption" style="--k:4">1080 × 1350 panels</p>
               </div>
-              <div class="desk">
-                <div class="mock mock--carousel" role="group" aria-label="Sample carousel, three panels" tabindex="0">
+              <div class="showcase" data-tilt-zone>
+                <div class="tilt" data-tilt>
+                <div class="mock mock--carousel" role="group" aria-label="Sample carousel, three panels" tabindex="0" data-drag-scroll>
                   <div class="m-panel hue-1" data-theme="light" role="img" aria-label="Panel 1, cover: Riverbend tells its story once.">
-                    <span class="m-logo"><svg viewBox="0 0 46.19 40"><polygon points="0,0 23.09,0 11.55,20" fill="#eaa440"/><polygon points="23.09,0 46.19,0 34.64,20" fill="#769df8"/><polygon points="11.55,20 34.64,20 23.09,40" fill="#e7707f"/></svg>prism</span>
+                    <span class="m-logo"><svg viewBox="0 0 46.19 40" aria-hidden="true"><polygon points="0,0 23.09,0 11.55,20" fill="#eaa440"/><polygon points="23.09,0 46.19,0 34.64,20" fill="#769df8"/><polygon points="11.55,20 34.64,20 23.09,40" fill="#e7707f"/></svg>prism</span>
                     <div class="m-panel__body">
                       <div class="m-eyebrow"><span class="pt-chip"><i></i><i></i><i></i><i></i></span>Case study</div>
                       <div class="m-title">Riverbend tells its story <em>once</em></div>
@@ -255,7 +270,7 @@
                     <div class="pt-thread"><span class="hue-1"><i></i><i></i><i></i><i></i></span></div>
                   </div>
                   <div class="m-panel hue-2" data-theme="light" role="img" aria-label="Panel 2: 2 days from notes to a finished donor packet. Before: 9 days. Fictional data.">
-                    <svg class="m-glyph" viewBox="0 0 46.19 40"><polygon points="0,0 23.09,0 11.55,20" fill="#eaa440"/><polygon points="23.09,0 46.19,0 34.64,20" fill="#769df8"/><polygon points="11.55,20 34.64,20 23.09,40" fill="#e7707f"/></svg>
+                    <svg class="m-glyph" viewBox="0 0 46.19 40" aria-hidden="true"><polygon points="0,0 23.09,0 11.55,20" fill="#eaa440"/><polygon points="23.09,0 46.19,0 34.64,20" fill="#769df8"/><polygon points="11.55,20 34.64,20 23.09,40" fill="#e7707f"/></svg>
                     <div class="m-panel__body">
                       <div class="m-stat">2 days</div>
                       <div class="m-lede">from notes to a finished donor packet</div>
@@ -265,7 +280,7 @@
                     <div class="pt-thread"><span class="hue-2"><i></i><i></i><i></i><i></i></span></div>
                   </div>
                   <div class="m-panel hue-3" data-theme="dark" role="img" aria-label="Panel 3, closing: Approve the story once. Read the case study.">
-                    <span class="m-logo"><svg viewBox="0 0 46.19 40"><polygon points="0,0 23.09,0 11.55,20" fill="#eaa440"/><polygon points="23.09,0 46.19,0 34.64,20" fill="#769df8"/><polygon points="11.55,20 34.64,20 23.09,40" fill="#e7707f"/></svg>prism</span>
+                    <span class="m-logo"><svg viewBox="0 0 46.19 40" aria-hidden="true"><polygon points="0,0 23.09,0 11.55,20" fill="#eaa440"/><polygon points="23.09,0 46.19,0 34.64,20" fill="#769df8"/><polygon points="11.55,20 34.64,20 23.09,40" fill="#e7707f"/></svg>prism</span>
                     <div class="m-panel__body">
                       <div class="m-title">Approve the story <em>once</em></div>
                       <span class="m-btn">Read the case study</span>
@@ -274,35 +289,37 @@
                     <div class="pt-thread"><span class="hue-3"><i></i><i></i><i></i><i></i></span></div>
                   </div>
                 </div>
+                </div>
               </div>
             </div>
           </div>
 
-          <!-- Email -->
           <div class="tabs__panel hue-4" role="tabpanel" id="panel-email" aria-labelledby="tab-email" tabindex="0" hidden>
             <div class="format">
               <div class="format__info">
-                <p class="pt-code">Email</p>
-                <h3 class="format__title">A 600px column that holds up in Outlook</h3>
-                <p>White page, accent buttons built from tables, and the mini spectrum as the divider.</p>
-                <ul class="chips" aria-label="Email formats"><li>Email header</li><li>HTML email</li></ul>
-                <p class="pt-caption">600px column · HTML</p>
+                <p class="pt-code" style="--k:0">Email</p>
+                <h3 class="format__title" style="--k:1">A 600px column that holds up in Outlook</h3>
+                <p style="--k:2">White page, accent buttons built from tables, and the mini spectrum as the divider.</p>
+                <ul class="chips" aria-label="Email formats" style="--k:3"><li>Email header</li><li>HTML email</li></ul>
+                <p class="pt-caption" style="--k:4">600px column · HTML</p>
               </div>
-              <div class="desk">
+              <div class="showcase" data-tilt-zone>
+                <div class="tilt" data-tilt>
                 <div class="mock mock--mail" role="img" aria-label="Sample HTML email for Riverbend Food Network: logo, headline, two short paragraphs, a button and the mini spectrum divider.">
                   <div class="m-mail" data-theme="light">
                     <div class="m-mail__bar"><span>Subject</span>Riverbend tells its story once</div>
                     <div class="m-mail__pad">
-                      <span class="m-logo"><svg viewBox="0 0 46.19 40"><polygon points="0,0 23.09,0 11.55,20" fill="#eaa440"/><polygon points="23.09,0 46.19,0 34.64,20" fill="#769df8"/><polygon points="11.55,20 34.64,20 23.09,40" fill="#e7707f"/></svg>prism</span>
+                      <span class="m-logo"><svg viewBox="0 0 46.19 40" aria-hidden="true"><polygon points="0,0 23.09,0 11.55,20" fill="#eaa440"/><polygon points="23.09,0 46.19,0 34.64,20" fill="#769df8"/><polygon points="11.55,20 34.64,20 23.09,40" fill="#e7707f"/></svg>prism</span>
                       <div class="m-eyebrow">Case study · Sample content</div>
                       <div class="m-title">Riverbend tells its story <em>once</em></div>
                       <div class="m-text">Two people run communications for 40 food pantries. Every report and post used to start from a blank page.</div>
                       <div class="m-text">Now they approve one draft and get every piece from it.</div>
                       <span class="m-btn">Read the case study</span>
                       <div class="m-divider"><span class="pt-chip mini"><i></i><i></i><i></i><i></i></span></div>
-                      <div class="m-sign"><svg viewBox="0 0 46.19 40"><polygon points="0,0 23.09,0 11.55,20" fill="#eaa440"/><polygon points="23.09,0 46.19,0 34.64,20" fill="#769df8"/><polygon points="11.55,20 34.64,20 23.09,40" fill="#e7707f"/></svg>The Prism team · Fictional data</div>
+                      <div class="m-sign"><svg viewBox="0 0 46.19 40" aria-hidden="true"><polygon points="0,0 23.09,0 11.55,20" fill="#eaa440"/><polygon points="23.09,0 46.19,0 34.64,20" fill="#769df8"/><polygon points="11.55,20 34.64,20 23.09,40" fill="#e7707f"/></svg>The Prism team · Fictional data</div>
                     </div>
                   </div>
+                </div>
                 </div>
               </div>
             </div>
@@ -313,73 +330,96 @@
     </section>
 
     <!-- ============ 03 On brand ============ -->
-    <section class="section" id="brand" aria-labelledby="brand-title">
+    <section class="section section--glow hue-3" id="brand" aria-labelledby="brand-title" style="--gx:8%">
       <div class="container brand">
         <div class="brand__copy">
           <header class="sec-head hue-3" data-reveal>
-            <p class="pt-eyebrow">03 · On brand</p>
-            <h2 class="sec-title" id="brand-title">Styled from your design <em>system</em></h2>
-            <span class="sec-rule" aria-hidden="true"></span>
-            <p class="sec-lede">Prism reads the brand instead of hardcoding one. Swap the design system and every output follows it.</p>
-          </header>
+          <p class="pt-eyebrow pill"><i class="dot" aria-hidden="true"></i>03 · On brand</p>
+          <h2 class="sec-title" id="brand-title" data-split>Styled from your design <em>system</em></h2>
+          <span class="sec-rule" aria-hidden="true"></span>
+          <p class="sec-lede">Prism reads the brand instead of hardcoding one. Swap the design system and every output follows it.</p>
+        </header>
           <dl class="spec" data-reveal>
-            <div><dt>Tokens</dt><dd>Colour, type, spacing and radius, in light and dark themes.</dd></div>
-            <div><dt>Components</dt><dd>Mastheads, stats, callouts, charts and closing panels.</dd></div>
-            <div><dt>Format rules</dt><dd>Grounds, logo use and motif placement for each output.</dd></div>
-            <div><dt>Voice</dt><dd>Words to use, words to avoid, and how claims are stated.</dd></div>
+            <div><dt><svg class="icon" aria-hidden="true"><use href="#i-swatches"/></svg>Tokens</dt><dd>Colour, type, spacing and radius, in light and dark themes.</dd></div>
+            <div><dt><svg class="icon" aria-hidden="true"><use href="#i-squares-four"/></svg>Components</dt><dd>Mastheads, stats, callouts, charts and closing panels.</dd></div>
+            <div><dt><svg class="icon" aria-hidden="true"><use href="#i-ruler"/></svg>Format rules</dt><dd>Grounds, logo use and motif placement for each output.</dd></div>
+            <div><dt><svg class="icon" aria-hidden="true"><use href="#i-megaphone-simple"/></svg>Voice</dt><dd>Words to use, words to avoid, and how claims are stated.</dd></div>
           </dl>
         </div>
 
-        <div class="brand-demo" data-reveal>
+        <div class="brand-demo" data-brand data-reveal>
           <fieldset class="seg">
-            <legend class="pt-eyebrow">Design system</legend>
+            <legend class="pt-eyebrow">Pick a design system</legend>
             <div class="seg__row">
               <label class="seg__opt"><input type="radio" name="brand" value="prism" checked><span>Prism</span></label>
               <label class="seg__opt"><input type="radio" name="brand" value="riverbend"><span>Riverbend</span></label>
               <label class="seg__opt"><input type="radio" name="brand" value="northline"><span>Northline</span></label>
+              <label class="seg__opt"><input type="radio" name="brand" value="custom"><span><svg class="icon" aria-hidden="true"><use href="#i-sparkle"/></svg>Yours</span></label>
             </div>
           </fieldset>
-          <div class="brand-demo__stage">
-            <div class="desk">
-              <div class="mock mock--post" role="img" aria-label="Sample social post. The same content restyles when you choose a different design system.">
-                <div class="m-post">
-                  <div class="m-eyebrow"><span class="m-motif"><i></i><i></i><i></i><i></i></span>Case study</div>
-                  <div class="m-title">One story. Every channel.</div>
-                  <div class="m-stats"><div><b>2 days</b><span>notes to donor packet</span></div><div><b>90%</b><span>approved first time</span></div></div>
-                  <div class="m-post__foot"><span class="m-brand"><svg class="m-brand__glyph" viewBox="0 0 46.19 40"><polygon points="0,0 23.09,0 11.55,20" fill="#eaa440"/><polygon points="23.09,0 46.19,0 34.64,20" fill="#769df8"/><polygon points="11.55,20 34.64,20 23.09,40" fill="#e7707f"/></svg><i class="m-brand__mark"></i><span class="m-brand__name m-brand__name--prism">prism</span><span class="m-brand__name m-brand__name--riverbend">Riverbend</span><span class="m-brand__name m-brand__name--northline">NORTHLINE</span></span><span class="m-note">Sample content</span></div>
-                </div>
+          <div class="tune" data-tune>
+            <label class="tune__field"><span>Accent</span><input class="tune__color" type="color" value="#e0457b" data-tune-accent></label>
+            <fieldset class="tune__field seg seg--sm"><legend>Type</legend><div class="seg__row">
+              <label class="seg__opt"><input type="radio" name="tune-type" value="sans" checked><span>Sans</span></label>
+              <label class="seg__opt"><input type="radio" name="tune-type" value="serif"><span>Serif</span></label>
+              <label class="seg__opt"><input type="radio" name="tune-type" value="mono"><span>Mono</span></label>
+            </div></fieldset>
+            <fieldset class="tune__field seg seg--sm"><legend>Ground</legend><div class="seg__row">
+              <label class="seg__opt"><input type="radio" name="tune-ground" value="light" checked><span>Light</span></label>
+              <label class="seg__opt"><input type="radio" name="tune-ground" value="dark"><span>Dark</span></label>
+            </div></fieldset>
+            <label class="tune__field"><span>Corners</span><input class="tune__range" type="range" min="0" max="28" value="18" data-tune-radius></label>
+          </div>
+          <div class="outputs">
+            <div class="mock mock--post" role="img" aria-label="Sample social post. It restyles when you choose a different design system.">
+              <div class="m-post">
+                <div class="m-eyebrow"><span class="m-motif"><i></i><i></i><i></i><i></i></span>Case study</div>
+                <div class="m-title">One story. Every channel.</div>
+                <div class="m-stats"><div><b>2 days</b><span>notes to donor packet</span></div><div><b>90%</b><span>approved first time</span></div></div>
+                <div class="m-post__foot"><span class="m-brand"><svg class="m-brand__glyph" viewBox="0 0 46.19 40" aria-hidden="true"><polygon points="0,0 23.09,0 11.55,20" fill="#eaa440"/><polygon points="23.09,0 46.19,0 34.64,20" fill="#769df8"/><polygon points="11.55,20 34.64,20 23.09,40" fill="#e7707f"/></svg><i class="m-brand__mark"></i><span data-brand-name>prism</span></span><span class="m-note">Sample content</span></div>
               </div>
             </div>
-            <div class="readout" aria-hidden="true">
-              <p class="pt-eyebrow">What Prism reads</p>
-              <dl class="readout__list readout__list--prism"><div><dt>Accent</dt><dd><i style="background:#3b4bd8"></i>#3b4bd8</dd></div><div><dt>Ground</dt><dd><i style="background:#f5f6f8"></i>#f5f6f8</dd></div><div><dt>Display</dt><dd>Bricolage Grotesque</dd></div><div><dt>Radius</dt><dd>10px</dd></div><div><dt>Motif</dt><dd>Four bands</dd></div><div><dt>Theme</dt><dd>Light</dd></div></dl>
-              <dl class="readout__list readout__list--riverbend"><div><dt>Accent</dt><dd><i style="background:#2b6442"></i>#2b6442</dd></div><div><dt>Ground</dt><dd><i style="background:#f6f1e6"></i>#f6f1e6</dd></div><div><dt>Display</dt><dd>Serif, bold</dd></div><div><dt>Radius</dt><dd>2px</dd></div><div><dt>Motif</dt><dd>Four earth tones</dd></div><div><dt>Theme</dt><dd>Light</dd></div></dl>
-              <dl class="readout__list readout__list--northline"><div><dt>Accent</dt><dd><i style="background:#ffb454"></i>#ffb454</dd></div><div><dt>Ground</dt><dd><i style="background:#0f1b2d"></i>#0f1b2d</dd></div><div><dt>Display</dt><dd>Mono, caps</dd></div><div><dt>Radius</dt><dd>0</dd></div><div><dt>Motif</dt><dd>One bar</dd></div><div><dt>Theme</dt><dd>Dark</dd></div></dl>
+            <div class="mock" role="img" aria-label="Sample slide in the same design system: 90 percent approved on the first proof.">
+              <div class="m-bslide">
+                <div class="m-eyebrow"><span class="m-motif"><i></i><i></i><i></i><i></i></span>Results</div>
+                <div><div class="m-bslide__num">90%</div><div class="m-bslide__cap">approved on the first proof</div></div>
+              </div>
+            </div>
+            <div class="mock" role="img" aria-label="Sample email header in the same design system.">
+              <div class="m-bmail"><div class="m-bmail__title">Six months in</div><span class="m-bmail__btn">Read it</span></div>
             </div>
           </div>
-          <p class="pt-caption">Sample post. Riverbend and Northline are fictional brands.</p>
+          <dl class="readout" aria-label="What Prism reads from the chosen system">
+            <div><dt>Accent</dt><dd data-read="accent"><i></i><span>#4650e6</span></dd></div>
+            <div><dt>Display</dt><dd data-read="display"><span>Bricolage Grotesque</span></dd></div>
+            <div><dt>Radius</dt><dd data-read="radius"><span>14px</span></dd></div>
+            <div><dt>Ground</dt><dd data-read="ground"><span>Light</span></dd></div>
+          </dl>
+          <p class="pt-caption">Sample outputs. Riverbend and Northline are fictional brands.</p>
         </div>
       </div>
     </section>
 
     <!-- ============ 04 Review ============ -->
-    <section class="section review" id="review" aria-labelledby="review-title" data-theme="dark">
+    <section class="section review" id="review" aria-labelledby="review-title" data-theme="dark" data-header-dark>
+      <div class="review__bg" aria-hidden="true"><div class="grain"></div></div>
       <div class="container review__grid">
         <div>
           <header class="sec-head hue-4" data-reveal>
-            <p class="pt-eyebrow">04 · Human review</p>
-            <h2 class="sec-title" id="review-title">Prism drafts and builds. <em>You</em> approve.</h2>
-            <span class="sec-rule" aria-hidden="true"></span>
-            <p class="sec-lede">Every figure traces to a source in the draft. Sample content is labelled as sample, and fictional people say so in their attribution.</p>
-          </header>
-          <ul class="pt-checks" data-reveal>
-            <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>A source for every number, kept with the draft.</span></li>
-            <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Brand and claim checks before you read.</span></li>
-            <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Nothing is formatted until you approve the words.</span></li>
+          <p class="pt-eyebrow pill"><i class="dot" aria-hidden="true"></i>04 · Human review</p>
+          <h2 class="sec-title" id="review-title" data-split>Prism drafts and builds. <em>You</em> approve.</h2>
+          <span class="sec-rule" aria-hidden="true"></span>
+          <p class="sec-lede">Every figure traces to a source in the draft. Sample content is labelled as sample, and fictional people say so in their attribution.</p>
+        </header>
+          <ul class="checks" data-reveal="fade">
+            <li style="--k:0"><i aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg></i><span>A source for every number, kept with the draft.</span></li>
+            <li style="--k:1"><i aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg></i><span>Brand and claim checks before you read.</span></li>
+            <li style="--k:2"><i aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg></i><span>Nothing is formatted until you approve the words.</span></li>
           </ul>
         </div>
 
-        <div class="ledger pt-card" data-ledger data-reveal>
+        <div class="ledger" data-ledger data-reveal="scale">
+          <svg class="ledger__wire" aria-hidden="true" focusable="false"><defs><linearGradient id="wire-grad" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#93a0ff"/><stop offset="1" stop-color="#d0b4ff"/></linearGradient></defs><path pathLength="1" d=""/><circle r="4"/></svg>
           <div class="ledger__head"><span class="pt-tag">Draft</span><span class="ledger__file">content.md</span><span class="ledger__hint">Select a figure to see its source</span></div>
           <p class="ledger__text">Two people run communications for <button type="button" class="fig" data-fig="1" aria-pressed="true" aria-describedby="src-1">40 food pantries<sup>1</sup></button>. A donor packet now takes <button type="button" class="fig" data-fig="2" aria-pressed="false" aria-describedby="src-2">2 days<sup>2</sup></button> from interview notes, and <button type="button" class="fig" data-fig="3" aria-pressed="false" aria-describedby="src-3">90%<sup>3</sup></button> of pieces are approved on the first proof.</p>
           <div class="ledger__sources">
@@ -396,31 +436,33 @@
     </section>
 
     <!-- ============ 05 Ways to work ============ -->
-    <section class="section" id="modes" aria-labelledby="modes-title">
+    <section class="section section--glow hue-1" id="modes" aria-labelledby="modes-title">
       <div class="container">
         <header class="sec-head hue-1" data-reveal>
-          <p class="pt-eyebrow">05 · Ways to work</p>
-          <h2 class="sec-title" id="modes-title">Proof it first, or ship it <em>fast</em></h2>
+          <p class="pt-eyebrow pill"><i class="dot" aria-hidden="true"></i>05 · Ways to work</p>
+          <h2 class="sec-title" id="modes-title" data-split>Proof it first, or ship it <em>fast</em></h2>
           <span class="sec-rule" aria-hidden="true"></span>
         </header>
         <div class="modes">
-          <article class="pt-card mode" data-reveal style="--i:0">
+          <article class="card spot lift mode" data-reveal data-run style="--i:0">
             <p class="mode__label"><span class="pt-code">Full</span><span class="pt-tag">Default</span></p>
             <h3 class="mode__title">Draft, proof, produce</h3>
             <p>For pieces that matter. Approve one draft and get every format at once.</p>
             <p>Later edits to the draft flow into each format, and your layout choices stay put.</p>
-            <ol class="pt-flow mode__flow" style="--n:4" aria-label="Full mode steps">
-              <li class="hue-1">Draft</li><li class="hue-2">Proof</li><li class="hue-3">Approve</li><li class="hue-4">Produce</li>
-            </ol>
+            <div class="pipe">
+              <div class="pipe__track" aria-hidden="true"><i></i></div>
+              <ol aria-label="Full mode steps"><li class="hue-1">Draft</li><li class="hue-2">Proof</li><li class="hue-3">Approve</li><li class="hue-4">Produce</li></ol>
+            </div>
           </article>
-          <article class="pt-card mode" data-reveal style="--i:1">
-            <p class="mode__label"><span class="pt-code">Quick</span></p>
+          <article class="card spot lift mode hue-4" data-reveal data-run style="--i:1">
+            <p class="mode__label"><span class="pt-code">Quick</span><svg class="icon" aria-hidden="true"><use href="#i-lightning"/></svg></p>
             <h3 class="mode__title">One output, one pass</h3>
             <p>For when you need a one-pager now. Prism builds a single format straight from your material.</p>
             <p>No proof step, so read it before it goes out.</p>
-            <ol class="pt-flow mode__flow mode__flow--quick" aria-label="Quick mode steps">
-              <li class="hue-1">Source</li><li class="is-skipped">No proof step</li><li class="hue-4">One format</li>
-            </ol>
+            <div class="pipe pipe--quick">
+              <div class="pipe__track" aria-hidden="true"><i></i></div>
+              <ol aria-label="Quick mode steps"><li class="hue-1">Source</li><li class="is-skipped">No proof step</li><li class="hue-4">One format</li></ol>
+            </div>
           </article>
         </div>
         <p class="modes__note" data-reveal>Full mode is the default. Quick mode trades the proofing gate for speed.</p>
@@ -428,34 +470,33 @@
     </section>
 
     <!-- ============ 06 Case study ============ -->
-    <section class="section case" id="case" aria-labelledby="case-title">
+    <section class="section section--glow hue-2 case" id="case" aria-labelledby="case-title" style="--gx:10%">
       <div class="container">
         <header class="sec-head hue-2" data-reveal>
-          <p class="pt-eyebrow">06 · Case study · Sample content</p>
-          <h2 class="sec-title" id="case-title">Riverbend Food Network tells its story <em>once</em></h2>
+          <p class="pt-eyebrow pill"><i class="dot" aria-hidden="true"></i>06 · Case study · Sample content</p>
+          <h2 class="sec-title" id="case-title" data-split>Riverbend Food Network tells its story <em>once</em></h2>
           <span class="sec-rule" aria-hidden="true"></span>
         </header>
 
-        <div class="case__story">
-          <article class="pt-card hue-1" data-reveal style="--i:0">
+        <div class="bento">
+          <figure class="card quote-card" data-theme="dark" data-reveal style="--i:0">
+            <span class="quote-card__mark spectrum-text" aria-hidden="true">“</span>
+            <blockquote><p>We approve the story once. Everything else comes out of that.</p></blockquote>
+            <figcaption><span class="avatar" aria-hidden="true">DW</span><span class="quote-card__who"><strong>Dana Whitfield</strong><span>Communications Director · Fictional person</span></span></figcaption>
+          </figure>
+          <article class="card spot lift hue-1" data-reveal style="--i:1">
             <h3 class="pt-code">The challenge</h3>
             <p>Two people run communications for 40 food pantries. Every grant report, donor update and social post started from a blank page.</p>
           </article>
-          <article class="pt-card hue-4" data-reveal style="--i:1">
+          <article class="card spot lift hue-4" data-reveal style="--i:2">
             <h3 class="pt-code">What changed</h3>
             <p>They give Prism volunteer interviews and monthly program notes, approve one draft, and get the donor sheet, grant summary, posts and newsletter from it.</p>
           </article>
         </div>
 
-        <figure class="pt-quote" data-reveal>
-          <span class="pt-chip stop" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
-          <blockquote><p>“We approve the story once. Everything else comes out of that.”</p></blockquote>
-          <figcaption class="pt-cite">Dana Whitfield, Communications Director · Fictional person</figcaption>
-        </figure>
-
         <h3 class="case__sub" data-reveal>Six months in at Riverbend</h3>
         <ul class="results">
-          <li class="pt-card result hue-1" data-reveal style="--i:0">
+          <li class="card spot lift result hue-1" data-reveal style="--i:0">
             <p class="pt-code">Speed</p>
             <p class="result__fig"><span data-count="2">2</span> days</p>
             <p class="result__label">from interview notes to a finished donor packet</p>
@@ -464,7 +505,7 @@
               <div class="bars__row bars__row--now"><span>Now</span><i style="--w:22%"></i><b>2 days</b></div>
             </div>
           </li>
-          <li class="pt-card result hue-2" data-reveal style="--i:1">
+          <li class="card spot lift result hue-2" data-reveal style="--i:1">
             <p class="pt-code">Accuracy</p>
             <p class="result__fig"><span data-count="0">0</span></p>
             <p class="result__label">figure corrections after publishing</p>
@@ -473,7 +514,7 @@
               <div class="bars__row bars__row--now"><span>Now</span><i style="--w:0%"></i><b>0</b></div>
             </div>
           </li>
-          <li class="pt-card result hue-3" data-reveal style="--i:2">
+          <li class="card spot lift result hue-3" data-reveal style="--i:2">
             <p class="pt-code">Quality</p>
             <p class="result__fig"><span data-count="90">90</span>%</p>
             <p class="result__label">of pieces approved on the first proof</p>
@@ -491,8 +532,8 @@
     <section class="section" id="faq" aria-labelledby="faq-title">
       <div class="container faq">
         <header class="sec-head hue-3" data-reveal>
-          <p class="pt-eyebrow">07 · Questions</p>
-          <h2 class="sec-title" id="faq-title">Before you <em>start</em></h2>
+          <p class="pt-eyebrow pill"><i class="dot" aria-hidden="true"></i>07 · Questions</p>
+          <h2 class="sec-title" id="faq-title" data-split>Before you <em>start</em></h2>
           <span class="sec-rule" aria-hidden="true"></span>
         </header>
         <div class="faq__list" data-reveal>
@@ -531,23 +572,41 @@
     <!-- ============ Closing panel ============ -->
     <section class="section section--close" id="start" aria-labelledby="start-title">
       <div class="container">
-        <div class="pt-cta" data-reveal>
-          <div class="pt-cta__lead">
-            <p class="pt-eyebrow">Get started</p>
-            <h2 id="start-title">Paste your notes. Approve the draft. Get the <em>deck</em>.</h2>
+        <div class="cta" data-theme="dark" data-reveal="scale">
+          <div class="cta__bg" aria-hidden="true">
+            <div class="aurora"><i></i><i></i><i></i></div>
+            <svg class="cta__fan" viewBox="0 0 600 400" focusable="false">
+              <defs>
+                <linearGradient id="c-ray-1" gradientUnits="userSpaceOnUse" x1="190" y1="0" x2="600" y2="0"><stop offset="0" stop-color="#fff"/><stop offset=".14" stop-color="#ff5a70"/><stop offset="1" stop-color="#ff5a70" stop-opacity=".25"/></linearGradient>
+                <linearGradient id="c-ray-2" gradientUnits="userSpaceOnUse" x1="190" y1="0" x2="600" y2="0"><stop offset="0" stop-color="#fff"/><stop offset=".14" stop-color="#ffa53d"/><stop offset="1" stop-color="#ffa53d" stop-opacity=".25"/></linearGradient>
+                <linearGradient id="c-ray-3" gradientUnits="userSpaceOnUse" x1="190" y1="0" x2="600" y2="0"><stop offset="0" stop-color="#fff"/><stop offset=".14" stop-color="#2ed996"/><stop offset="1" stop-color="#2ed996" stop-opacity=".25"/></linearGradient>
+                <linearGradient id="c-ray-4" gradientUnits="userSpaceOnUse" x1="190" y1="0" x2="600" y2="0"><stop offset="0" stop-color="#fff"/><stop offset=".14" stop-color="#5b84ff"/><stop offset="1" stop-color="#5b84ff" stop-opacity=".25"/></linearGradient>
+                <linearGradient id="c-beam" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="124" y2="0"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff"/></linearGradient>
+                <linearGradient id="c-glass" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".3"/><stop offset="1" stop-color="#fff" stop-opacity=".04"/></linearGradient>
+              </defs>
+              <polygon class="cta-ray" style="--k:0" fill="url(#c-ray-1)" points="200.5,163.9 194,175.2 600,80 600,-30"/>
+              <polygon class="cta-ray" style="--k:1" fill="url(#c-ray-2)" points="194,175.2 187.5,186.5 600,190 600,80"/>
+              <polygon class="cta-ray" style="--k:2" fill="url(#c-ray-3)" points="187.5,186.5 181,197.8 600,300 600,190"/>
+              <polygon class="cta-ray" style="--k:3" fill="url(#c-ray-4)" points="181,197.8 174.5,209.1 600,410 600,300"/>
+            </svg>
+            <div class="grain"></div>
           </div>
-          <div class="pt-cta__act">
-          <p class="sec-lede">Request access and bring the first thing you want turned into documents.</p>
-          <form class="signup" action="/api/request-access" method="post" novalidate data-signup>
-            <label class="signup__label" for="signup-email">Work email</label>
-            <div class="signup__row">
-              <input class="signup__input" id="signup-email" name="email" type="email" autocomplete="email" inputmode="email" spellcheck="false" required placeholder="you@company.com" aria-describedby="signup-error">
-              <button class="pt-btn accent" type="submit"><span data-signup-label>Request access</span><svg class="icon icon--right" aria-hidden="true"><use href="#i-arrow-right"/></svg></button>
-            </div>
-            <p class="signup__error" id="signup-error" hidden><svg class="icon" aria-hidden="true"><use href="#i-warning-circle"/></svg><span></span></p>
-            <p class="signup__status" role="status" tabindex="-1" hidden><svg class="icon" aria-hidden="true"><use href="#i-check-circle"/></svg><span></span></p>
-          </form>
-          <p class="note">Prism drafts and builds. You approve.</p>
+          <div class="cta__lead">
+            <p class="pt-eyebrow pill"><i class="dot" aria-hidden="true"></i>Get started</p>
+            <h2 id="start-title">Paste your notes. Approve the draft. Get the <em class="spectrum-text">deck</em>.</h2>
+          </div>
+          <div class="cta__act">
+            <p class="sec-lede">Request access and bring the first thing you want turned into documents.</p>
+            <form class="signup" action="/api/request-access" method="post" novalidate data-signup>
+              <label class="signup__label" for="signup-email">Work email</label>
+              <div class="signup__row">
+                <div class="signup__field"><input class="signup__input" id="signup-email" name="email" type="email" autocomplete="email" inputmode="email" spellcheck="false" required placeholder="you@company.com" aria-describedby="signup-error"></div>
+                <button class="pt-btn accent" type="submit" data-magnetic><span data-signup-label>Request access</span><svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></button>
+              </div>
+              <p class="signup__error" id="signup-error" hidden><svg class="icon" aria-hidden="true"><use href="#i-warning-circle"/></svg><span></span></p>
+              <p class="signup__status" role="status" tabindex="-1" hidden><svg class="icon" aria-hidden="true"><use href="#i-check-circle"/></svg><span></span></p>
+            </form>
+            <p class="note">Prism drafts and builds. You approve.</p>
           </div>
         </div>
       </div>
@@ -558,10 +617,7 @@
     <div class="container">
       <div class="site-footer__top">
         <div>
-          <a class="logo" href="#top" aria-label="Prism, back to top">
-            <svg class="logo__glyph" viewBox="0 0 46.19 40" aria-hidden="true"><polygon points="0,0 23.09,0 11.55,20" fill="#eaa440"/><polygon points="23.09,0 46.19,0 34.64,20" fill="#769df8"/><polygon points="11.55,20 34.64,20 23.09,40" fill="#e7707f"/></svg>
-            <span class="logo__word">prism</span>
-          </a>
+          <a class="logo" href="#top" aria-label="Prism, back to top"><svg class="logo__glyph" viewBox="0 0 46.19 40" aria-hidden="true"><polygon points="0,0 23.09,0 11.55,20" fill="#eaa440"/><polygon points="23.09,0 46.19,0 34.64,20" fill="#769df8"/><polygon points="11.55,20 34.64,20 23.09,40" fill="#e7707f"/></svg><span class="logo__word">prism</span></a>
           <p class="site-footer__blurb">A content studio that turns raw material into complete documents of any kind.</p>
         </div>
         <nav aria-label="Footer">
@@ -580,6 +636,7 @@
         <p class="pt-caption">Riverbend Food Network, Northline and every figure on this page are sample content.</p>
       </div>
     </div>
+    <p class="site-footer__mark" aria-hidden="true">prism</p>
   </footer>
 
   <script type="module" src="/src/scripts/main.js"></script>

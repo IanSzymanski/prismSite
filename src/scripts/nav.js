@@ -3,14 +3,43 @@ export function initNav() {
   const toggle = document.querySelector('[data-menu-toggle]');
   const nav = document.getElementById('site-nav');
   if (!header || !toggle || !nav) return;
+  const list = nav.querySelector('[data-nav-list]');
+  const links = [...nav.querySelectorAll('.site-nav__link')];
+  const darkZones = [...document.querySelectorAll('[data-header-dark]')];
 
-  // Hairline under the header once the source band has scrolled away.
-  const band = document.querySelector('.source-band');
-  if (band && 'IntersectionObserver' in window) {
-    new IntersectionObserver(([entry]) => header.classList.toggle('is-stuck', !entry.isIntersecting)).observe(band);
-  }
+  // Glass once scrolled, page progress along the bar, and dark ink while a dark section is under it.
+  let ticking = false;
+  const update = () => {
+    ticking = false;
+    const y = window.scrollY;
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    header.classList.toggle('is-stuck', y > 12);
+    header.style.setProperty('--page-p', max > 0 ? Math.min(1, y / max).toFixed(4) : '0');
+    const probe = 38;
+    const dark = darkZones.some((zone) => { const r = zone.getBoundingClientRect(); return r.top <= probe && r.bottom > probe; });
+    if (dark) header.setAttribute('data-theme', 'dark'); else header.removeAttribute('data-theme');
+  };
+  const request = () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
+  window.addEventListener('scroll', request, { passive: true });
+  window.addEventListener('resize', request, { passive: true });
+  update();
 
-  // Small screens: the nav is a disclosure under the header.
+  // A pill slides under whichever link has the pointer or focus, and rests on the current section.
+  const movePill = (link) => {
+    if (!link) { list.style.setProperty('--o', '0'); return; }
+    list.style.setProperty('--x', `${link.offsetLeft}px`);
+    list.style.setProperty('--w', `${link.offsetWidth}px`);
+    list.style.setProperty('--o', '1');
+  };
+  const rest = () => movePill(links.find((a) => a.hasAttribute('aria-current')) || null);
+  links.forEach((link) => {
+    link.addEventListener('pointerenter', () => movePill(link));
+    link.addEventListener('focus', () => movePill(link));
+  });
+  list.addEventListener('pointerleave', rest);
+  list.addEventListener('focusout', (event) => { if (!list.contains(event.relatedTarget)) rest(); });
+
+  // Small screens: the nav is a disclosure under the bar.
   const isOpen = () => toggle.getAttribute('aria-expanded') === 'true';
   const setOpen = (open) => {
     toggle.setAttribute('aria-expanded', String(open));
@@ -28,7 +57,6 @@ export function initNav() {
 
   // Mark the section being read.
   if (!('IntersectionObserver' in window)) return;
-  const links = [...nav.querySelectorAll('.site-nav__link')];
   const bySection = new Map(links.map((a) => [document.querySelector(a.hash), a]).filter(([el]) => el));
   const visible = new Set();
   const spy = new IntersectionObserver((entries) => {
@@ -36,6 +64,7 @@ export function initNav() {
     let currentLink = null;
     bySection.forEach((link, section) => { if (visible.has(section)) currentLink = link; });
     links.forEach((a) => (a === currentLink ? a.setAttribute('aria-current', 'true') : a.removeAttribute('aria-current')));
+    if (!list.matches(':hover') && !list.contains(document.activeElement)) rest();
   }, { rootMargin: '-45% 0px -50% 0px' });
   bySection.forEach((_, section) => spy.observe(section));
 }

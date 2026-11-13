@@ -7,7 +7,7 @@ const ICONS = [
   'arrow-right', 'arrow-down', 'arrow-up', 'check', 'sun', 'moon', 'list', 'x',
   'book', 'globe', 'users', 'paper-plane-tilt', 'plus', 'circle-notch',
   'warning-circle', 'check-circle', 'swatches', 'squares-four', 'text-aa',
-  'megaphone-simple', 'seal-check', 'lightning', 'link-simple',
+  'megaphone-simple', 'seal-check', 'lightning', 'link-simple', 'pause', 'play', 'ruler', 'sparkle',
 ];
 
 const root = import.meta.dirname;
