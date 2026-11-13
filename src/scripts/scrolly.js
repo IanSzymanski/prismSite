@@ -301,7 +301,7 @@ export async function initScrolly() {
       event.preventDefault();
       window.scrollTo({ top: marks[i].b + 2, behavior: reduce ? 'auto' : 'smooth' });
       steps[i].focus({ preventScroll: true });
-      history.replaceState(null, '', link.hash);
+      try { history.replaceState(null, '', link.hash); } catch { /* sandboxed frame */ }
     };
     const handlers = [
       ...railLinks.map((a, i) => [a, goTo(i, a)]),
