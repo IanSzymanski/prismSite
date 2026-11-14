@@ -1,7 +1,7 @@
 // The design-system picker. Presets restyle through CSS alone; "Yours" builds a system from four controls.
 const PRESETS = {
   prism: { name: 'prism', accent: '#4650e6', display: 'Bricolage Grotesque', radius: '14px', ground: 'Light' },
-  riverbend: { name: 'Riverbend', accent: '#2b6442', display: 'Serif, bold', radius: '3px', ground: 'Light' },
+  riverbend: { name: 'Riverbend', accent: '#2b6442', display: 'Instrument Serif', radius: '3px', ground: 'Light' },
   northline: { name: 'Northline', accent: '#ffb454', display: 'Mono, caps', radius: '0', ground: 'Dark' },
 };
 const TYPES = {

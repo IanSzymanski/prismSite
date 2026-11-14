@@ -4,6 +4,10 @@
 @font-face { font-family: "IBM Plex Sans"; src: url("../assets/fonts/ibm-plex-sans-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
 @font-face { font-family: "IBM Plex Sans"; src: url("../assets/fonts/ibm-plex-sans-latin-500-normal.woff2") format("woff2"); font-weight: 500; font-style: normal; font-display: swap; }
 @font-face { font-family: "IBM Plex Sans"; src: url("../assets/fonts/ibm-plex-sans-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-style: normal; font-display: swap; }
+/* Used only by the hero's sample design systems; fetched when one of them is about to show. */
+@font-face { font-family: "Instrument Serif"; src: url("../assets/fonts/instrument-serif-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Instrument Serif"; src: url("../assets/fonts/instrument-serif-latin-400-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: "Anton"; src: url("../assets/fonts/anton-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
 @font-face { font-family: "IBM Plex Mono"; src: url("../assets/fonts/ibm-plex-mono-latin-500-normal.woff2") format("woff2"); font-weight: 500; font-style: normal; font-display: swap; }
 
 :root, [data-theme="light"] {
@@ -61,6 +65,17 @@
   --spectrum: linear-gradient(90deg, var(--s-red), var(--s-amber), var(--s-green), var(--s-blue), var(--s-violet));
   --spectrum-soft: linear-gradient(90deg, #ff8a9a, #ffc078, #6fe8b7, #8fb0ff, #b99bff);
   --grad-accent: linear-gradient(135deg, var(--accent), var(--accent-2));
+  /* A glow, not a disc: the falloff follows a bell curve so there is no visible edge. Takes its colour from `color`. */
+  --glow: radial-gradient(closest-side,
+    color-mix(in srgb, currentColor 100%, transparent) 0%,
+    color-mix(in srgb, currentColor 88%, transparent) 10%,
+    color-mix(in srgb, currentColor 69%, transparent) 22%,
+    color-mix(in srgb, currentColor 48%, transparent) 34%,
+    color-mix(in srgb, currentColor 30%, transparent) 46%,
+    color-mix(in srgb, currentColor 16%, transparent) 58%,
+    color-mix(in srgb, currentColor 7%, transparent) 70%,
+    color-mix(in srgb, currentColor 2.2%, transparent) 84%,
+    transparent 100%);
   --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
 
   --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;

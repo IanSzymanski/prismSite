@@ -269,7 +269,6 @@ export async function initScrolly() {
   const stepsWrap = hero.querySelector('[data-steps]');
   const steps = [...hero.querySelectorAll('[data-step]')];
   const railLinks = [...hero.querySelectorAll('[data-step-link]')];
-  const howLinks = [...document.querySelectorAll('a[href="#how"]')];
   const auroras = [...hero.querySelectorAll('[data-aurora]')];
   const pointerGlow = hero.querySelector('[data-hero-pointer]');
   const floats = gsap.utils.toArray(scene.querySelectorAll('.src__float'));
@@ -360,10 +359,7 @@ export async function initScrolly() {
         steps[i].focus({ preventScroll: true });
         try { history.replaceState(null, '', link.hash); } catch { /* sandboxed frame */ }
       };
-      const handlers = [
-        ...railLinks.map((a, i) => [a, goTo(i, a)]),
-        ...howLinks.map((a) => [a, goTo(0, a)]),
-      ];
+      const handlers = railLinks.map((a, i) => [a, goTo(i, a)]);
       handlers.forEach(([a, fn]) => a.addEventListener('click', fn));
 
       // Pointer: a soft light follows it across the backdrop, and the loose sources drift a little.

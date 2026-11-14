@@ -66,11 +66,19 @@ a:hover { text-decoration-color: currentColor; }
 
 .section { position: relative; padding-block: var(--section-y); }
 .section--tight { padding-block: calc(var(--section-y) * 0.5); }
-/* A soft wash of the section's hue, off one corner. */
+/* A soft wash of the section's hue, off one corner. The stops ease out so it reads as light, not a shape. */
 .section--glow::before {
+  --wash: color-mix(in srgb, var(--hue-glow, var(--accent)) var(--tint-strength), transparent);
   content: ""; position: absolute; inset: 0; pointer-events: none;
-  background: radial-gradient(62% 56% at var(--gx, 88%) var(--gy, 0%), color-mix(in srgb, var(--hue-glow, var(--accent)) var(--tint-strength), transparent), transparent 72%);
+  background: radial-gradient(78% 70% at var(--gx, 88%) var(--gy, 0%),
+    var(--wash) 0%, color-mix(in srgb, var(--wash) 72%, transparent) 18%, color-mix(in srgb, var(--wash) 42%, transparent) 38%,
+    color-mix(in srgb, var(--wash) 18%, transparent) 58%, color-mix(in srgb, var(--wash) 5%, transparent) 78%, transparent 100%);
 }
+
+/* Soft fields of colour. Wide, overlapping and low, so they blend into one glow. */
+.aurora { position: absolute; inset: 0; }
+.aurora i { position: absolute; background: var(--glow); }
+.grain { position: absolute; inset: 0; background-image: var(--grain); opacity: 0.09; mix-blend-mode: overlay; pointer-events: none; }
 
 /* ---------- Spectrum bits ---------- */
 

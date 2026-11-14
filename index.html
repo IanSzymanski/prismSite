@@ -61,30 +61,105 @@
   </header>
 
   <main id="main">
-    <!-- ============ Hero ============ -->
-    <section class="hero" id="top" aria-labelledby="hero-title" data-scrolly data-theme="dark" data-header-dark>
-      <div class="hero__band" aria-hidden="true"></div>
-      <div class="hero__bg" aria-hidden="true">
+    <!-- ============ Hero: one layout, five sample design systems ============ -->
+    <section class="hero" id="top" aria-labelledby="hero-title" data-hero data-header-tone="dark">
+      <div class="hero__skin" data-skin data-sys="prism">
+        <div class="hero__bg" aria-hidden="true">
+          <div class="aurora"><i></i><i></i><i></i></div>
+          <div class="hero__lines"></div>
+          <div class="grain"></div>
+        </div>
+        <div class="container hero__grid">
+          <div class="hero__intro">
+            <p class="pt-eyebrow pill" style="--i:0"><span class="pt-chip" aria-hidden="true"><i></i><i></i><i></i><i></i></span>Content studio</p>
+            <h1 class="hero__title" id="hero-title"><span class="line" style="--l:0"><span>One draft,</span></span> <span class="line" style="--l:1"><span>every <em class="hero__accent">format</em></span></span></h1>
+            <p class="hero__lede" style="--i:3">Prism turns your notes, transcripts, documents and photos into finished documents for every channel, styled from your design system.</p>
+            <div class="hero__actions" style="--i:4">
+              <a class="pt-btn" href="#start" data-magnetic>Request access <span class="pt-btn__icon" aria-hidden="true"><svg class="icon"><use href="#i-arrow-right"/></svg><svg class="icon"><use href="#i-arrow-right"/></svg></span></a>
+              <a class="pt-btn ghost" href="#how">See how it works <span class="pt-btn__icon pt-btn__icon--down" aria-hidden="true"><svg class="icon"><use href="#i-arrow-down"/></svg><svg class="icon"><use href="#i-arrow-down"/></svg></span></a>
+            </div>
+            <ul class="hero__proof" style="--i:5">
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Paste your notes</li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Approve the draft</li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Get the deck, the sheet and the posts</li>
+            </ul>
+          </div>
+
+          <div class="hero__show" role="img" aria-label="Four sample outputs in the design system shown: a one-pager, a slide, a social post and an email.">
+            <div class="hx hx--sheet"><div class="hx__card">
+              <div class="hx-motif"><i></i><i></i><i></i><i></i></div>
+              <div class="hx-pad">
+                <div class="hx-top"><span class="hx-brand"></span><span class="hx-kicker">One-pager</span></div>
+                <div class="hx-title">The story, told once</div>
+                <div class="hx-lines"><i></i><i></i><i></i></div>
+                <div class="hx-stats"><div><b>2 days</b><span>notes to packet</span></div><div><b>90%</b><span>first proof</span></div><div><b>0</b><span>corrections</span></div></div>
+                <div class="hx-lines"><i></i><i></i><i></i></div>
+                <div class="hx-cta"><span>Approve once.</span><i></i></div>
+              </div>
+            </div></div>
+            <div class="hx hx--slide"><div class="hx__card hx__card--alt">
+              <div class="hx-pad">
+                <div class="hx-kicker"><span class="hx-chip"><i></i><i></i><i></i><i></i></span>Results</div>
+                <div><div class="hx-big">90%</div><div class="hx-cap">approved on the first proof</div></div>
+              </div>
+              <span class="hx-brand"></span>
+            </div></div>
+            <div class="hx hx--post"><div class="hx__card">
+              <div class="hx-pad">
+                <div class="hx-kicker">Case study</div>
+                <div class="hx-title">One story. Every channel.</div>
+                <span class="hx-brand"></span>
+              </div>
+              <div class="hx-motif"><i></i><i></i><i></i><i></i></div>
+            </div></div>
+            <div class="hx hx--mail"><div class="hx__card">
+              <div class="hx-bar"><span class="hx-brand"></span></div>
+              <div class="hx-pad">
+                <div class="hx-title">Six months in</div>
+                <div class="hx-lines"><i></i><i></i><i></i></div>
+                <span class="hx-btn">Read it</span>
+              </div>
+            </div></div>
+          </div>
+        </div>
+
+        <div class="container hero__foot">
+          <div class="sys" role="group" aria-label="Design system shown in this section">
+            <span class="sys__label" aria-hidden="true">Styled as</span>
+            <ul class="sys__list">
+              <li><button type="button" class="sys__opt" data-sys-btn="prism" aria-pressed="true" style="--c1:#080a12;--c2:#8f9bff"><i class="sys__dot" aria-hidden="true"></i><span>Prism</span><b class="sys__bar" aria-hidden="true"></b></button></li>
+              <li><button type="button" class="sys__opt" data-sys-btn="riverbend" aria-pressed="false" style="--c1:#f4eede;--c2:#2b6442"><i class="sys__dot" aria-hidden="true"></i><span>Riverbend</span><b class="sys__bar" aria-hidden="true"></b></button></li>
+              <li><button type="button" class="sys__opt" data-sys-btn="northline" aria-pressed="false" style="--c1:#0a1626;--c2:#ffb454"><i class="sys__dot" aria-hidden="true"></i><span>Northline</span><b class="sys__bar" aria-hidden="true"></b></button></li>
+              <li><button type="button" class="sys__opt" data-sys-btn="kiln" aria-pressed="false" style="--c1:#ff5b2e;--c2:#160a05"><i class="sys__dot" aria-hidden="true"></i><span>Kiln</span><b class="sys__bar" aria-hidden="true"></b></button></li>
+              <li><button type="button" class="sys__opt" data-sys-btn="halcyon" aria-pressed="false" style="--c1:#f4f0fd;--c2:#6b46e5"><i class="sys__dot" aria-hidden="true"></i><span>Halcyon</span><b class="sys__bar" aria-hidden="true"></b></button></li>
+            </ul>
+            <button class="icon-btn sys__pause" type="button" data-sys-pause aria-pressed="false" aria-label="Pause the design system rotation">
+              <svg class="icon icon--pause" aria-hidden="true"><use href="#i-pause"/></svg><svg class="icon icon--play" aria-hidden="true"><use href="#i-play"/></svg>
+            </button>
+          </div>
+          <p class="pt-caption hero__note">Sample design systems. Riverbend, Northline, Kiln and Halcyon are fictional brands.</p>
+        </div>
+      </div>
+      <div class="hero__edge" aria-hidden="true"><i></i></div>
+    </section>
+
+    <!-- ============ 01 How it works: the scrollyteller ============ -->
+    <section class="how" id="how" aria-labelledby="how-title" data-scrolly data-theme="dark" data-header-tone="dark">
+      <div class="how__bg" aria-hidden="true">
         <div class="aurora" data-aurora><i></i><i></i><i></i></div>
-        <div class="hero__pointer" data-hero-pointer></div>
-        <div class="hero__lines"></div>
+        <div class="how__pointer" data-hero-pointer></div>
+        <div class="fine-lines"></div>
         <div class="grain"></div>
       </div>
-      <div class="container hero__grid">
-        <div class="hero__intro">
-          <p class="pt-eyebrow pill" style="--i:0"><span class="pt-chip" aria-hidden="true"><i></i><i></i><i></i><i></i></span>Content studio</p>
-          <h1 class="hero__title" id="hero-title"><span class="line" style="--l:0"><span>One draft,</span></span> <span class="line" style="--l:1"><span>every <em class="spectrum-text">format</em></span></span></h1>
-          <p class="hero__lede" style="--i:3">Prism turns your notes, transcripts, documents and photos into finished, on-brand documents for every channel.</p>
-          <div class="hero__actions" style="--i:4">
-            <a class="pt-btn" href="#start" data-magnetic>Request access <span class="pt-btn__icon" aria-hidden="true"><svg class="icon"><use href="#i-arrow-right"/></svg><svg class="icon"><use href="#i-arrow-right"/></svg></span></a>
-            <a class="pt-btn ghost" href="#how">See how it works <span class="pt-btn__icon pt-btn__icon--down" aria-hidden="true"><svg class="icon"><use href="#i-arrow-down"/></svg><svg class="icon"><use href="#i-arrow-down"/></svg></span></a>
-          </div>
-          <ul class="hero__proof" style="--i:5">
-            <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Paste your notes</li>
-            <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Approve the draft</li>
-            <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Get the deck, the sheet and the posts</li>
-          </ul>
-          <p class="hero__cue" aria-hidden="true" style="--i:8"><i></i>Scroll to follow one draft</p>
+      <div class="container how__grid">
+        <div class="how__intro">
+          <header class="sec-head hue-1" data-reveal>
+            <p class="pt-eyebrow pill"><i class="dot" aria-hidden="true"></i>01 · How it works</p>
+            <h2 class="sec-title" id="how-title" data-split>Four steps from notes to <em>files</em></h2>
+            <span class="sec-rule" aria-hidden="true"></span>
+            <p class="sec-lede">Follow one draft from raw material to finished formats. Words are settled before any layout starts.</p>
+          </header>
+          <p class="how__cue" aria-hidden="true"><i></i>Scroll to follow one draft</p>
         </div>
 
         <div class="story">
@@ -104,8 +179,7 @@
             <p class="stage__note pt-caption">Sample content. Riverbend Food Network is fictional.</p>
           </div>
 
-          <div class="steps" id="how" data-steps>
-            <h2 class="sr-only">How it works: four steps from notes to files</h2>
+          <div class="steps" data-steps>
             <ol>
               <li class="step hue-1" id="step-draft" tabindex="-1" data-step>
                 <div class="step__body">
@@ -401,7 +475,7 @@
     </section>
 
     <!-- ============ 04 Review ============ -->
-    <section class="section review" id="review" aria-labelledby="review-title" data-theme="dark" data-header-dark>
+    <section class="section review" id="review" aria-labelledby="review-title" data-theme="dark" data-header-tone="dark">
       <div class="review__bg" aria-hidden="true"><div class="grain"></div></div>
       <div class="container review__grid">
         <div>
@@ -633,7 +707,7 @@
       </div>
       <div class="site-footer__base">
         <p class="pt-caption">© 2026 Prism</p>
-        <p class="pt-caption">Riverbend Food Network, Northline and every figure on this page are sample content.</p>
+        <p class="pt-caption">Riverbend Food Network, Northline, Kiln, Halcyon and every figure on this page are sample content.</p>
       </div>
     </div>
     <p class="site-footer__mark" aria-hidden="true">prism</p>

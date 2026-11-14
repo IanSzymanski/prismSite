@@ -5,9 +5,9 @@ export function initNav() {
   if (!header || !toggle || !nav) return;
   const list = nav.querySelector('[data-nav-list]');
   const links = [...nav.querySelectorAll('.site-nav__link')];
-  const darkZones = [...document.querySelectorAll('[data-header-dark]')];
+  const zones = [...document.querySelectorAll('[data-header-tone]')];
 
-  // Glass once scrolled, page progress along the bar, and dark ink while a dark section is under it.
+  // Glass once scrolled, page progress along the bar, and ink that suits the section under it.
   let ticking = false;
   const update = () => {
     ticking = false;
@@ -16,12 +16,13 @@ export function initNav() {
     header.classList.toggle('is-stuck', y > 12);
     header.style.setProperty('--page-p', max > 0 ? Math.min(1, y / max).toFixed(4) : '0');
     const probe = 38;
-    const dark = darkZones.some((zone) => { const r = zone.getBoundingClientRect(); return r.top <= probe && r.bottom > probe; });
-    if (dark) header.setAttribute('data-theme', 'dark'); else header.removeAttribute('data-theme');
+    const zone = zones.find((z) => { const r = z.getBoundingClientRect(); return r.top <= probe && r.bottom > probe; });
+    if (zone) header.setAttribute('data-theme', zone.dataset.headerTone); else header.removeAttribute('data-theme');
   };
   const request = () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
   window.addEventListener('scroll', request, { passive: true });
   window.addEventListener('resize', request, { passive: true });
+  document.addEventListener('prism:tone', request);
   update();
 
   // A pill slides under whichever link has the pointer or focus, and rests on the current section.
