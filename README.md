@@ -18,6 +18,10 @@ npm run build
 
 `npm run build` writes a static site to `dist/`. Asset paths are relative, so it can be served from any folder or host. `npm run preview` serves the built site locally.
 
+## Hosting
+
+The site runs on Cloudflare Workers as a static-assets Worker named `prism`, at https://prism.iszymanski.workers.dev. `wrangler.jsonc` points the Worker at `dist/`. Workers Builds is connected to this repo: every push to the default branch runs `npm run build`, then `npx wrangler deploy`. To deploy by hand, run `npm run deploy` after `npx wrangler login`.
+
 ## What is where
 
 | Path | What it holds |

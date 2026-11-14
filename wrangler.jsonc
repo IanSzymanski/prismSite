@@ -1,0 +1,14 @@
+{
+	"$schema": "./node_modules/wrangler/config-schema.json",
+	"name": "prism",
+	"compatibility_date": "2026-11-14",
+	// Static site only: Vite builds to dist/, no Worker script
+	"assets": {
+		"directory": "./dist"
+	},
+	"workers_dev": true,
+	"preview_urls": true,
+	"observability": {
+		"enabled": true
+	}
+}
