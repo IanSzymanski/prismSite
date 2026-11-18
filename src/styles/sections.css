@@ -136,7 +136,7 @@ html[data-motion="off"] .marquee__track[aria-hidden] { display: none; }
 .mock--mail { max-width: 23rem; }
 
 .m-logo { display: inline-flex; align-items: center; gap: 0.36em; font-family: var(--font-display); font-weight: 700; line-height: 1; letter-spacing: -0.02em; color: var(--fg); }
-.m-logo svg { height: 0.95em; width: auto; }
+.m-logo__art { height: 1.05em; width: auto; }
 .m-title em { font-style: normal; color: var(--accent); }
 .m-eyebrow { display: flex; align-items: center; font-family: var(--font-mono); font-weight: 500; line-height: 1; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
 .m-eyebrow .pt-chip { width: 5.33em; height: 0.5em; border-radius: 0.25em; margin-right: 0.85em; }
@@ -174,7 +174,7 @@ html[data-motion="off"] .marquee__track[aria-hidden] { display: none; }
 .m-slide { position: relative; overflow: hidden; aspect-ratio: 16 / 9; }
 .m-slide--title { border-radius: 1em; background: linear-gradient(135deg, #05060c 0%, #111526 55%, #1c2340 100%); color: #f3f5fc; box-shadow: var(--shadow-3); }
 .m-fan { position: absolute; left: 62.5%; top: 0; width: 37.5%; height: 100%; max-width: none; }
-.m-slide--title .m-logo { position: absolute; left: 2.2em; top: 1.9em; font-size: 3em; color: #fff; }
+.m-slide--title .m-logo { position: absolute; left: 2.2em; top: 1.9em; font-size: 3em; color: #fff; --logo-ink: #ffffff; }
 .m-slide__body { position: absolute; left: 6.67em; top: 54%; width: 54em; transform: translateY(-50%); display: grid; gap: 2em; }
 .m-slide--title .m-eyebrow { font-size: 1.25em; color: #9aa2bb; }
 .m-slide--title .m-eyebrow .pt-chip { width: 2.67em; height: 0.25em; border-radius: 0.125em; }
@@ -324,10 +324,12 @@ html[data-motion="off"] .marquee__track[aria-hidden] { display: none; }
 .m-post .m-stats span { display: block; font-size: 3em; line-height: 1.35; color: var(--d-muted); }
 .m-post__foot { display: flex; align-items: center; justify-content: space-between; gap: 2em; margin-top: 4.6em; }
 .m-brand { display: inline-flex; align-items: center; gap: 0.34em; font-family: var(--d-display); font-weight: var(--d-weight); font-size: 4.6em; line-height: 1; letter-spacing: var(--d-tracking); text-transform: var(--d-case); }
-.m-brand__glyph { height: 1em; width: auto; }
+.m-brand__logo { display: none; height: 1.1em; width: auto; --logo-ink: #010202; }
 .m-brand__mark { display: none; width: 0.9em; height: 0.9em; background: var(--d-accent); border-radius: calc(var(--d-radius) * 2); }
 .brand-demo:not(:has(input[value="prism"]:checked)) .m-brand__mark { display: block; }
-.brand-demo:not(:has(input[value="prism"]:checked)) .m-brand__glyph { display: none; }
+/* The Prism preset shows the supplied logo; the others show a mark and their name. */
+.brand-demo:has(input[value="prism"]:checked) .m-brand__logo { display: block; }
+.brand-demo:has(input[value="prism"]:checked) .m-brand__name { display: none; }
 .m-post .m-note { font-size: 2.2em; color: var(--d-muted); }
 
 .m-bslide { display: grid; align-content: space-between; font-size: 1cqi; aspect-ratio: 16 / 9; padding: 6.5em 7em; background: var(--d-bg); color: var(--d-fg); border-radius: var(--d-radius); box-shadow: var(--shadow-2); }

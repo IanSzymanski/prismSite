@@ -6,6 +6,8 @@ import { buildHero } from './hero-build.js';
 // On a fresh visit with motion on, it first builds itself: plain content, reviewed and edited, then styled.
 const ORDER = ['prism', 'riverbend', 'northline', 'kiln', 'halcyon'];
 const TONE = { prism: 'dark', riverbend: 'light', northline: 'dark', kiln: 'light', halcyon: 'light' };
+// Grounds where the header shows the one-colour logo instead of the colour one.
+const LOGO = { kiln: 'mono' };
 const FONTS = {
   riverbend: ['400 48px "Instrument Serif"', 'italic 400 48px "Instrument Serif"'],
   kiln: ['400 48px "Anton"'],
@@ -50,8 +52,12 @@ export function initHero() {
       new Promise((resolve) => setTimeout(resolve, 2500)),
     ]);
   };
-  const warm = () => ORDER.forEach(loadFonts);
-  if ('requestIdleCallback' in window) window.requestIdleCallback(warm, { timeout: 2000 }); else setTimeout(warm, 1200);
+  // Fetch the sample systems' fonts once the page is quiet (after the opening, when there is one): the first is needed 4.8s later.
+  const warm = () => {
+    if ('requestIdleCallback' in window) window.requestIdleCallback(() => ORDER.forEach(loadFonts), { timeout: 2000 });
+    else setTimeout(() => ORDER.forEach(loadFonts), 1200);
+  };
+  if (!building) warm();
 
   const mark = (sys) => buttons.forEach((button) => {
     button.setAttribute('aria-pressed', String(button.dataset.sysBtn === sys));
@@ -60,6 +66,7 @@ export function initHero() {
   // The header reads its ink from the section under it, so tell it when the ground flips.
   const setTone = (sys) => {
     hero.dataset.headerTone = TONE[sys];
+    if (LOGO[sys]) hero.dataset.headerLogo = LOGO[sys]; else delete hero.dataset.headerLogo;
     document.dispatchEvent(new CustomEvent('prism:tone'));
   };
   const settle = (sys) => { skin.dataset.sys = sys; current = sys; };
@@ -72,20 +79,27 @@ export function initHero() {
   };
 
   // Hold the hero at the styled layout's height while it builds, so nothing below moves when the styling lands.
+  // The space is held on the section, under the skin, so the plain content itself never moves. It is measured
+  // from a hidden copy once fonts have loaded and the page is idle, not during the first frames.
   const reserve = () => {
     if (!building || busy) return;
     const probe = skin.cloneNode(true);
     probe.removeAttribute('data-skin');
-    probe.removeAttribute('style');
     probe.classList.add('is-probe');
     probe.setAttribute('aria-hidden', 'true');
     probe.inert = true;
     probe.querySelectorAll('[id]').forEach((el) => el.removeAttribute('id'));
-    skin.style.removeProperty('min-height');
     hero.append(probe);
     const tall = probe.offsetHeight;
     probe.remove();
-    if (tall > skin.offsetHeight + 1) skin.style.minHeight = `${tall}px`;
+    if (tall > skin.offsetHeight + 1) hero.style.minHeight = `${tall}px`; else hero.style.removeProperty('min-height');
+  };
+  let reserveQueued = false;
+  const reserveSoon = () => {
+    if (reserveQueued) return;
+    reserveQueued = true;
+    const run = () => { reserveQueued = false; reserve(); };
+    if ('requestIdleCallback' in window) window.requestIdleCallback(run, { timeout: 800 }); else setTimeout(run, 200);
   };
   // The styled hero is in place: drop the plain-content state and start the rotation clock.
   const landed = () => {
@@ -93,10 +107,11 @@ export function initHero() {
     build = null;
     hero.classList.add('is-landing');
     root.removeAttribute('data-intro');
-    skin.style.removeProperty('min-height');
+    hero.style.removeProperty('min-height');
     void getComputedStyle(skin).opacity;
     hero.classList.remove('is-landing');
     elapsed = 0;
+    warm();
   };
   // Jump straight to the styled hero: motion went off, or nobody is watching.
   const skip = () => {
@@ -177,12 +192,12 @@ export function initHero() {
   start();
 
   if (building) {
-    reserve();
-    if (document.fonts) document.fonts.ready.then(reserve);
-    window.addEventListener('resize', reserve, { passive: true });
+    if (document.fonts) document.fonts.ready.then(reserveSoon); else reserveSoon();
+    window.addEventListener('resize', reserveSoon, { passive: true });
     onMotionChange(() => { if (!motionOn()) skip(); });
     document.addEventListener('visibilitychange', () => { if (document.hidden) skip(); });
-    build = buildHero(hero, { style: () => show('prism', true), abort: skip });
+    // Measure once more right before the styling lands, then wipe.
+    build = buildHero(hero, { style: () => { reserve(); return show('prism', true); }, abort: skip });
   }
 
   // The four outputs lean a little with the pointer.

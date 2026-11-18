@@ -37,7 +37,8 @@
 }
 .stage__aura { position: absolute; inset: 60px 0 22px; z-index: -1; overflow: hidden; color: #5b6cff; pointer-events: none; }
 .stage__aura::before { content: ""; position: absolute; left: -30%; right: -60%; top: -70%; bottom: -80%; background: var(--glow); opacity: 0.36; }
-.stage__art { position: relative; width: 100%; aspect-ratio: 1 / 1; max-height: min(44svh, 26rem); }
+/* The scene is a picture: its glows spill past its box (overflow: visible) and must not catch clicks meant for the rail. */
+.stage__art { position: relative; width: 100%; aspect-ratio: 1 / 1; max-height: min(44svh, 26rem); pointer-events: none; }
 .stage__note { display: none; }
 .scene, .scene-glow { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
 .scene-glow { filter: blur(12px); opacity: 0.85; }
@@ -144,3 +145,45 @@ html[data-motion="off"] .scene .src__bob, html[data-motion="off"] .scene .ray-fl
 .stage__art:not(.is-ready) #draft-under-ok { display: none; }
 html.js .stage__art:not(.is-ready) { opacity: 0; animation: scene-failsafe 0s linear 3s forwards !important; }
 @keyframes scene-failsafe { to { opacity: 1; } }
+
+/* ---------- Pinned: one panel holds still while each stretch of scrolling moves the story on a step ----------
+   With script and room on screen, the section becomes a tall track and the grid sticks to the top of it. The intro
+   and the four steps share one place; scrolling past each mark (scrolly.js) swaps the text and plays the scene's
+   change in time. Short screens, large text, no script, or a failed load keep the flowing layout above. */
+@media (min-height: 36em) {
+  html.js:not(.no-scrolly) .how { --step-gap: 80svh; height: calc(100svh + 4 * var(--step-gap)); }
+  html.js:not(.no-scrolly) .how__grid { position: sticky; top: 0; height: 100svh; grid-template-areas: "stage" "text"; grid-template-rows: auto minmax(0, 1fr); align-content: start; }
+  html.js:not(.no-scrolly) .story { display: contents; }
+  html.js:not(.no-scrolly) .stage { grid-area: stage; position: relative; top: auto; margin: 0 calc(var(--gutter) * -1); padding: calc(var(--header-h) - 2px) var(--gutter) 6px; background: none; }
+  /* Nothing scrolls under the stage here, so it needs no glow of its own: the backdrop behind it carries the colour. */
+  html.js:not(.no-scrolly) .stage__aura { display: none; }
+  html.js:not(.no-scrolly) .stage__art { max-height: min(38svh, 24rem); }
+  html.js:not(.no-scrolly) .how__intro, html.js:not(.no-scrolly) .steps { grid-area: text; align-self: start; min-height: 0; padding: 14px 0 0; }
+  html.js:not(.no-scrolly) .how__intro .sec-head { gap: 14px; }
+  html.js:not(.no-scrolly) .steps ol { display: grid; }
+  html.js:not(.no-scrolly) .step { grid-area: 1 / 1; min-height: 0; padding: 0; }
+  html.js:not(.no-scrolly) .step__title { font-size: clamp(2.25rem, 1.6rem + 3vw, 2.75rem); }
+
+  /* One panel shows at a time. The others stay in the page for assistive tech, out of sight and out of the way. */
+  html.js:not(.no-scrolly) .how__intro, html.js:not(.no-scrolly) .step { transition: opacity 0.45s var(--ease-out), translate 0.7s var(--ease-out); }
+  html.js:not(.no-scrolly) .how:not(.is-live) .step,
+  html.js:not(.no-scrolly) .how.is-live .how__intro:not(.is-current),
+  html.js:not(.no-scrolly) .how.is-live .step:not(.is-current) { opacity: 0; translate: 0 26px; pointer-events: none; }
+  html.js:not(.no-scrolly) .how.is-live .is-past:not(.is-current) { translate: 0 -26px; }
+  html[data-motion="off"]:not(.no-scrolly) .how__intro, html[data-motion="off"]:not(.no-scrolly) .step { transition: none; translate: none; }
+}
+@media (min-height: 36em) and (max-height: 47.49em) and (max-width: 59.99em) {
+  html.js:not(.no-scrolly) .stage__art { max-height: 33svh; }
+  html.js:not(.no-scrolly) .step__title { font-size: 2.125rem; }
+  html.js:not(.no-scrolly) .step__body { gap: 12px; }
+  html.js:not(.no-scrolly) .how__intro .sec-lede { font-size: 1rem; }
+}
+@media (min-width: 60em) and (min-height: 36em) {
+  html.js:not(.no-scrolly) .how__grid { grid-template-areas: "text stage"; grid-template-rows: 100svh; align-content: stretch; }
+  html.js:not(.no-scrolly) .stage { height: 100svh; margin: 0; padding: calc(var(--header-h) + 4px) 0 26px; }
+  html.js:not(.no-scrolly) .stage__art { max-height: none; }
+  html.js:not(.no-scrolly) .how__intro, html.js:not(.no-scrolly) .steps { align-self: center; padding: var(--header-h) 0 0; }
+  html.js:not(.no-scrolly) .how__intro { position: static; }
+  html.js:not(.no-scrolly) .how__cue { left: var(--gutter); }
+  html.js:not(.no-scrolly) .step__title { font-size: clamp(2.75rem, 2rem + 3.8vw, 5rem); }
+}

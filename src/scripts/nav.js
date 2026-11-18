@@ -18,6 +18,8 @@ export function initNav() {
     const probe = 38;
     const zone = zones.find((z) => { const r = z.getBoundingClientRect(); return r.top <= probe && r.bottom > probe; });
     if (zone) header.setAttribute('data-theme', zone.dataset.headerTone); else header.removeAttribute('data-theme');
+    // Some grounds take the one-colour logo (Kiln's orange): the colour glyph must not sit on a hue fill.
+    if (zone && zone.dataset.headerLogo) header.dataset.logo = zone.dataset.headerLogo; else delete header.dataset.logo;
   };
   const request = () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
   window.addEventListener('scroll', request, { passive: true });

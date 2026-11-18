@@ -17,6 +17,7 @@
   --surface: #ffffff;
   --surface-2: #f8f9fd;
   --fg: #0b0e1a;
+  --logo-ink: #010202; /* the logo's wordmark: supplied black on light grounds */
   --body: #363d55;
   --muted: #596178;
   --faint: #8a91a8;
@@ -113,6 +114,7 @@
 
 [data-theme="dark"] {
   color-scheme: dark;
+  --logo-ink: #ffffff; /* the logo's wordmark: supplied white on dark grounds */
   --bg: #080a12;
   --bg-2: #0c0f1b;
   --surface: #111526;
@@ -152,6 +154,7 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
     color-scheme: dark;
+    --logo-ink: #ffffff;
     --bg: #080a12;
     --bg-2: #0c0f1b;
     --surface: #111526;

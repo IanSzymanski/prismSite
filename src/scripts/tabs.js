@@ -38,7 +38,8 @@ export function initTabs() {
       });
     });
 
-    if ('ResizeObserver' in window) new ResizeObserver(placeInk).observe(list);
-    placeInk();
+    // Place the ink when the list is laid out (and again when it resizes), not at startup: the section is far
+    // below the fold and skips rendering until it comes near, so measuring it early would force a layout.
+    if ('ResizeObserver' in window) new ResizeObserver(placeInk).observe(list); else placeInk();
   });
 }

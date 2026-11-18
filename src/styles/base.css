@@ -224,10 +224,12 @@ a:hover { text-decoration-color: currentColor; }
 
 /* ---------- Logo ---------- */
 
-.logo { display: inline-flex; align-items: center; gap: 10px; color: var(--fg); text-decoration: none; border-radius: var(--r-xs); }
-.logo__glyph { width: auto; height: 24px; transition: transform var(--dur-3) var(--ease-back); }
-.logo:hover .logo__glyph { transform: rotate(-8deg) scale(1.08); }
-.logo__word { font: 700 1.5rem / 1 var(--font-display); letter-spacing: -0.03em; }
+/* The supplied Prism logo (sprite symbol #prism-logo, built from src/assets/logo). Its wordmark takes --logo-ink,
+   black on light grounds and white on dark ones, from the theme. Never redrawn, recoloured or re-spaced. */
+.logo { display: inline-flex; align-items: center; color: var(--fg); text-decoration: none; border-radius: var(--r-xs); }
+.logo__art { height: 26px; width: auto; }
+/* One-colour version, for a ground the colour glyph must not sit on (the header over Kiln's orange). */
+.site-header[data-logo="mono"] .logo { --logo-amber: var(--logo-ink); --logo-blue: var(--logo-ink); --logo-red: var(--logo-ink); }
 
 /* ---------- Header: a floating glass bar ---------- */
 
@@ -327,14 +329,31 @@ html[data-motion="off"] .motion-toggle .icon--play { opacity: 1; transform: none
 .site-footer__links a { display: inline-flex; align-items: center; min-height: 44px; color: var(--body); font-size: 0.9375rem; text-decoration-color: transparent; }
 .site-footer__links a:hover { color: var(--fg); text-decoration-color: currentColor; }
 .site-footer__base { display: flex; flex-wrap: wrap; gap: 10px 32px; justify-content: space-between; margin-top: 36px; padding-top: 22px; border-top: 1px solid var(--line); }
+/* The logo again, large and fading out at the foot of the page. */
 .site-footer__mark {
-  margin: 28px 0 -0.2em; text-align: center; user-select: none; pointer-events: none;
-  font: 800 clamp(6rem, 27vw, 24rem) / 0.8 var(--font-display); letter-spacing: -0.06em; color: transparent;
-  background: linear-gradient(180deg, color-mix(in srgb, var(--fg) 16%, transparent), transparent 82%), var(--spectrum);
-  background-blend-mode: normal; -webkit-background-clip: text; background-clip: text;
-  -webkit-mask-image: linear-gradient(180deg, #000 20%, transparent 92%); mask-image: linear-gradient(180deg, #000 20%, transparent 92%);
-  opacity: 0.55;
+  display: flex; justify-content: center; margin: 40px 0 -2%; user-select: none; pointer-events: none;
+  -webkit-mask-image: linear-gradient(180deg, #000 10%, transparent 88%); mask-image: linear-gradient(180deg, #000 10%, transparent 88%);
+  opacity: 0.16;
 }
+.site-footer__art { position: relative; width: min(100%, 76rem); }
+.site-footer__art svg { width: 100%; height: auto; }
+/* The glyph's three colours travel clockwise around the triangle. A layer cut to the supplied glyph's shape sits
+   exactly over it (the glyph spans 71.743% to 100% of the logo's width); inside, the colours turn about the
+   triangle's centroid (50%, 33.33% of the glyph box). At rest the joins sit at 0, 120 and 240 degrees, where the
+   artwork's own joins are: blue upper right, red at the foot, amber upper left. */
+.site-footer__glyph {
+  position: absolute; left: 71.743%; top: 0; width: 28.257%; height: 100%; overflow: hidden;
+  -webkit-mask: url("../assets/logo/prism-glyph-mask.svg") center / 100% 100% no-repeat; mask: url("../assets/logo/prism-glyph-mask.svg") center / 100% 100% no-repeat;
+}
+.site-footer__glyph i {
+  position: absolute; left: 50%; top: 33.333%; width: 115.5%; aspect-ratio: 1; translate: -50% -50%;
+  background: conic-gradient(in oklab, color-mix(in oklab, #eaa440, #769df8) 0deg, #769df8 9deg 111deg, color-mix(in oklab, #769df8, #e7707f) 120deg, #e7707f 129deg 231deg, color-mix(in oklab, #e7707f, #eaa440) 240deg, #eaa440 249deg 351deg, color-mix(in oklab, #eaa440, #769df8) 360deg);
+  animation: glyph-turn 12s linear infinite;
+}
+@keyframes glyph-turn { to { rotate: 360deg; } }
+/* While the overlay runs, the artwork's own glyph steps aside; with motion off it stays as supplied. */
+html:not([data-motion="off"]) .site-footer__art svg { --logo-amber: transparent; --logo-blue: transparent; --logo-red: transparent; }
+html[data-motion="off"] .site-footer__glyph { display: none; }
 
 /* ---------- Reveal on scroll (only once the script is running) ---------- */
 
@@ -370,6 +389,35 @@ html[data-motion="off"] .pt-btn { translate: none; }
 
 @media (forced-colors: active) {
   .pt-chip, .pt-thread, .sec-rule, .rail__fill, .scene, .scene-glow { forced-color-adjust: none; }
-  .spectrum-text, .sec-title em, .sec-title .is-em, .grad-num, .site-footer__mark { background: none; color: CanvasText; -webkit-text-fill-color: currentColor; }
+  .spectrum-text, .sec-title em, .sec-title .is-em, .grad-num { background: none; color: CanvasText; -webkit-text-fill-color: currentColor; }
+  .logo__art, .m-logo__art, .m-brand__logo, .hx-logo, .site-footer__mark svg { --logo-ink: CanvasText; }
+  .site-footer__glyph { display: none; }
+  html:not([data-motion="off"]) .site-footer__art svg { --logo-amber: initial; --logo-blue: initial; --logo-red: initial; }
   .pt-btn, .card { border: 1px solid CanvasText; }
 }
+
+/* ---------- Rendering work kept to what is on screen ---------- */
+
+/* Sections below the scrollyteller skip layout and paint until they come near the screen. Each holds its usual
+   height until then (and its real one once it has rendered), so the page length and in-page links stay put. */
+main > .section, .site-footer { content-visibility: auto; contain-intrinsic-size: auto var(--cis, 700px); }
+/* The estimates are content-box heights (the section's padding is added on top), measured at phone, tablet and desktop widths. */
+.stats { --cis: 488px; }
+#formats { --cis: 1366px; }
+#brand { --cis: 1725px; }
+#review { --cis: 1126px; }
+#modes { --cis: 968px; }
+#case { --cis: 1828px; }
+#faq { --cis: 822px; }
+#start { --cis: 441px; }
+.site-footer { --cis: 420px; }
+@media (min-width: 48em) {
+  .stats { --cis: 450px; } #formats { --cis: 1351px; } #brand { --cis: 1087px; } #review { --cis: 986px; }
+  #modes { --cis: 577px; } #case { --cis: 1732px; } #faq { --cis: 773px; } #start { --cis: 476px; } .site-footer { --cis: 417px; }
+}
+@media (min-width: 60em) {
+  .stats { --cis: 355px; } #formats { --cis: 1058px; } #brand { --cis: 670px; } #review { --cis: 622px; }
+  #modes { --cis: 599px; } #case { --cis: 1133px; } #faq { --cis: 606px; } #start { --cis: 402px; } .site-footer { --cis: 424px; }
+}
+/* The hero and the scrollyteller always render; their endless loops pause while they are off screen (offscreen.js). */
+.is-offscreen, .is-offscreen *, .is-offscreen *::before, .is-offscreen *::after { animation-play-state: paused !important; }

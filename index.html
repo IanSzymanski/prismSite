@@ -11,7 +11,9 @@
   <meta property="og:description" content="Paste your notes. Approve the draft. Get the deck, the sheet and the posts.">
   <meta property="og:image" content="./og.png">
   <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="./favicon.ico" sizes="32x32">
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="./apple-touch-icon.png">
   <link rel="preload" href="/src/assets/fonts/bricolage-grotesque-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/src/assets/fonts/ibm-plex-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/src/assets/fonts/ibm-plex-mono-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -25,6 +27,8 @@
       d.setAttribute('data-motion', m);
       // With motion on, a visit to the top of the page opens on the hero as plain content, then builds it.
       // hero.js claims the build by setting data-intro="run". If it never does, show the styled hero.
+      // If the page script never runs, "How it works" falls back to plain flowing steps.
+      setTimeout(function () { if (!d.hasAttribute('data-ready')) d.classList.add('no-scrolly'); }, 8000);
       if (m === 'on' && (!location.hash || location.hash === '#top')) {
         d.setAttribute('data-intro', '');
         setTimeout(function () { if (d.getAttribute('data-intro') === '') d.removeAttribute('data-intro'); }, 3000);
@@ -39,7 +43,7 @@
 
   <header class="site-header" data-header data-theme="dark">
     <div class="site-header__bar">
-      <a class="logo" href="#top" aria-label="Prism, back to top"><svg class="logo__glyph" viewBox="0 0 46.19 40" aria-hidden="true"><polygon points="0,0 23.09,0 11.55,20" fill="#eaa440"/><polygon points="23.09,0 46.19,0 34.64,20" fill="#769df8"/><polygon points="11.55,20 34.64,20 23.09,40" fill="#e7707f"/></svg><span class="logo__word">prism</span></a>
+      <a class="logo" href="#top" aria-label="Prism, back to top"><svg class="logo__art" viewBox="0 0 234.49 57.39" aria-hidden="true"><use href="#prism-logo"/></svg></a>
       <nav class="site-nav" id="site-nav" aria-label="Main">
         <ul class="site-nav__list" data-nav-list>
           <li style="--n:0"><a class="site-nav__link" href="#how">How it works</a></li>
@@ -101,7 +105,7 @@
             <div class="hx hx--sheet"><div class="hx__card">
               <div class="hx-motif"><i></i><i></i><i></i><i></i></div>
               <div class="hx-pad">
-                <div class="hx-top"><span class="hx-brand"></span><span class="hx-kicker">One-pager</span></div>
+                <div class="hx-top"><span class="hx-brand"><svg class="hx-logo" viewBox="0 0 234.49 57.39" aria-hidden="true"><use href="#prism-logo"/></svg></span><span class="hx-kicker">One-pager</span></div>
                 <div class="hx-title">The story, told once</div>
                 <div class="hx-lines"><i></i><i></i><i></i></div>
                 <div class="hx-stats"><div><b>2 days</b><span>notes to packet</span></div><div><b>90%</b><span>first proof</span></div><div><b>0</b><span>corrections</span></div></div>
@@ -114,18 +118,18 @@
                 <div class="hx-kicker"><span class="hx-chip"><i></i><i></i><i></i><i></i></span>Results</div>
                 <div><div class="hx-big">90%</div><div class="hx-cap">approved on the first proof</div></div>
               </div>
-              <span class="hx-brand"></span>
+              <span class="hx-brand"><svg class="hx-logo" viewBox="0 0 234.49 57.39" aria-hidden="true"><use href="#prism-logo"/></svg></span>
             </div></div>
             <div class="hx hx--post"><div class="hx__card">
               <div class="hx-pad">
                 <div class="hx-kicker">Case study</div>
                 <div class="hx-title">One story. Every channel.</div>
-                <span class="hx-brand"></span>
+                <span class="hx-brand"><svg class="hx-logo" viewBox="0 0 234.49 57.39" aria-hidden="true"><use href="#prism-logo"/></svg></span>
               </div>
               <div class="hx-motif"><i></i><i></i><i></i><i></i></div>
             </div></div>
             <div class="hx hx--mail"><div class="hx__card">
-              <div class="hx-bar"><span class="hx-brand"></span></div>
+              <div class="hx-bar"><span class="hx-brand"><svg class="hx-logo" viewBox="0 0 234.49 57.39" aria-hidden="true"><use href="#prism-logo"/></svg></span></div>
               <div class="hx-pad">
                 <div class="hx-title">Six months in</div>
                 <div class="hx-lines"><i></i><i></i><i></i></div>
@@ -282,7 +286,7 @@
                   <div class="m-sheet" data-theme="light">
                     <div class="m-band"></div>
                     <div class="m-sheet__pad">
-                      <div class="m-mast"><span class="m-logo"><svg viewBox="0 0 46.19 40" aria-hidden="true"><polygon points="0,0 23.09,0 11.55,20" fill="#eaa440"/><polygon points="23.09,0 46.19,0 34.64,20" fill="#769df8"/><polygon points="11.55,20 34.64,20 23.09,40" fill="#e7707f"/></svg>prism</span><span class="m-type">One-pager</span></div>
+                      <div class="m-mast"><span class="m-logo"><svg class="m-logo__art" viewBox="0 0 234.49 57.39" aria-hidden="true"><use href="#prism-logo"/></svg></span><span class="m-type">One-pager</span></div>
                       <div class="m-eyebrow"><span class="pt-chip"><i></i><i></i><i></i><i></i></span>Case study · Sample content</div>
                       <div class="m-title">Riverbend tells its story <em>once</em></div>
                       <div class="m-lede">Two people run communications for 40 food pantries. Now every piece starts from one approved draft.</div>
@@ -316,7 +320,7 @@
                 <div class="mock mock--deck" role="img" aria-label="Sample deck for Riverbend Food Network: a dark title slide with the spectrum fan, then three light content slides.">
                   <div class="m-slide m-slide--title">
                     <svg class="m-fan" viewBox="0 0 720 1080" preserveAspectRatio="none"><polygon points="0,440 720,560 720,690" fill="#ff5a70"/><polygon points="0,440 720,690 720,820" fill="#ffa53d"/><polygon points="0,440 720,820 720,950" fill="#2ed996"/><polygon points="0,440 720,950 720,1080" fill="#5b84ff"/></svg>
-                    <span class="m-logo"><svg viewBox="0 0 46.19 40" aria-hidden="true"><polygon points="0,0 23.09,0 11.55,20" fill="#eaa440"/><polygon points="23.09,0 46.19,0 34.64,20" fill="#769df8"/><polygon points="11.55,20 34.64,20 23.09,40" fill="#e7707f"/></svg>prism</span>
+                    <span class="m-logo"><svg class="m-logo__art" viewBox="0 0 234.49 57.39" aria-hidden="true"><use href="#prism-logo"/></svg></span>
                     <div class="m-slide__body">
                       <div class="m-eyebrow"><span class="pt-chip"><i></i><i></i><i></i><i></i></span>Case study · Sample content</div>
                       <div class="m-title">Riverbend tells its story <em>once</em></div>
@@ -347,7 +351,7 @@
                 <div class="tilt" data-tilt>
                 <div class="mock mock--carousel" role="group" aria-label="Sample carousel, three panels" tabindex="0" data-drag-scroll>
                   <div class="m-panel hue-1" data-theme="light" role="img" aria-label="Panel 1, cover: Riverbend tells its story once.">
-                    <span class="m-logo"><svg viewBox="0 0 46.19 40" aria-hidden="true"><polygon points="0,0 23.09,0 11.55,20" fill="#eaa440"/><polygon points="23.09,0 46.19,0 34.64,20" fill="#769df8"/><polygon points="11.55,20 34.64,20 23.09,40" fill="#e7707f"/></svg>prism</span>
+                    <span class="m-logo"><svg class="m-logo__art" viewBox="0 0 234.49 57.39" aria-hidden="true"><use href="#prism-logo"/></svg></span>
                     <div class="m-panel__body">
                       <div class="m-eyebrow"><span class="pt-chip"><i></i><i></i><i></i><i></i></span>Case study</div>
                       <div class="m-title">Riverbend tells its story <em>once</em></div>
@@ -356,7 +360,7 @@
                     <div class="pt-thread"><span class="hue-1"><i></i><i></i><i></i><i></i></span></div>
                   </div>
                   <div class="m-panel hue-2" data-theme="light" role="img" aria-label="Panel 2: 2 days from notes to a finished donor packet. Before: 9 days. Fictional data.">
-                    <svg class="m-glyph" viewBox="0 0 46.19 40" aria-hidden="true"><polygon points="0,0 23.09,0 11.55,20" fill="#eaa440"/><polygon points="23.09,0 46.19,0 34.64,20" fill="#769df8"/><polygon points="11.55,20 34.64,20 23.09,40" fill="#e7707f"/></svg>
+                    <svg class="m-glyph" viewBox="0 0 66.26 57.39" aria-hidden="true"><use href="#prism-glyph"/></svg>
                     <div class="m-panel__body">
                       <div class="m-stat">2 days</div>
                       <div class="m-lede">from notes to a finished donor packet</div>
@@ -366,7 +370,7 @@
                     <div class="pt-thread"><span class="hue-2"><i></i><i></i><i></i><i></i></span></div>
                   </div>
                   <div class="m-panel hue-3" data-theme="dark" role="img" aria-label="Panel 3, closing: Approve the story once. Read the case study.">
-                    <span class="m-logo"><svg viewBox="0 0 46.19 40" aria-hidden="true"><polygon points="0,0 23.09,0 11.55,20" fill="#eaa440"/><polygon points="23.09,0 46.19,0 34.64,20" fill="#769df8"/><polygon points="11.55,20 34.64,20 23.09,40" fill="#e7707f"/></svg>prism</span>
+                    <span class="m-logo"><svg class="m-logo__art" viewBox="0 0 234.49 57.39" aria-hidden="true"><use href="#prism-logo"/></svg></span>
                     <div class="m-panel__body">
                       <div class="m-title">Approve the story <em>once</em></div>
                       <span class="m-btn">Read the case study</span>
@@ -395,14 +399,14 @@
                   <div class="m-mail" data-theme="light">
                     <div class="m-mail__bar"><span>Subject</span>Riverbend tells its story once</div>
                     <div class="m-mail__pad">
-                      <span class="m-logo"><svg viewBox="0 0 46.19 40" aria-hidden="true"><polygon points="0,0 23.09,0 11.55,20" fill="#eaa440"/><polygon points="23.09,0 46.19,0 34.64,20" fill="#769df8"/><polygon points="11.55,20 34.64,20 23.09,40" fill="#e7707f"/></svg>prism</span>
+                      <span class="m-logo"><svg class="m-logo__art" viewBox="0 0 234.49 57.39" aria-hidden="true"><use href="#prism-logo"/></svg></span>
                       <div class="m-eyebrow">Case study · Sample content</div>
                       <div class="m-title">Riverbend tells its story <em>once</em></div>
                       <div class="m-text">Two people run communications for 40 food pantries. Every report and post used to start from a blank page.</div>
                       <div class="m-text">Now they approve one draft and get every piece from it.</div>
                       <span class="m-btn">Read the case study</span>
                       <div class="m-divider"><span class="pt-chip mini"><i></i><i></i><i></i><i></i></span></div>
-                      <div class="m-sign"><svg viewBox="0 0 46.19 40" aria-hidden="true"><polygon points="0,0 23.09,0 11.55,20" fill="#eaa440"/><polygon points="23.09,0 46.19,0 34.64,20" fill="#769df8"/><polygon points="11.55,20 34.64,20 23.09,40" fill="#e7707f"/></svg>The Prism team · Fictional data</div>
+                      <div class="m-sign"><svg viewBox="0 0 66.26 57.39" aria-hidden="true"><use href="#prism-glyph"/></svg>The Prism team · Fictional data</div>
                     </div>
                   </div>
                 </div>
@@ -462,7 +466,7 @@
                 <div class="m-eyebrow"><span class="m-motif"><i></i><i></i><i></i><i></i></span>Case study</div>
                 <div class="m-title">One story. Every channel.</div>
                 <div class="m-stats"><div><b>2 days</b><span>notes to donor packet</span></div><div><b>90%</b><span>approved first time</span></div></div>
-                <div class="m-post__foot"><span class="m-brand"><svg class="m-brand__glyph" viewBox="0 0 46.19 40" aria-hidden="true"><polygon points="0,0 23.09,0 11.55,20" fill="#eaa440"/><polygon points="23.09,0 46.19,0 34.64,20" fill="#769df8"/><polygon points="11.55,20 34.64,20 23.09,40" fill="#e7707f"/></svg><i class="m-brand__mark"></i><span data-brand-name>prism</span></span><span class="m-note">Sample content</span></div>
+                <div class="m-post__foot"><span class="m-brand"><svg class="m-brand__logo" viewBox="0 0 234.49 57.39" aria-hidden="true"><use href="#prism-logo"/></svg><i class="m-brand__mark"></i><span class="m-brand__name" data-brand-name>prism</span></span><span class="m-note">Sample content</span></div>
               </div>
             </div>
             <div class="mock" role="img" aria-label="Sample slide in the same design system: 90 percent approved on the first proof.">
@@ -697,7 +701,7 @@
     <div class="container">
       <div class="site-footer__top">
         <div>
-          <a class="logo" href="#top" aria-label="Prism, back to top"><svg class="logo__glyph" viewBox="0 0 46.19 40" aria-hidden="true"><polygon points="0,0 23.09,0 11.55,20" fill="#eaa440"/><polygon points="23.09,0 46.19,0 34.64,20" fill="#769df8"/><polygon points="11.55,20 34.64,20 23.09,40" fill="#e7707f"/></svg><span class="logo__word">prism</span></a>
+          <a class="logo" href="#top" aria-label="Prism, back to top"><svg class="logo__art" viewBox="0 0 234.49 57.39" aria-hidden="true"><use href="#prism-logo"/></svg></a>
           <p class="site-footer__blurb">A content studio that turns raw material into complete documents of any kind.</p>
         </div>
         <nav aria-label="Footer">
@@ -716,7 +720,7 @@
         <p class="pt-caption">Riverbend Food Network, Northline, Kiln, Halcyon and every figure on this page are sample content.</p>
       </div>
     </div>
-    <p class="site-footer__mark" aria-hidden="true">prism</p>
+    <div class="site-footer__mark" aria-hidden="true"><div class="site-footer__art"><svg viewBox="0 0 234.49 57.39"><use href="#prism-logo"/></svg><span class="site-footer__glyph"><i></i></span></div></div>
   </footer>
 
   <script type="module" src="/src/scripts/main.js"></script>

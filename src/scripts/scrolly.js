@@ -1,8 +1,8 @@
 import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { motionOn, onMotionChange } from './motion.js';
 
-gsap.registerPlugin(ScrollTrigger);
+// Seconds each step's transition plays for: Draft, Proof, Approve, Produce.
+const PLAY = [1.6, 2.1, 1.4, 1.9];
 
 // Scene geometry, in viewBox units (720 x 600).
 const PILE = [
@@ -260,24 +260,27 @@ function buildTimeline({ art, rail, auroras, wide }) {
 }
 
 export async function initScrolly() {
-  const hero = document.querySelector('[data-scrolly]');
-  if (!hero) return;
-  const art = hero.querySelector('[data-art]');
+  const section = document.querySelector('[data-scrolly]');
+  if (!section) return;
+  const grid = section.querySelector('.how__grid');
+  const intro = section.querySelector('.how__intro');
+  const art = section.querySelector('[data-art]');
   const scene = art.querySelector('.scene');
-  const stage = hero.querySelector('[data-stage]');
-  const rail = hero.querySelector('.rail');
-  const stepsWrap = hero.querySelector('[data-steps]');
-  const steps = [...hero.querySelectorAll('[data-step]')];
-  const railLinks = [...hero.querySelectorAll('[data-step-link]')];
-  const auroras = [...hero.querySelectorAll('[data-aurora]')];
-  const pointerGlow = hero.querySelector('[data-hero-pointer]');
+  const stage = section.querySelector('[data-stage]');
+  const rail = section.querySelector('.rail');
+  const stepsWrap = section.querySelector('[data-steps]');
+  const steps = [...section.querySelectorAll('[data-step]')];
+  const panels = [intro, ...steps];
+  const railLinks = [...section.querySelectorAll('[data-step-link]')];
+  const auroras = [...section.querySelectorAll('[data-aurora]')];
+  const pointerGlow = section.querySelector('[data-hero-pointer]');
   const floats = gsap.utils.toArray(scene.querySelectorAll('.src__float'));
   const headerH = () => parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 76;
 
   await fontsReady();
 
   if ('ResizeObserver' in window) {
-    new ResizeObserver(() => hero.style.setProperty('--stage-h', `${stage.offsetHeight}px`)).observe(stage);
+    new ResizeObserver(() => section.style.setProperty('--stage-h', `${stage.offsetHeight}px`)).observe(stage);
   }
 
   let mm;
@@ -289,78 +292,105 @@ export async function initScrolly() {
       art.classList.add('is-ready');
       rail.classList.add('is-live');
       stepsWrap.classList.add('is-live');
+      section.classList.add('is-live');
 
       const tl = buildTimeline({ art, rail, auroras, wide });
-      let marks = [];
-      let active = -1;
-      let shown = -1;
+      let state = -1;
+      let play = null;
 
-      // For each step: a = scroll position where its transition starts, b = where it is done and the step reads.
-      const measure = () => {
+      // Pinned (the usual case, set in how.css): the panel stays put and the section is a tall track.
+      // Flowing (short screens, large text): the steps scroll past the scene as ordinary text.
+      const pinned = () => getComputedStyle(grid).position === 'sticky';
+
+      // The scroll position at which each step begins, measured fresh so it follows any layout change above.
+      // Pinned: evenly spaced through the track, so every change takes its own stretch of scrolling.
+      // Flowing: where the step's text reaches the middle of the view.
+      const marks = () => {
         const vh = window.innerHeight;
+        if (pinned()) {
+          const top = section.getBoundingClientRect().top + window.scrollY;
+          const gap = (section.offsetHeight - vh) / steps.length;
+          return { gap, at: steps.map((_, i) => top + gap * (i + 0.5)) };
+        }
         const hh = headerH();
         const under = stage.offsetHeight + 4;
-        marks = steps.map((step) => {
-          const r = step.querySelector('.step__body').getBoundingClientRect();
-          const top = r.top + window.scrollY;
-          return { b: Math.max(1, wide ? top + r.height / 2 - (hh + (vh - hh) / 2) : top - under) };
+        return {
+          gap: 0,
+          at: steps.map((step) => {
+            const r = step.querySelector('.step__body').getBoundingClientRect();
+            const top = r.top + window.scrollY;
+            return Math.max(1, wide ? top + r.height / 2 - (hh + (vh - hh) / 2) : top - under);
+          }),
+        };
+      };
+
+      const showText = (s) => {
+        panels.forEach((panel, i) => {
+          panel.classList.toggle('is-current', i === s);
+          panel.classList.toggle('is-past', i < s);
         });
-        marks.forEach((m, i) => { m.a = Math.max(m.b - vh * 0.6, i ? marks[i - 1].b + vh * 0.08 : 0); });
+        steps.forEach((step, i) => step.classList.toggle('is-active', i < s));
+        railLinks.forEach((a, i) => (i === s - 1 ? a.setAttribute('aria-current', 'step') : a.removeAttribute('aria-current')));
       };
 
-      const timeAt = (y) => {
-        let t = 0;
-        for (let i = 0; i < marks.length; i += 1) {
-          const { a, b } = marks[i];
-          if (y >= b) { t = i + 1; continue; }
-          if (y > a) t = i + (y - a) / (b - a);
-          break;
-        }
-        return t;
-      };
-
-      const setActive = (idx) => {
-        if (idx === active) return;
-        active = idx;
-        railLinks.forEach((a, i) => (i === idx - 1 ? a.setAttribute('aria-current', 'step') : a.removeAttribute('aria-current')));
-        steps.forEach((s, i) => s.classList.toggle('is-active', i < idx));
-      };
-
-      const update = (instant) => {
-        const t = timeAt(window.scrollY);
-        setActive(t < 0.02 ? 0 : Math.min(steps.length, Math.ceil(t - 1e-4)));
+      // Move to a step: the text swaps, and the scene plays the whole change in time rather than following the scroll.
+      const go = (s, instant) => {
+        if (s === state) return;
+        const first = state === -1;
+        state = s;
+        showText(s);
+        if (play) play.kill();
+        if (first || instant) { tl.time(s); return; }
         if (reduce) {
-          // No movement: each step swaps in whole, with a short fade.
-          const idx = Math.floor(t + 0.5);
-          if (idx === shown) return;
-          const first = shown === -1;
-          shown = idx;
-          if (first || instant) { tl.time(idx); return; }
-          gsap.to(art, { opacity: 0, duration: 0.12, overwrite: true, onComplete: () => { tl.time(idx); gsap.to(art, { opacity: 1, duration: 0.2 }); } });
+          // No movement: the scene swaps in whole, with a short fade.
+          play = gsap.to(art, { opacity: 0, duration: 0.12, overwrite: true, onComplete: () => { tl.time(s); gsap.to(art, { opacity: 1, duration: 0.2 }); } });
           return;
         }
-        if (instant) { gsap.killTweensOf(tl); tl.time(t); return; }
-        gsap.to(tl, { time: t, duration: 0.6, ease: 'power2.out', overwrite: true });
+        const from = tl.time();
+        const lo = Math.min(from, s);
+        const hi = Math.max(from, s);
+        let duration = 0;
+        for (let i = Math.floor(lo); i < Math.ceil(hi); i += 1) duration += PLAY[i] * (Math.min(hi, i + 1) - Math.max(lo, i));
+        if (hi - lo > 1.01) duration *= 0.6; // passing several steps at once
+        if (s < from) duration *= 0.7; // going back
+        play = gsap.to(tl, { time: s, duration: Math.max(0.35, duration), ease: 'power1.inOut' });
       };
+      const stateAt = (y) => marks().at.filter((m) => y >= m).length;
+      const update = (instant) => go(stateAt(window.scrollY + 1), instant);
 
-      ScrollTrigger.create({
-        trigger: hero,
-        start: 'top bottom',
-        end: 'bottom top',
-        onUpdate: () => update(false),
-        onRefresh: () => { measure(); update(true); },
-      });
-      measure();
+      let queued = false;
+      const onScroll = () => {
+        if (queued) return;
+        queued = true;
+        requestAnimationFrame(() => { queued = false; update(false); });
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll, { passive: true });
+
+      // Where to scroll to show step i: a little way into its stretch.
+      const placeOf = (i) => { const m = marks(); return m.at[i] + (m.gap ? m.gap * 0.3 : 2); };
+
+      // Opened on a step's link: start on that step.
+      const linked = steps.findIndex((step) => `#${step.id}` === window.location.hash);
+      if (linked >= 0) window.scrollTo({ top: placeOf(linked), behavior: 'auto' });
       update(true);
 
       const goTo = (i, link) => (event) => {
         event.preventDefault();
-        window.scrollTo({ top: marks[i].b + 2, behavior: reduce ? 'auto' : 'smooth' });
+        window.scrollTo({ top: placeOf(i), behavior: reduce ? 'auto' : 'smooth' });
         steps[i].focus({ preventScroll: true });
         try { history.replaceState(null, '', link.hash); } catch { /* sandboxed frame */ }
       };
       const handlers = railLinks.map((a, i) => [a, goTo(i, a)]);
       handlers.forEach(([a, fn]) => a.addEventListener('click', fn));
+
+      // Keyboard: a link inside a step that isn't showing brings that step forward before it takes focus.
+      const onFocus = (event) => {
+        if (!pinned() || event.target.matches('[data-step]')) return;
+        const i = steps.findIndex((step) => step.contains(event.target));
+        if (i >= 0 && state !== i + 1) window.scrollTo({ top: placeOf(i), behavior: 'auto' });
+      };
+      section.addEventListener('focusin', onFocus);
 
       // Pointer: a soft light follows it across the backdrop, and the loose sources drift a little.
       let onMove;
@@ -382,8 +412,8 @@ export async function initScrolly() {
           drift.forEach((d) => { d.x(nx * d.depth * k); d.y(ny * d.depth * k); });
         };
         onLeave = () => gsap.to(pointerGlow, { opacity: 0, duration: 0.8, overwrite: 'auto' });
-        hero.addEventListener('pointermove', onMove, { passive: true });
-        hero.addEventListener('pointerleave', onLeave);
+        section.addEventListener('pointermove', onMove, { passive: true });
+        section.addEventListener('pointerleave', onLeave);
         const armDrift = () => {
           drift = floats.map((el, i) => ({
             x: gsap.quickTo(el, 'x', { duration: 1, ease: 'power3.out' }),
@@ -398,14 +428,20 @@ export async function initScrolly() {
       }
 
       return () => {
+        window.removeEventListener('scroll', onScroll);
+        window.removeEventListener('resize', onScroll);
+        section.removeEventListener('focusin', onFocus);
         handlers.forEach(([a, fn]) => a.removeEventListener('click', fn));
-        if (onMove) hero.removeEventListener('pointermove', onMove);
-        if (onLeave) hero.removeEventListener('pointerleave', onLeave);
+        if (onMove) section.removeEventListener('pointermove', onMove);
+        if (onLeave) section.removeEventListener('pointerleave', onLeave);
+        if (play) play.kill();
         gsap.killTweensOf([tl, art, pointerGlow, ...floats]);
         gsap.set([...floats, pointerGlow, art], { clearProps: 'all' });
         art.classList.remove('is-ready');
         rail.classList.remove('is-live');
         stepsWrap.classList.remove('is-live');
+        section.classList.remove('is-live');
+        panels.forEach((panel) => panel.classList.remove('is-current', 'is-past'));
       };
     });
   };

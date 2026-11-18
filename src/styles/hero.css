@@ -189,6 +189,11 @@ html[data-motion="off"] .hx { transform: rotate(var(--rot)); }
 .hx-brand::before { content: ""; width: 0.8em; height: 0.8em; background: var(--d-accent); border-radius: calc(var(--d-radius) * 0.5); }
 .hx__card--alt .hx-brand::before { background: var(--d-alt-accent); }
 .hx-brand::after { content: var(--h-name); }
+/* In the Prism system the outputs carry the supplied logo instead of a dot and a name. */
+.hx-logo { display: none; height: 1.1em; width: auto; --logo-ink: #010202; }
+.hx__card--alt .hx-logo { --logo-ink: #ffffff; }
+[data-sys="prism"] .hx-logo { display: block; }
+[data-sys="prism"] .hx-brand::before, [data-sys="prism"] .hx-brand::after { display: none; }
 .hx-kicker { font: 500 1em / 1 var(--font-mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--d-muted); }
 .hx__card--alt .hx-kicker { color: inherit; opacity: 0.92; }
 .hx-title { font-family: var(--d-display); font-weight: var(--d-weight); letter-spacing: var(--d-tracking); text-transform: var(--d-case); line-height: 1.02; text-wrap: balance; }
@@ -300,6 +305,7 @@ html[data-motion="off"] .sys__bar { opacity: 0 !important; }
   --bg: #0b0d14; --fg: #eef1f8; --body: #b9bfd0; --muted: #8d96b0; --mark: #6a7392; --link: #a9bbff; --rule: rgba(255, 255, 255, 0.09);
   --raw-gutter: 1.875rem;
 }
+:root[data-intro] .hero:has(> [data-skin]) { background: #0b0d14; }
 :root[data-intro] [data-skin] .hero__bg { opacity: 0; }
 :root[data-intro] [data-skin] .hero__foot { visibility: hidden; }
 
@@ -385,9 +391,9 @@ html[data-motion="off"] .sys__bar { opacity: 0 !important; }
 }
 :root[data-intro] [data-skin] .hx__card > * { visibility: hidden; }
 :root[data-intro] [data-skin] .hx__card::before {
-  content: ""; position: absolute; inset: 0;
-  background: linear-gradient(105deg, transparent 40%, rgba(255, 255, 255, 0.03) 50%, transparent 60%) 0 0 / 300% 100%;
-  animation: raw-shimmer 2.4s linear infinite;
+  content: ""; position: absolute; inset: 0 auto 0 0; width: 300%;
+  background: linear-gradient(105deg, transparent 40%, rgba(255, 255, 255, 0.03) 50%, transparent 60%);
+  animation: raw-shimmer 1.2s linear infinite;
 }
 :root[data-intro] [data-skin] .hx__card::after {
   position: absolute; inset: 0; display: grid; place-items: center;
@@ -397,7 +403,7 @@ html[data-motion="off"] .sys__bar { opacity: 0 !important; }
 :root[data-intro] [data-skin] .hx--slide .hx__card::after { content: "deck.pptx"; }
 :root[data-intro] [data-skin] .hx--post .hx__card::after { content: "post.png"; }
 :root[data-intro] [data-skin] .hx--mail .hx__card::after { content: "email.html"; }
-@keyframes raw-shimmer { from { background-position: 150% 0; } to { background-position: -150% 0; } }
+@keyframes raw-shimmer { from { transform: translateX(-66.667%); } to { transform: translateX(33.333%); } }
 
 /* The edit itself: a flagged word, selected, retyped. */
 .hero__was.is-flagged { text-decoration-color: var(--s-amber); }
