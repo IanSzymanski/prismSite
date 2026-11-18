@@ -1,6 +1,5 @@
 /* Sections below the hero. */
 
-@property --angle { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
 :root { interpolate-size: allow-keywords; }
 
 /* ---------- Numbers and the format marquee ---------- */
@@ -527,28 +526,4 @@ html[data-motion="off"] .checks li, html[data-motion="off"] .checks i { opacity:
   .cta__fan { top: 0; right: -40%; width: 150%; transform: none; opacity: 0.4; }
 }
 
-.signup { max-width: 35rem; margin-top: 24px; }
-.signup__label { display: block; margin-bottom: 9px; font: 600 var(--fs-small) / 1.3 var(--font-sans); color: #fff; }
-.signup__row { display: flex; flex-wrap: wrap; gap: 10px; }
-/* The field's border turns into a slow spectrum while it has focus. */
-.signup__field { position: relative; flex: 1 1 14rem; min-width: 0; padding: 1.5px; border-radius: var(--r-md); background: rgba(255, 255, 255, 0.22); transition: background-color var(--dur-2); }
-.signup__field:hover { background: rgba(255, 255, 255, 0.4); }
-.signup__field:focus-within { background: conic-gradient(from var(--angle), var(--s-red), var(--s-amber), var(--s-green), var(--s-blue), var(--s-violet), var(--s-red)); animation: turn 5s linear infinite; box-shadow: 0 0 34px -8px var(--s-violet); }
-@keyframes turn { to { --angle: 360deg; } }
-.signup__input { display: block; width: 100%; min-height: 49px; padding: 0 15px; border: 0; border-radius: calc(var(--r-md) - 1.5px); background: #0d1020; color: #fff; }
-.signup__input::placeholder { color: #9aa2bb; opacity: 1; }
-.signup__input:focus-visible { outline: none; }
-.signup__field:has([aria-invalid="true"]) { background: var(--s-red); animation: none; }
-.signup__error, .signup__status { display: flex; align-items: flex-start; gap: 8px; margin-top: 12px; font-size: var(--fs-small); line-height: 1.45; }
-.signup__error { color: #ff8a9a; font-weight: 500; }
-.signup__status { position: relative; color: #fff; font-weight: 500; font-size: 1.0625rem; }
-.signup__status .icon { color: var(--s-green); margin-top: 2px; }
-.signup__error .icon { width: 18px; height: 18px; margin-top: 1px; }
-.signup__status:focus { outline: none; }
-.signup.is-done .signup__label, .signup.is-done .signup__row { display: none; }
-.signup__error:not([hidden]) { animation: shake 0.36s var(--ease-out); }
-.signup__status:not([hidden]) { animation: rise 0.6s var(--ease-out); }
-@keyframes shake { 25% { transform: translateX(-5px); } 60% { transform: translateX(4px); } }
-.burst { position: absolute; left: 10px; top: 12px; width: 0; height: 0; pointer-events: none; }
-.burst i { position: absolute; left: -2px; top: -7px; width: 4px; height: 14px; border-radius: 4px; background: var(--c); transform: rotate(var(--r)) translateY(-10px); animation: burst 0.9s var(--ease-out) forwards; }
-@keyframes burst { 60% { opacity: 1; } 100% { transform: rotate(var(--r)) translateY(calc(var(--d) * -1)) scaleY(0.4); opacity: 0; } }
+.cta__buttons { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }

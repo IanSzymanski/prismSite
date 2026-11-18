@@ -185,6 +185,8 @@ a:hover { text-decoration-color: currentColor; }
 .pt-btn:hover .pt-btn__icon .icon + .icon { transform: none; }
 .pt-btn__icon--down .icon + .icon { transform: translateY(-130%); }
 .pt-btn:hover .pt-btn__icon--down .icon:first-child { transform: translateY(130%); }
+.pt-btn__icon--out .icon + .icon { transform: translate(-130%, 130%); }
+.pt-btn:hover .pt-btn__icon--out .icon:first-child { transform: translate(130%, -130%); }
 .pt-btn[aria-busy="true"] { pointer-events: none; }
 .pt-btn[aria-busy="true"] .icon { animation: spin 0.8s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }

@@ -1,7 +1,9 @@
-import { motionOn } from './motion.js';
+import { motionOn, onMotionChange } from './motion.js';
+import { buildHero } from './hero-build.js';
 
 // The hero shows the same content in five sample design systems. It moves to the next one on a timer,
 // or when one is picked. The next system is laid over the current one and wiped in along a diagonal.
+// On a fresh visit with motion on, it first builds itself: plain content, reviewed and edited, then styled.
 const ORDER = ['prism', 'riverbend', 'northline', 'kiln', 'halcyon'];
 const TONE = { prism: 'dark', riverbend: 'light', northline: 'dark', kiln: 'light', halcyon: 'light' };
 const FONTS = {
@@ -10,6 +12,7 @@ const FONTS = {
 };
 const DWELL = 4800;
 const WIPE = 1150;
+const FIRST_WIPE = 1300;
 const START = 'polygon(0% 0%, 0% 0%, -24% 100%, 0% 100%)';
 const END = 'polygon(0% 0%, 124% 0%, 100% 100%, 0% 100%)';
 
@@ -22,9 +25,15 @@ export function initHero() {
   const buttons = [...hero.querySelectorAll('[data-sys-btn]')];
   const pauseButton = hero.querySelector('[data-sys-pause]');
   const switcher = hero.querySelector('.sys');
+  const root = document.documentElement;
   const born = performance.now();
 
-  let current = skin.dataset.sys;
+  // The head script set data-intro if this visit should open on plain content. Claim it, or let it go.
+  let building = root.hasAttribute('data-intro') && motionOn() && !!skin.animate && window.scrollY < 40;
+  if (building) root.setAttribute('data-intro', 'run'); else root.removeAttribute('data-intro');
+  let build = null;
+
+  let current = building ? 'raw' : skin.dataset.sys;
   let busy = false;
   let paused = false;
   let hovering = false;
@@ -62,13 +71,50 @@ export function initHero() {
     return (performance.now() - born) / 1000;
   };
 
-  async function show(sys) {
+  // Hold the hero at the styled layout's height while it builds, so nothing below moves when the styling lands.
+  const reserve = () => {
+    if (!building || busy) return;
+    const probe = skin.cloneNode(true);
+    probe.removeAttribute('data-skin');
+    probe.removeAttribute('style');
+    probe.classList.add('is-probe');
+    probe.setAttribute('aria-hidden', 'true');
+    probe.inert = true;
+    probe.querySelectorAll('[id]').forEach((el) => el.removeAttribute('id'));
+    skin.style.removeProperty('min-height');
+    hero.append(probe);
+    const tall = probe.offsetHeight;
+    probe.remove();
+    if (tall > skin.offsetHeight + 1) skin.style.minHeight = `${tall}px`;
+  };
+  // The styled hero is in place: drop the plain-content state and start the rotation clock.
+  const landed = () => {
+    building = false;
+    build = null;
+    hero.classList.add('is-landing');
+    root.removeAttribute('data-intro');
+    skin.style.removeProperty('min-height');
+    void getComputedStyle(skin).opacity;
+    hero.classList.remove('is-landing');
+    elapsed = 0;
+  };
+  // Jump straight to the styled hero: motion went off, or nobody is watching.
+  const skip = () => {
+    if (!building || busy) return;
+    if (build) build.cancel();
+    mark('prism');
+    settle('prism');
+    setTone('prism');
+    landed();
+  };
+
+  async function show(sys, first = false) {
     if (busy || sys === current || !ORDER.includes(sys)) return;
     busy = true;
     elapsed = 0;
     mark(sys);
     await loadFonts(sys);
-    if (!motionOn() || !skin.animate) { settle(sys); setTone(sys); busy = false; return; }
+    if (!motionOn() || !skin.animate) { settle(sys); setTone(sys); if (first) landed(); busy = false; return; }
 
     const next = skin.cloneNode(true);
     next.classList.add('is-next');
@@ -80,22 +126,25 @@ export function initHero() {
     // Start the copy's animations as if it had been here all along, so nothing replays or jumps.
     next.style.setProperty('--age', `${age().toFixed(3)}s`);
     next.style.clipPath = START;
+    if (first) next.classList.add('is-styling');
     hero.insertBefore(next, edge);
 
-    const timing = { duration: WIPE, easing: 'cubic-bezier(0.7, 0, 0.2, 1)', fill: 'forwards' };
+    const duration = first ? FIRST_WIPE : WIPE;
+    const timing = { duration, easing: 'cubic-bezier(0.7, 0, 0.2, 1)', fill: 'forwards' };
     const wipe = next.animate({ clipPath: [START, END] }, timing);
     edgeLine.animate({
       clipPath: ['polygon(0% 0%, 0.45% 0%, -23.55% 100%, -24% 100%)', 'polygon(124% 0%, 124.45% 0%, 100.45% 100%, 100% 100%)'],
     }, timing);
-    edge.animate({ opacity: [0, 1, 1, 0], offset: [0, 0.08, 0.9, 1] }, { duration: WIPE, easing: 'linear' });
-    window.setTimeout(() => setTone(sys), WIPE * 0.42);
+    edge.animate({ opacity: [0, 1, 1, 0], offset: [0, 0.08, 0.9, 1] }, { duration, easing: 'linear' });
+    window.setTimeout(() => setTone(sys), duration * 0.42);
     try { await wipe.finished; } catch { /* cancelled */ }
     settle(sys);
+    if (first) landed();
     next.remove();
     busy = false;
   }
 
-  const canRun = () => motionOn() && !paused && !hovering && visible && !document.hidden && !busy;
+  const canRun = () => motionOn() && !paused && !hovering && visible && !document.hidden && !busy && !building;
   const tick = (now) => {
     frame = requestAnimationFrame(tick);
     const delta = Math.min(100, now - last);
@@ -122,10 +171,19 @@ export function initHero() {
   if ('IntersectionObserver' in window) {
     new IntersectionObserver(([entry]) => {
       visible = entry.isIntersecting && entry.intersectionRatio > 0.3;
-      if (visible) start(); else stop();
+      if (visible) start(); else { stop(); skip(); }
     }, { threshold: [0, 0.3, 0.6] }).observe(hero);
   }
   start();
+
+  if (building) {
+    reserve();
+    if (document.fonts) document.fonts.ready.then(reserve);
+    window.addEventListener('resize', reserve, { passive: true });
+    onMotionChange(() => { if (!motionOn()) skip(); });
+    document.addEventListener('visibilitychange', () => { if (document.hidden) skip(); });
+    build = buildHero(hero, { style: () => show('prism', true), abort: skip });
+  }
 
   // The four outputs lean a little with the pointer.
   let queued = false;

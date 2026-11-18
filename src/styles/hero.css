@@ -9,6 +9,14 @@
 }
 /* During a change the next system is laid over the current one and wiped in by script. */
 .hero__skin.is-next { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
+/* A hidden copy, measured once so the hero can hold the styled height while it builds. */
+.hero__skin.is-probe { position: absolute; inset: 0 0 auto; visibility: hidden; pointer-events: none; }
+/* The first styling: the outputs are produced as the design system passes over them. */
+/* It has to finish inside the first wipe (1300ms), when this copy is swapped for the live skin. */
+.hero__skin.is-styling .hx { animation: hx-produce 0.72s var(--ease-out) both; animation-delay: calc(var(--n) * 70ms + 340ms); }
+@keyframes hx-produce { from { opacity: 0; scale: 0.84; translate: 0 34px; } }
+/* The frame the plain-content state comes off: values jump to the styled ones the copy already shows, with no transitions. */
+.hero.is-landing *, .hero.is-landing *::before, .hero.is-landing *::after { transition: none !important; }
 .hero__edge { position: absolute; inset: 0; z-index: 3; pointer-events: none; opacity: 0; filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.9)) drop-shadow(0 0 28px rgba(154, 107, 255, 0.85)); }
 .hero__edge i { position: absolute; inset: 0; background: linear-gradient(180deg, var(--s-red), var(--s-amber), var(--s-green), var(--s-blue), var(--s-violet)); }
 
@@ -272,4 +280,170 @@ html[data-motion="off"] .sys__bar { opacity: 0 !important; }
 }
 @media (min-width: 60em) {
   .hero__grid { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: clamp(2rem, 4vw, 4.5rem); padding-top: calc(var(--header-h) + 1rem); }
+}
+
+/* ---------- Before styling: the hero builds itself from plain content ----------
+   With motion on, the page opens on the hero's own words as a plain content.md. hero-build.js runs the brand
+   check, moves a cursor in to fix the flagged word and approve, then hero.js wipes the design system over it.
+   Every rule below applies to the live skin only while :root has data-intro. None of them changes an animation
+   name, so the styled hero's own animations run underneath from the start and nothing replays when it lands. */
+
+.hero__file { position: absolute; visibility: hidden; }
+.hero__was {
+  display: none; border-radius: 3px;
+  text-decoration: underline wavy transparent 1.5px; text-underline-offset: 0.22em; text-decoration-skip-ink: none;
+  transition: background-color var(--dur-1), color var(--dur-1), text-decoration-color var(--dur-3);
+}
+
+:root[data-intro] [data-skin] {
+  color-scheme: dark;
+  --bg: #0b0d14; --fg: #eef1f8; --body: #b9bfd0; --muted: #8d96b0; --mark: #6a7392; --link: #a9bbff; --rule: rgba(255, 255, 255, 0.09);
+  --raw-gutter: 1.875rem;
+}
+:root[data-intro] [data-skin] .hero__bg { opacity: 0; }
+:root[data-intro] [data-skin] .hero__foot { visibility: hidden; }
+
+/* The words, as Markdown. Each block arrives in turn; the heading types itself. */
+:root[data-intro] [data-skin] .hero__intro {
+  padding-left: var(--raw-gutter);
+  font: 500 clamp(0.8125rem, 0.75rem + 0.25vw, 0.9375rem) / 1.75 var(--font-mono); color: var(--body);
+}
+:root[data-intro] [data-skin] .hero__intro > :not(.hero__title) { animation-duration: 0.45s; animation-delay: var(--raw-at, 0ms); }
+:root[data-intro] [data-skin] .hero__intro .pt-eyebrow.pill {
+  --raw-at: 120ms;
+  display: block; margin: 0 0 1.1em; padding: 0; border-radius: 0; background: none; box-shadow: none;
+  font: inherit; letter-spacing: 0; text-transform: none; color: var(--body);
+}
+:root[data-intro] [data-skin] .pt-eyebrow .pt-chip { display: none; }
+:root[data-intro] [data-skin] .pt-eyebrow::before { content: "kicker: "; content: "kicker: " / ""; color: var(--mark); }
+
+:root[data-intro] [data-skin] .hero__title {
+  display: block; min-height: 0; margin: 0 0 0.7em;
+  font: 500 clamp(1.25rem, 0.95rem + 1.15vw, 1.875rem) / 1.3 var(--font-mono); letter-spacing: -0.02em; text-transform: none; color: var(--fg);
+  animation: raw-type 0.5s steps(16, end) 0.26s both;
+}
+:root[data-intro] [data-skin] .hero__title::before { content: "# "; content: "# " / ""; color: var(--mark); }
+:root[data-intro] [data-skin] .hero__title .line,
+:root[data-intro] [data-skin] .hero__title .line > span { display: inline; overflow: visible; padding: 0; margin: 0; }
+:root[data-intro] [data-skin] .hero__accent {
+  padding: 0; border-radius: 0; background: none; -webkit-background-clip: border-box; background-clip: border-box;
+  color: inherit; font-weight: inherit; font-style: normal;
+}
+:root[data-intro] [data-skin] .hero__was { display: inline; }
+:root[data-intro] [data-skin] .hero__now { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+@keyframes raw-type { from { clip-path: inset(0 100% 0 0); } }
+
+:root[data-intro] [data-skin] .hero__lede { --raw-at: 640ms; max-width: 54ch; margin: 0 0 1.4em; font: inherit; }
+:root[data-intro] [data-skin] .hero__actions { --raw-at: 760ms; display: block; margin: 0 0 1.4em; overflow-wrap: anywhere; }
+:root[data-intro] [data-skin] .hero__actions .pt-btn {
+  display: inline; min-height: 0; padding: 0; border-radius: 0;
+  font: inherit; white-space: normal; color: var(--link); translate: none; transform: none;
+}
+:root[data-intro] [data-skin] .hero__actions .pt-btn:hover { text-decoration: underline; text-underline-offset: 0.2em; }
+:root[data-intro] [data-skin] .hero__actions .pt-btn::before,
+:root[data-intro] [data-skin] .hero__actions .pt-btn::after {
+  position: static; inset: auto; z-index: auto; display: inline; opacity: 1; filter: none;
+  background: none; box-shadow: none; border-radius: 0; -webkit-backdrop-filter: none; backdrop-filter: none; transition: none; color: var(--mark);
+}
+:root[data-intro] [data-skin] .hero__actions .pt-btn::before { content: "["; content: "[" / ""; }
+:root[data-intro] [data-skin] .hero__actions .pt-btn::after { content: "](" attr(href) ")"; content: "](" attr(href) ")" / ""; }
+:root[data-intro] [data-skin] .hero__actions .pt-btn__icon { display: none; }
+:root[data-intro] [data-skin] .hero__proof { --raw-at: 880ms; display: block; margin: 0; font: inherit; color: var(--body); }
+:root[data-intro] [data-skin] .hero__proof li { display: block; }
+:root[data-intro] [data-skin] .hero__proof li::before { content: "- "; content: "- " / ""; color: var(--mark); }
+:root[data-intro] [data-skin] .hero__proof .icon { display: none; }
+
+/* The file bar: the draft's name, where it is in review, and the button that approves it. */
+:root[data-intro] [data-skin] .hero__file {
+  position: static; visibility: visible;
+  display: flex; align-items: center; gap: 10px; align-self: stretch;
+  margin: 0 0 1.6rem calc(var(--raw-gutter) * -1); padding: 0 0 12px;
+  border-bottom: 1px solid var(--rule);
+  font: 500 0.75rem / 1 var(--font-mono); color: var(--muted);
+}
+.hero__file .icon { width: 15px; height: 15px; }
+.hero__file-name { display: inline-flex; align-items: center; gap: 7px; color: var(--fg); }
+.hero__file-name .icon { color: var(--mark); }
+.hero__file-state { display: inline-flex; align-items: center; gap: 7px; margin-left: auto; transition: color var(--dur-2); }
+.hero__file-state::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; box-shadow: 0 0 10px currentColor; }
+.hero__file-state[data-state="check"] { color: var(--s-cyan); }
+.hero__file-state[data-state="proof"] { color: var(--s-amber); }
+.hero__file-state[data-state="approved"] { color: var(--s-green); }
+.hero__file-approve {
+  display: inline-flex; align-items: center; gap: 6px; padding: 7px 11px 7px 9px; border-radius: 8px;
+  box-shadow: inset 0 0 0 1px var(--rule); color: var(--fg);
+  transition: background-color var(--dur-2), color var(--dur-2), box-shadow var(--dur-2), transform var(--dur-1) var(--ease-out);
+}
+.hero__file-approve.is-hot { background: rgba(46, 217, 150, 0.1); box-shadow: inset 0 0 0 1px rgba(46, 217, 150, 0.5); }
+.hero__file-approve.is-pressed { background: var(--s-green); color: #04170f; box-shadow: 0 0 24px -4px rgba(46, 217, 150, 0.7); }
+
+/* The four outputs, waiting: dashed slots named for the files they will become. */
+:root[data-intro] [data-skin] .hx__card {
+  animation-delay: calc(var(--n) * 90ms + 900ms), calc(var(--n) * -1.7s - var(--age, 0s));
+  border-radius: 14px; background: rgba(255, 255, 255, 0.012); box-shadow: none;
+  outline: 1.5px dashed rgba(255, 255, 255, 0.16); outline-offset: -1.5px;
+}
+:root[data-intro] [data-skin] .hx__card > * { visibility: hidden; }
+:root[data-intro] [data-skin] .hx__card::before {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(105deg, transparent 40%, rgba(255, 255, 255, 0.03) 50%, transparent 60%) 0 0 / 300% 100%;
+  animation: raw-shimmer 2.4s linear infinite;
+}
+:root[data-intro] [data-skin] .hx__card::after {
+  position: absolute; inset: 0; display: grid; place-items: center;
+  font: 500 0.75rem / 1 var(--font-mono); color: var(--mark);
+}
+:root[data-intro] [data-skin] .hx--sheet .hx__card::after { content: "one-pager.pdf"; }
+:root[data-intro] [data-skin] .hx--slide .hx__card::after { content: "deck.pptx"; }
+:root[data-intro] [data-skin] .hx--post .hx__card::after { content: "post.png"; }
+:root[data-intro] [data-skin] .hx--mail .hx__card::after { content: "email.html"; }
+@keyframes raw-shimmer { from { background-position: 150% 0; } to { background-position: -150% 0; } }
+
+/* The edit itself: a flagged word, selected, retyped. */
+.hero__was.is-flagged { text-decoration-color: var(--s-amber); }
+.hero__was.is-selected { background: rgba(91, 132, 255, 0.5); color: #fff; text-decoration-color: transparent; }
+.hero__was.is-typing::after {
+  content: ""; display: inline-block; width: 2px; height: 1.1em; margin-left: 1px; vertical-align: -0.2em;
+  background: var(--link, #a9bbff); animation: caret 0.9s steps(1) infinite;
+}
+@keyframes caret { 50% { opacity: 0; } }
+
+/* Review cues, laid over the hero by script and removed when the styling lands. */
+.hero__review { position: absolute; inset: 0; z-index: 4; pointer-events: none; transition: opacity 0.3s var(--ease-out); }
+.hero__review.is-done { opacity: 0; }
+.hero__scan {
+  position: absolute; left: 0; top: 0; height: 2px; border-radius: 2px; opacity: 0;
+  background: linear-gradient(90deg, transparent, var(--s-green) 14%, var(--s-cyan) 70%, transparent);
+  box-shadow: 0 0 16px 1px rgba(53, 201, 255, 0.55);
+}
+.hero__tick {
+  position: absolute; left: 0; top: 0; display: grid; place-items: center; width: 18px; height: 18px; margin: -9px 0 0 -9px; border-radius: 50%;
+  background: rgba(46, 217, 150, 0.14); box-shadow: inset 0 0 0 1px rgba(46, 217, 150, 0.4); color: var(--s-green);
+  font: 500 0.6875rem / 1 var(--font-mono);
+}
+.hero__tick .icon { width: 11px; height: 11px; }
+.hero__tick.is-flag { background: rgba(255, 165, 61, 0.16); box-shadow: inset 0 0 0 1px rgba(255, 165, 61, 0.5), 0 0 14px -2px rgba(255, 165, 61, 0.6); color: var(--s-amber); }
+.hero__flag {
+  position: absolute; left: 0; top: 0; display: flex; align-items: baseline; gap: 9px; max-width: calc(100% - 24px);
+  margin: 0; padding: 9px 13px; border-radius: 10px; opacity: 0; white-space: nowrap;
+  background: #161a27; box-shadow: inset 0 0 0 1px rgba(255, 165, 61, 0.45), 0 18px 34px -14px rgba(0, 0, 0, 0.7);
+  color: #e6e9f3; font: 500 0.8125rem / 1.2 var(--font-sans);
+  transition: box-shadow var(--dur-3);
+}
+.hero__flag b { font: 500 0.6875rem / 1 var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--s-amber); transition: color var(--dur-3); }
+.hero__flag.is-fixed { box-shadow: inset 0 0 0 1px rgba(46, 217, 150, 0.5), 0 18px 34px -14px rgba(0, 0, 0, 0.7); }
+.hero__flag.is-fixed b { color: var(--s-green); }
+.hero__cursor { position: absolute; left: 0; top: 0; opacity: 0; transform-origin: 0 0; will-change: translate; }
+.hero__cursor svg { position: absolute; left: -2px; top: -2px; width: 18px; height: 25px; max-width: none; overflow: visible; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5)); }
+.hero__cursor path { fill: #fff; stroke: #0b0d14; stroke-width: 1.3; stroke-linejoin: round; }
+.hero__cursor span {
+  position: absolute; left: 13px; top: 21px; padding: 4px 8px 5px; border-radius: 3px 9px 9px 9px;
+  background: #3f62e8; color: #fff; font: 600 0.6875rem / 1 var(--font-sans); white-space: nowrap;
+  box-shadow: 0 6px 16px -6px rgba(91, 132, 255, 0.8);
+}
+.hero__ripple { position: absolute; left: -14px; top: -14px; width: 28px; height: 28px; border-radius: 50%; border: 2px solid #8fb0ff; opacity: 0; }
+
+@media (max-width: 47.99em) {
+  :root[data-intro] [data-skin] { --raw-gutter: 1.5rem; }
+  .hero__file-name .icon { display: none; }
 }

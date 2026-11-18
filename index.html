@@ -14,6 +14,7 @@
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
   <link rel="preload" href="/src/assets/fonts/bricolage-grotesque-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/src/assets/fonts/ibm-plex-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/src/assets/fonts/ibm-plex-mono-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin>
   <script>
     (function (d) {
       d.classList.remove('no-js'); d.classList.add('js');
@@ -22,6 +23,12 @@
       if (t === 'light' || t === 'dark') d.setAttribute('data-theme', t);
       if (m !== 'on' && m !== 'off') m = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'off' : 'on';
       d.setAttribute('data-motion', m);
+      // With motion on, a visit to the top of the page opens on the hero as plain content, then builds it.
+      // hero.js claims the build by setting data-intro="run". If it never does, show the styled hero.
+      if (m === 'on' && (!location.hash || location.hash === '#top')) {
+        d.setAttribute('data-intro', '');
+        setTimeout(function () { if (d.getAttribute('data-intro') === '') d.removeAttribute('data-intro'); }, 3000);
+      }
     })(document.documentElement);
   </script>
   <link rel="stylesheet" href="/src/styles/main.css">
@@ -42,7 +49,7 @@
           <li style="--n:4"><a class="site-nav__link" href="#faq">Questions</a></li>
           <li class="site-nav__pill" aria-hidden="true" role="presentation"></li>
         </ul>
-        <a class="pt-btn accent site-nav__cta" href="#start">Request access</a>
+        <a class="pt-btn accent site-nav__cta" href="https://github.com/IanSzymanski/prism">Get Prism</a>
       </nav>
       <div class="site-header__actions">
         <button class="icon-btn motion-toggle" type="button" data-motion-toggle aria-pressed="false" aria-label="Pause motion">
@@ -51,7 +58,7 @@
         <button class="icon-btn theme-toggle" type="button" data-theme-toggle aria-label="Switch to dark theme">
           <svg class="icon icon--sun" aria-hidden="true"><use href="#i-sun"/></svg><svg class="icon icon--moon" aria-hidden="true"><use href="#i-moon"/></svg>
         </button>
-        <a class="pt-btn sm site-header__cta" href="#start">Request access</a>
+        <a class="pt-btn sm site-header__cta" href="https://github.com/IanSzymanski/prism">Get Prism</a>
         <button class="icon-btn menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-controls="site-nav" aria-label="Menu">
           <svg class="icon icon--open" aria-hidden="true"><use href="#i-list"/></svg><svg class="icon icon--close" aria-hidden="true"><use href="#i-x"/></svg>
         </button>
@@ -71,12 +78,17 @@
         </div>
         <div class="container hero__grid">
           <div class="hero__intro">
+            <div class="hero__file" aria-hidden="true">
+              <span class="hero__file-name"><svg class="icon"><use href="#i-file-text"/></svg>content.md</span>
+              <span class="hero__file-state" data-file-state>Drafting</span>
+              <span class="hero__file-approve" data-file-approve><svg class="icon"><use href="#i-check"/></svg>Approve</span>
+            </div>
             <p class="pt-eyebrow pill" style="--i:0"><span class="pt-chip" aria-hidden="true"><i></i><i></i><i></i><i></i></span>Content studio</p>
-            <h1 class="hero__title" id="hero-title"><span class="line" style="--l:0"><span>One draft,</span></span> <span class="line" style="--l:1"><span>every <em class="hero__accent">format</em></span></span></h1>
+            <h1 class="hero__title" id="hero-title"><span class="line" style="--l:0"><span>One draft,</span></span> <span class="line" style="--l:1"><span>every <em class="hero__accent"><span class="hero__was" aria-hidden="true">output</span><span class="hero__now">format</span></em></span></span></h1>
             <p class="hero__lede" style="--i:3">Prism turns your notes, transcripts, documents and photos into finished documents for every channel, styled from your design system.</p>
             <div class="hero__actions" style="--i:4">
-              <a class="pt-btn" href="#start" data-magnetic>Request access <span class="pt-btn__icon" aria-hidden="true"><svg class="icon"><use href="#i-arrow-right"/></svg><svg class="icon"><use href="#i-arrow-right"/></svg></span></a>
-              <a class="pt-btn ghost" href="#how">See how it works <span class="pt-btn__icon pt-btn__icon--down" aria-hidden="true"><svg class="icon"><use href="#i-arrow-down"/></svg><svg class="icon"><use href="#i-arrow-down"/></svg></span></a>
+              <a class="pt-btn" href="https://github.com/IanSzymanski/prism" data-magnetic>Get Prism<span class="pt-btn__icon pt-btn__icon--out" aria-hidden="true"><svg class="icon"><use href="#i-arrow-up-right"/></svg><svg class="icon"><use href="#i-arrow-up-right"/></svg></span></a>
+              <a class="pt-btn ghost" href="#how">See how it works<span class="pt-btn__icon pt-btn__icon--down" aria-hidden="true"><svg class="icon"><use href="#i-arrow-down"/></svg><svg class="icon"><use href="#i-arrow-down"/></svg></span></a>
             </div>
             <ul class="hero__proof" style="--i:5">
               <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Paste your notes</li>
@@ -670,16 +682,10 @@
             <h2 id="start-title">Paste your notes. Approve the draft. Get the <em class="spectrum-text">deck</em>.</h2>
           </div>
           <div class="cta__act">
-            <p class="sec-lede">Request access and bring the first thing you want turned into documents.</p>
-            <form class="signup" action="/api/request-access" method="post" novalidate data-signup>
-              <label class="signup__label" for="signup-email">Work email</label>
-              <div class="signup__row">
-                <div class="signup__field"><input class="signup__input" id="signup-email" name="email" type="email" autocomplete="email" inputmode="email" spellcheck="false" required placeholder="you@company.com" aria-describedby="signup-error"></div>
-                <button class="pt-btn accent" type="submit" data-magnetic><span data-signup-label>Request access</span><svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></button>
-              </div>
-              <p class="signup__error" id="signup-error" hidden><svg class="icon" aria-hidden="true"><use href="#i-warning-circle"/></svg><span></span></p>
-              <p class="signup__status" role="status" tabindex="-1" hidden><svg class="icon" aria-hidden="true"><use href="#i-check-circle"/></svg><span></span></p>
-            </form>
+            <p class="sec-lede">Get Prism from GitHub and bring the first thing you want turned into documents.</p>
+            <div class="cta__buttons">
+              <a class="pt-btn accent" href="https://github.com/IanSzymanski/prism" data-magnetic>Get Prism on GitHub<span class="pt-btn__icon pt-btn__icon--out" aria-hidden="true"><svg class="icon"><use href="#i-arrow-up-right"/></svg><svg class="icon"><use href="#i-arrow-up-right"/></svg></span></a>
+            </div>
             <p class="note">Prism drafts and builds. You approve.</p>
           </div>
         </div>

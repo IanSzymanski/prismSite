@@ -30,20 +30,44 @@ The site runs on Cloudflare Workers as a static-assets Worker named `prism`, at 
 | `src/partials/scene.svg` | The "How it works" illustration and its glow layer, included into the page at build time |
 | `src/styles/tokens.css` | Colour (light and dark), the spectrum, gradients, the glow shape, type, radius, shadow and motion tokens |
 | `src/styles/base.css` | Reset, type, buttons, cards, header, footer, reveals and the motion-off rules |
-| `src/styles/hero.css` | The hero, its five sample design systems and the four outputs they restyle |
+| `src/styles/hero.css` | The hero, its five sample design systems, the four outputs they restyle, and the plain-content state it builds from |
 | `src/styles/how.css` | The scrollyteller: backdrop, sticky stage, rail, steps and scene paint |
 | `src/styles/sections.css` | Stats, marquee, tabs, format mocks, brand tuner, ledger, pipelines, case study, FAQ, closing panel |
-| `src/scripts/hero.js` | The design-system rotation in the hero and its wipe |
+| `src/scripts/hero.js` | The design-system rotation in the hero and its wipe, and when the hero builds itself |
+| `src/scripts/hero-build.js` | The opening: the brand check, the cursor's edit and approval, then the call to style it |
 | `src/scripts/scrolly.js` | The scroll-driven "How it works" timeline (GSAP) |
 | `src/scripts/motion.js` | The motion switch every animation checks |
 | `src/scripts/pointer.js` | Spotlight cards, tilting mocks, magnetic buttons, pipeline replays |
 | `src/scripts/brand.js` | The design-system picker and the "Yours" controls |
-| `src/scripts/*.js` | Theme toggle, header, reveals, tabs, ledger wire, sign-up form |
+| `src/scripts/*.js` | Theme toggle, header, reveals, tabs, ledger wire |
 | `vite.config.js` | Inlines the partial and a Phosphor Regular icon sprite |
 
 Icons come from `@phosphor-icons/core` (Regular weight) at build time. To add one, add its name to `ICONS` in `vite.config.js` and reference it with `<use href="#i-name"/>`.
 
 ## The hero
+
+### How it opens
+
+On a visit to the top of the page with motion on, the hero builds itself in Prism's own order before it shows its usual face.
+
+1. **Draft.** The page opens on the hero's words as a plain `content.md`: Markdown in IBM Plex Mono on a flat ground, with the four outputs as dashed slots named for the files they will become. The blocks arrive in turn and the heading types itself. This part is pure CSS, so it draws with the first paint.
+2. **Proof.** A scan line runs the brand and claim checks down the draft. Every block gets a tick except the heading, where the brand check flags "output" and asks for "format".
+3. **Edit.** A cursor labelled "You" comes in, double-clicks the word, retypes it, and the flag clears.
+4. **Approve.** The cursor presses Approve in the file bar.
+5. **Produce.** The Prism design system wipes over the draft with the usual spectrum edge, and the four outputs are made as it passes. Then the rotation starts.
+
+It takes about seven seconds, and the words, links and buttons work the whole time. How it fits together:
+
+- **One switch.** The script in `<head>` sets `data-intro` on `<html>` before the first paint. Every plain-content rule in `hero.css` sits under `:root[data-intro] [data-skin]`, so it applies to the live skin only and never to the copies the wipe makes.
+- **Nothing replays.** Those rules change how things look, never which animation runs, so the styled hero's own animations run underneath from the start. When the copy is swapped for the live skin, both are at the same point. Transitions are switched off for the one frame where `data-intro` comes off.
+- **No layout shift.** While it builds, the hero holds the styled layout's height (measured from a hidden copy), so nothing below it moves when the styling lands.
+- **Skips.** It goes straight to the styled hero when motion is off or switched off mid-way, when the page opens on another section (`#faq` and so on) or scrolled down, when the hero leaves the screen, and when the tab is hidden. If `hero.js` does not claim the build within three seconds, the head script shows the styled hero.
+- **Assistive tech.** The heading reads "One draft, every format" throughout: the draft word "output" is a decorative copy, and the Markdown punctuation, file bar, cursor, ticks and flag are hidden from assistive tech.
+- **Timing.** The CSS sets the draft (`--raw-at` delays and `raw-type`). `hero-build.js` sets the rest, measured from the heading's own animation so the two stay in step.
+
+To change the edit, change the two words in the heading: `.hero__was` is the draft word, `.hero__now` the approved one. The flag text and the typing follow them.
+
+### Five design systems
 
 The hero shows one layout in five sample design systems: Prism, Riverbend, Northline, Kiln and Halcyon. Each is a block of tokens on `.hero__skin[data-sys]` in `hero.css` (ground, ink, accent, display font, case, radius, glow colours, and a second set for the four output cards). Riverbend, Northline, Kiln and Halcyon are fictional and labelled so on the page.
 
@@ -52,7 +76,7 @@ The hero shows one layout in five sample design systems: Prism, Riverbend, North
 - **Stable layout.** The headline sits in one fixed-height box in every system, so the text and buttons under it never move.
 - **Header.** The hero sets `data-header-tone` to light or dark, and the header takes its ink from that.
 - **Fonts.** Instrument Serif (Riverbend) and Anton (Kiln) are fetched just before they are first needed.
-- **Fallbacks.** With motion off, picking a system swaps it at once. Without JavaScript the hero stays on Prism and the switcher is hidden.
+- **Fallbacks.** With motion off, picking a system swaps it at once. Without JavaScript the hero stays on Prism and the switcher is hidden, and it never opens as plain content.
 
 To add a system: add a token block in `hero.css`, a button in the switcher in `index.html`, and an entry in `ORDER` and `TONE` in `hero.js`.
 
@@ -94,15 +118,15 @@ What it adds:
 ## Accessibility
 
 - One `h1`, ordered headings, landmarks, a skip link and labelled navigation.
-- Everything works by keyboard: the step rail, tabs (arrow keys, Home, End), the pickers (native radios, colour and range inputs), the figure buttons, the accordion and the form.
-- **Motion can be paused.** The pause button in the header stops every loop, reveal and scroll-linked animation, and the choice is remembered. It starts paused when the system asks for reduced motion. The hero rotation also has its own pause button.
+- Everything works by keyboard: the step rail, tabs (arrow keys, Home, End), the pickers (native radios, colour and range inputs), the figure buttons and the accordion.
+- **Motion can be paused.** The pause button in the header stops every loop, reveal and scroll-linked animation, and the choice is remembered. It starts paused when the system asks for reduced motion. Pausing during the hero's opening jumps straight to the styled hero. The hero rotation also has its own pause button.
 - Split headings keep a plain copy for screen readers; the animated pieces are hidden from them.
 - The hero illustration is decorative; the steps beside it carry the same content as text.
 - The page passes axe (WCAG 2.2 AA rules) in both themes at phone and desktop widths, and reflows from 320px with no horizontal scrolling.
 
 ## Before launch
 
-- **Sign-up form.** It posts JSON (`{ "email": "…" }`) to `/api/request-access`. That endpoint does not exist yet. Until it does, the form shows its error state. Change the `action` on the form in `index.html` to point elsewhere.
+- **Calls to action.** Every "Get Prism" button (header, menu, hero and closing panel) links to the Prism repository, https://github.com/IanSzymanski/prism. To send them somewhere else, change those four `href`s in `index.html`.
 - **Sample content.** Riverbend Food Network, Dana Whitfield, the Northline, Kiln and Halcyon brands, and every figure are sample data. They are labelled on the page. Replace them with real customers and numbers.
 - **Logo.** The glyph and wordmark are redrawn from the design system's description. Swap in the official `prism-logo.svg` files where the `.logo` markup appears.
 - **Share image.** `og:image` is a relative path. Social networks need an absolute URL, so set it once the domain is known.

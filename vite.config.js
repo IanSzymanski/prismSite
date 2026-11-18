@@ -4,9 +4,9 @@ import { resolve } from 'node:path';
 
 // Phosphor Regular icons inlined as one sprite.
 const ICONS = [
-  'arrow-right', 'arrow-down', 'arrow-up', 'check', 'sun', 'moon', 'list', 'x',
-  'book', 'globe', 'users', 'paper-plane-tilt', 'plus', 'circle-notch',
-  'warning-circle', 'check-circle', 'swatches', 'squares-four', 'text-aa',
+  'arrow-down', 'arrow-up', 'check', 'sun', 'moon', 'list', 'x',
+  'book', 'globe', 'users', 'paper-plane-tilt', 'plus', 'arrow-up-right', 'file-text',
+  'swatches', 'squares-four', 'text-aa',
   'megaphone-simple', 'seal-check', 'lightning', 'link-simple', 'pause', 'play', 'ruler', 'sparkle',
 ];
 
