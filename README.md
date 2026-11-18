@@ -20,7 +20,7 @@ npm run build
 
 ## Hosting
 
-The site runs on Cloudflare Workers as a static-assets Worker named `prism`, at https://prism.iszymanski.workers.dev. `wrangler.jsonc` points the Worker at `dist/`. Workers Builds is connected to this repo: every push to the default branch runs `npm run build`, then `npx wrangler deploy`. To deploy by hand, run `npm run deploy` after `npx wrangler login`.
+The site runs on Cloudflare Workers as a static-assets Worker named `prism`, at https://prism.iszymanski.workers.dev. `wrangler.jsonc` points the Worker at `dist/`. Workers Builds is connected to this repo: every push to the default branch runs `npm run build`, then `npx wrangler deploy`. Pushes to other branches build a Preview with `npx wrangler preview`, which needs the `previews` block in `wrangler.jsonc` (it can stay empty). To deploy by hand, run `npm run deploy` after `npx wrangler login`.
 
 ## What is where
 

@@ -8,6 +8,8 @@
 	},
 	"workers_dev": true,
 	"preview_urls": true,
+	// Builds of non-production branches run `npx wrangler preview`, which needs this block (it can stay empty)
+	"previews": {},
 	"observability": {
 		"enabled": true
 	}
