@@ -27,7 +27,7 @@ The site runs on Cloudflare Workers as a static-assets Worker named `prism`, at 
 | Path | What it holds |
 |---|---|
 | `index.html` | All page markup and copy |
-| `src/assets/logo/` | The Prism logo and glyph exactly as supplied by the design system, and the glyph's outline as one shape for masking |
+| `src/assets/logo/` | The Prism logo and glyph exactly as supplied by the design system, and the logo's silhouette for masking |
 | `public/` | Favicons (SVG, ICO, Apple touch icon), the share image, and `_headers` (cache rules for Cloudflare) |
 | `src/partials/scene.svg` | The "How it works" illustration and its glow layer, included into the page at build time |
 | `src/styles/tokens.css` | Colour (light and dark), the spectrum, gradients, the glow shape, type, radius, shadow and motion tokens |
@@ -61,7 +61,7 @@ The logo is the design system's own artwork (Prism design system, Logos group), 
 - **Light or dark by what is behind it.** `--logo-ink` is a theme token, so every logo takes the ink of the ground under it. The header already reads its theme from the section under it (`data-header-tone`); the hero now also sets `data-header-logo="mono"` while Kiln shows, and the header passes it on as `data-logo`.
 - **Where it appears.** The header and footer, the giant footer mark, the Prism system's four hero outputs, every format mock, and the brand demo's Prism preset. The carousel's middle panel and the email sign-off use the glyph alone, as the brand book asks.
 - **Use it.** `<svg viewBox="0 0 234.49 57.39" aria-hidden="true"><use href="#prism-logo"/></svg>`; the glyph is `viewBox="0 0 66.26 57.39"` with `#prism-glyph`. Size it by the whole artwork box, which includes the "p" descender.
-- **The footer glyph.** In the giant footer mark the glyph's three colours travel clockwise around the triangle, one lap every 12 seconds. A layer cut to the glyph's outline (`prism-glyph-mask.svg`) sits exactly over it and turns a three-colour conic gradient about the triangle's centroid by `rotate`, so it runs on the compositor. At rest the colour joins sit where the artwork's own joins are. With motion off, or in forced colours, the supplied glyph shows instead.
+- **The footer mark.** The giant logo at the foot of the page is the spectrum under a soft wash of ink, fading downward at 55% strength. It is a block cut to the logo's silhouette (`prism-logo-mask.svg`: the supplied wordmark paths, unchanged, and the glyph as one ring so no seams show) by one mask layer and faded by a second. In forced colours it is solid `CanvasText`.
 - **Favicons.** `favicon.svg` is the supplied glyph's polygons in a square box; `favicon.ico` (16, 32, 48) and `apple-touch-icon.png` (the glyph on Prism's dark ground) are rendered from it.
 
 ## The hero
@@ -165,7 +165,6 @@ What changed, none of it visible:
 - Design-system picker: three presets, plus "Yours" with accent colour, type, ground and corner radius. Three sample outputs restyle together.
 - Review: choosing a figure draws a wire to its source.
 - Ways to work: a pulse runs each pipeline when its card arrives, and again on hover or focus.
-- Footer: the giant mark's glyph turns its colours slowly clockwise.
 
 ## Accessibility
 

@@ -329,31 +329,17 @@ html[data-motion="off"] .motion-toggle .icon--play { opacity: 1; transform: none
 .site-footer__links a { display: inline-flex; align-items: center; min-height: 44px; color: var(--body); font-size: 0.9375rem; text-decoration-color: transparent; }
 .site-footer__links a:hover { color: var(--fg); text-decoration-color: currentColor; }
 .site-footer__base { display: flex; flex-wrap: wrap; gap: 10px 32px; justify-content: space-between; margin-top: 36px; padding-top: 22px; border-top: 1px solid var(--line); }
-/* The logo again, large and fading out at the foot of the page. */
+/* The logo again, large at the foot of the page: the spectrum under a soft wash of ink, fading downward. A block cut to
+   the supplied logo's silhouette (prism-logo-mask.svg) by one mask layer, and faded by a second. */
 .site-footer__mark {
-  display: flex; justify-content: center; margin: 40px 0 -2%; user-select: none; pointer-events: none;
-  -webkit-mask-image: linear-gradient(180deg, #000 10%, transparent 88%); mask-image: linear-gradient(180deg, #000 10%, transparent 88%);
-  opacity: 0.16;
+  width: min(100%, 76rem); aspect-ratio: 234.49 / 57.39; margin: 40px auto -2%; user-select: none; pointer-events: none;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--fg) 16%, transparent), transparent 82%), var(--spectrum);
+  -webkit-mask: url("../assets/logo/prism-logo-mask.svg") center / 100% 100% no-repeat, linear-gradient(180deg, #000 20%, transparent 92%);
+  -webkit-mask-composite: source-in;
+  mask: url("../assets/logo/prism-logo-mask.svg") center / 100% 100% no-repeat, linear-gradient(180deg, #000 20%, transparent 92%);
+  mask-composite: intersect;
+  opacity: 0.55;
 }
-.site-footer__art { position: relative; width: min(100%, 76rem); }
-.site-footer__art svg { width: 100%; height: auto; }
-/* The glyph's three colours travel clockwise around the triangle. A layer cut to the supplied glyph's shape sits
-   exactly over it (the glyph spans 71.743% to 100% of the logo's width); inside, the colours turn about the
-   triangle's centroid (50%, 33.33% of the glyph box). At rest the joins sit at 0, 120 and 240 degrees, where the
-   artwork's own joins are: blue upper right, red at the foot, amber upper left. */
-.site-footer__glyph {
-  position: absolute; left: 71.743%; top: 0; width: 28.257%; height: 100%; overflow: hidden;
-  -webkit-mask: url("../assets/logo/prism-glyph-mask.svg") center / 100% 100% no-repeat; mask: url("../assets/logo/prism-glyph-mask.svg") center / 100% 100% no-repeat;
-}
-.site-footer__glyph i {
-  position: absolute; left: 50%; top: 33.333%; width: 115.5%; aspect-ratio: 1; translate: -50% -50%;
-  background: conic-gradient(in oklab, color-mix(in oklab, #eaa440, #769df8) 0deg, #769df8 9deg 111deg, color-mix(in oklab, #769df8, #e7707f) 120deg, #e7707f 129deg 231deg, color-mix(in oklab, #e7707f, #eaa440) 240deg, #eaa440 249deg 351deg, color-mix(in oklab, #eaa440, #769df8) 360deg);
-  animation: glyph-turn 12s linear infinite;
-}
-@keyframes glyph-turn { to { rotate: 360deg; } }
-/* While the overlay runs, the artwork's own glyph steps aside; with motion off it stays as supplied. */
-html:not([data-motion="off"]) .site-footer__art svg { --logo-amber: transparent; --logo-blue: transparent; --logo-red: transparent; }
-html[data-motion="off"] .site-footer__glyph { display: none; }
 
 /* ---------- Reveal on scroll (only once the script is running) ---------- */
 
@@ -390,9 +376,8 @@ html[data-motion="off"] .pt-btn { translate: none; }
 @media (forced-colors: active) {
   .pt-chip, .pt-thread, .sec-rule, .rail__fill, .scene, .scene-glow { forced-color-adjust: none; }
   .spectrum-text, .sec-title em, .sec-title .is-em, .grad-num { background: none; color: CanvasText; -webkit-text-fill-color: currentColor; }
-  .logo__art, .m-logo__art, .m-brand__logo, .hx-logo, .site-footer__mark svg { --logo-ink: CanvasText; }
-  .site-footer__glyph { display: none; }
-  html:not([data-motion="off"]) .site-footer__art svg { --logo-amber: initial; --logo-blue: initial; --logo-red: initial; }
+  .logo__art, .m-logo__art, .m-brand__logo, .hx-logo { --logo-ink: CanvasText; }
+  .site-footer__mark { forced-color-adjust: none; background: CanvasText; }
   .pt-btn, .card { border: 1px solid CanvasText; }
 }
 
